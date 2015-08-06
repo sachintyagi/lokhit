@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 use Members\Form\MemberForm;
+use Members\Form\Filter\MemberFilter;
 
 class MemberController extends AbstractActionController
 {
@@ -61,29 +62,34 @@ class MemberController extends AbstractActionController
 		$request = $this->getRequest();
 		if($request->isPost()) {
 			$data = $request->getPost();
-			
-			if($memberId) {
-				$data->id = $memberId;
-			}
-			if(empty($data->member_id)) {
-				$branch = $this->getTable($this->branchsTable,'Application\Model\BranchsTable')->find($data->branch_id);
-				if($branch) {
-					$code = $branch->code;
-				} else {
-					throw new \Exception('Please provide brach code');
+			$memberForm->setInputFilter(new MemberFilter());
+			$memberForm->setData($data);
+			if($memberForm->isValid()) {
+				if($memberId) {
+					$data->id = $memberId;
 				}
-				$maxIdData = $this->getTable($this->memberTable,'Application\Model\MemberTable')->findMaxId();
-				if($maxIdData) {
-					$maxId = $maxIdData->max_id;
+				if(empty($data->member_id)) {
+					$branch = $this->getTable($this->branchsTable,'Application\Model\BranchsTable')->find($data->branch_id);
+					if($branch) {
+						$code = $branch->code;
+					} else {
+						throw new \Exception('Please provide brach code');
+					}
+					$maxIdData = $this->getTable($this->memberTable,'Application\Model\MemberTable')->findMaxId();
+					if($maxIdData) {
+						$maxId = $maxIdData->max_id;
+					}
+					$maxId = $maxId+1;
+					$data->member_id = $code.'-'.sprintf('%08d',$maxId);
 				}
-				$maxId = $maxId+1;
-				$data->member_id = $code.'-'.sprintf('%08d',$maxId);
-			}
-			$data = $data->toArray();
-			$data['status'] = 1;
-			$saveddata = $this->getTable($this->memberTable,'Application\Model\MemberTable')->save($data);
-			if($saveddata) {
-				$this->redirect()->toRoute('members');
+				$data = $data->toArray();
+				$data['status'] = 1;
+				$saveddata = $this->getTable($this->memberTable,'Application\Model\MemberTable')->save($data);
+				if($saveddata) {
+					$this->redirect()->toRoute('members');
+				}
+			} else {
+				$errors = $memberForm->getMessages();
 			}
 		}
         return new ViewModel(array(

@@ -1,9 +1,9 @@
 <div class="row">
 	<div class="col-lg-12">
 		<h3 class="page-header">New Member
-			<span class="job-btn pull-right">
+			<!--<span class="job-btn pull-right">
 				<a href="<?php echo $this->url('members')?>" class="btn btn-primary">Go Back</a>
-			</span>
+			</span>-->
 		</h3>
 	</div>
 	<!-- /.col-lg-12 -->
@@ -21,85 +21,84 @@
 					$form->prepare();
 					echo $this->form()->openTag($form);
 				?>
-					<?php if (count($this->errors)) : ?>
-						<div class="alert alert-danger">
-							<?php foreach ($this->errors as $error) : ?>
-							<?php if(is_array($error)) : echo current($error); else: echo $error;endif;?><br>
-							<?php endforeach; ?>
-						</div>
-					<?php endif; ?>
-					<div class="col-lg-6">						
-						<div class="form-group">
-							<label>First Name <span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('firstname')); ?>
-							<?php echo $this->formElement($form->get('branch_id')); ?>
-						</div>
-						<div class="form-group">
-							<label>Last Name</label>
-							<?php echo $this->formElement($form->get('lastname')); ?>
-						</div>
-						<div class="form-group">
-							<label>S/o, D/o, W/o<span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('gardian_name')); ?>
-						</div>
-						<div class="form-group">
-							<label>Email ID</label>
-							<?php echo $this->formElement($form->get('emailid')); ?>
-						</div>
-						<div class="form-group date">
-							<label>Date Of Birth <span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('dob')); ?>
-						</div>
-						<div class="form-group">
-							<label>Gender <span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('gender')); ?>
-						</div>
-						<div class="form-group">
-							<label>Address</label>
-							<?php echo $this->formElement($form->get('address')); ?>
-						</div>														
+				<div class="col-lg-6">						
+					<div class="form-group">
+						<label>First Name <span class="mandatory">*</span></label>
+						<?php echo $this->formElement($form->get('firstname')); ?>
+						<?php if($this->formElementErrors($form->get('firstname'))) :?>
+						<div class="error" style="margin: 3px 0;padding: 4px;"><?php echo strip_tags($this->formElementErrors($form->get('firstname')))?></div>
+						<?php endif;?>
+						<?php echo $this->formElement($form->get('branch_id')); ?>
 					</div>
-					<!-- /.col-lg-6 (nested) -->
-					<div class="col-lg-6">
-						<div class="form-group">
-							<label>Member Code <span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('member_id')); ?>
-						</div>
-						<div class="form-group">
-							<label>State <span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('country_id')); ?>
-							<?php echo $this->formElement($form->get('state_id')); ?>
-						</div>
-						<div class="form-group">
-							<label>City</label>
-							<?php echo $this->formElement($form->get('city_id')); ?>
-						</div>
-						<div class="form-group">
-							<label>Mobile Number <span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('mobile_number')); ?>
-						</div>
-						<div class="form-group">
-							<label>Nominee Name<span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('nominee_name')); ?>
-						</div>
-						<div class="form-group">
-							<label>Nominee Relation<span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('nominee_relation')); ?>
-						</div>
-						<div class="form-group">
-							<label>Nominee Address<span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('nominee_address')); ?>
-						</div>
+					<div class="form-group">
+						<label>Last Name</label>
+						<?php echo $this->formElement($form->get('lastname')); ?>						
 					</div>
-					<!-- /.col-lg-6 (nested) -->
-					<div class="clear"></div>
-					<div class="col-lg-12">
-						<div class="pull-right">
-							<a href="<?php echo $this->url("members")?>" class="btn btn-default">Cancel</a>&nbsp;&nbsp;&nbsp;
-							<?php echo $this->formElement($form->get('save')); ?>								
-						</div>							
+					<div class="form-group">
+						<label>S/o, D/o, W/o<span class="mandatory">*</span></label>
+						<?php echo $this->formElement($form->get('gardian_name')); ?>
+						<?php if($this->formElementErrors($form->get('gardian_name'))) :?>
+						<div class="error" style="margin: 3px 0;padding: 4px;"><?php echo strip_tags($this->formElementErrors($form->get('gardian_name')))?></div>
+						<?php endif;?>
 					</div>
-				</form>
+					<div class="form-group">
+						<label>Email ID</label>
+						<?php echo $this->formElement($form->get('emailid')); ?>
+					</div>
+					<div class="form-group date">
+						<label>Date Of Birth <span class="mandatory">*</span></label>
+						<?php echo $this->formElement($form->get('dob')); ?>
+					</div>
+					<div class="form-group">
+						<label>Gender <span class="mandatory">*</span></label>
+						<?php echo $this->formElement($form->get('gender')); ?>
+					</div>
+					<div class="form-group">
+						<label>Address</label>
+						<?php echo $this->formElement($form->get('address')); ?>
+					</div>														
+				</div>
+				<!-- /.col-lg-6 (nested) -->
+				<div class="col-lg-6">
+					<div class="form-group">
+						<label>Member Code <span class="mandatory">*</span></label>
+						<?php echo $this->formElement($form->get('member_id')); ?>
+					</div>
+					<div class="form-group">
+						<label>State <span class="mandatory">*</span></label>
+						<?php echo $this->formElement($form->get('country_id')); ?>
+						<?php echo $this->formElement($form->get('state_id')); ?>
+					</div>
+					<div class="form-group">
+						<label>City</label>
+						<?php echo $this->formElement($form->get('city_id')); ?>
+					</div>
+					<div class="form-group">
+						<label>Mobile Number <span class="mandatory">*</span></label>
+						<?php echo $this->formElement($form->get('mobile_number')); ?>
+					</div>
+					<div class="form-group">
+						<label>Nominee Name<span class="mandatory">*</span></label>
+						<?php echo $this->formElement($form->get('nominee_name')); ?>
+					</div>
+					<div class="form-group">
+						<label>Nominee Relation<span class="mandatory">*</span></label>
+						<?php echo $this->formElement($form->get('nominee_relation')); ?>
+					</div>
+					<div class="form-group">
+						<label>Nominee Address<span class="mandatory">*</span></label>
+						<?php echo $this->formElement($form->get('nominee_address')); ?>
+					</div>
+				</div>
+				<!-- /.col-lg-6 (nested) -->
+				<div class="clear"></div>
+				<div class="col-lg-12">
+					<div class="pull-right">
+						<a href="<?php echo $this->url("members")?>" class="btn btn-default">Cancel</a>&nbsp;&nbsp;&nbsp;
+						<?php echo $this->formElement($form->get('save')); ?>								
+					</div>							
+				</div>
+				<?php echo $this->form()->closeTag($form);?>
 			</div>
 			<!-- /.row (nested) -->
 		</div>

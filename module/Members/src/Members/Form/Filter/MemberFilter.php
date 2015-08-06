@@ -28,26 +28,7 @@ class MemberFilter extends InputFilter {
                 ),
             ),
         ));
-        
-        $this->add(array(
-            'name' => 'lastname',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Last Type can not be empty.'
-                        )
-                    )
-                )
-            )
-        ));
-		
+       
 		$this->add(array(
             'name' => 'emailid',
             'required' => true,
@@ -98,7 +79,7 @@ class MemberFilter extends InputFilter {
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'Gardian Name can not be empty.'
+                            $isEmpty => 'S/o, D/o, W/o Name can not be empty.'
                         )
                     )
                 )
@@ -238,79 +219,5 @@ class MemberFilter extends InputFilter {
             )
         ));
 		
-		$this->add(array(
-            'name' => 'maxRequestDay',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Max Request Day can not be empty.'
-                        )
-                    )
-                )
-            )
-        ));
-		
-		$this->add(array(
-            'name' => 'apiDescription',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Description can not be empty.'
-                        )
-                    )
-                )
-            )
-        ));
-		
-		$this->add(array(
-            'name' => 'ttl',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Ttl can not be empty.'
-                        )
-                    )
-                )
-            )
-        ));
-		
-		$this->add(array(
-            'name' => 'objectType',
-            'required' => false,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            )
-        ));
-		
-		$this->add(array(
-            'name' => 'objectName',
-            'required' => false,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            )
-        ));
     }
 }
