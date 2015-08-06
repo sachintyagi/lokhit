@@ -1,0 +1,61 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle()->setSeparator(' ')->setAutoEscape(false)?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() .'/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath('components/font-awesome/css/font-awesome.min.css'))
+                        ->prependStylesheet($this->basePath('css/style.css'))
+                        ->prependStylesheet($this->basePath('css/timeline.css'))
+                        ->prependStylesheet($this->basePath('components/datatables-responsive/dataTables.responsive.css'))
+                        ->prependStylesheet($this->basePath('components/datatables-responsive/dataTables.bootstrap.css'))
+                        //->prependStylesheet($this->basePath('components/datatables/css/jquery.dataTables.min.css'))
+                        ->prependStylesheet($this->basePath('components/anytime/anytime.5.1.0.min.css'))
+                        ->prependStylesheet($this->basePath('components/metisMenu/dist/metisMenu.min.css'))
+                        ->prependStylesheet($this->basePath('components/bootstrap/dist/css/bootstrap.min.css'))
+        ?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+            ->prependFile($this->basePath('js/admin.js'))
+          // ->prependFile($this->basePath('js/morris-data.js'))
+           /** Morris Charts JavaScript **/
+			->prependFile($this->basePath('components/highcharts/highcharts.js'))
+			->prependFile($this->basePath('components/datatables-responsive/dataTables.bootstrap.min.js'))
+			->prependFile($this->basePath('components/datatables/js/jquery.dataTables.min.js'))
+			->prependFile($this->basePath('components/anytime/anytime.5.1.0.min.js'))
+			->prependFile($this->basePath('components/metisMenu/dist/metisMenu.min.js'))
+			/** Bootstrap **/
+            ->prependFile($this->basePath('components/bootstrap/dist/js/bootstrap.min.js'))
+			/** JQuery and Html5 Shiv **/
+            ->prependFile($this->basePath('components/jquery/dist/jquery.min.js'))
+            ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath('js/html5shiv.js'),   'text/javascript', array('conditional' => 'lt IE 9',))
+        ; ?>
+	</head>
+    <body>
+        <div id="wrapper">
+			<?php echo $this->render('partials/nav')?>
+			<div id="page-wrapper">
+				<div class="row">
+					<div class="col-lg-12">
+						<?php echo $this->content; ?>
+					</div>
+				</div>
+			</div>	
+        </div>
+		<script>
+		jQuery(document).ready(function(){
+			//jQuery('.error,.success,.warning,.flash-message').animate({opacity: 1.0}, 3000).fadeOut();
+			jQuery('.flash-message').animate({opacity: 1.0}, 3000).fadeOut();
+		});
+		</script>
+    </body>
+</html>

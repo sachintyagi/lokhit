@@ -1,0 +1,36 @@
+<div class="row">
+	<div class="col-lg-12">
+		<h3 class="page-header">Companies List
+			<span class="job-btn pull-right">
+				<a href="<?php echo $this->url('new-company')?>" class="btn btn-primary">New Company</a>
+			</span>
+		</h3>
+		<?php 
+			if(!empty($this->flashMessages[0])) {
+				foreach($this->flashMessages[0] as $class => $message) {
+					echo '<div class="'.$class.'">'.$message.'</div>';	
+				}
+			}
+			if ($this->error) {
+				echo '<div class="error">'.$this->error.'</div>';	
+			}
+		?>
+	</div>
+	<!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading"><i class="fa fa-table fa-fw"></i> Company Table</div>
+			<!-- /.panel-heading -->
+			<div class="panel-body table-responsive">
+				
+			</div>
+			<!-- /.panel-body -->
+		</div>
+		<!-- /.panel -->			
+	</div>
+	<!-- /.col-lg-12 -->		
+</div>

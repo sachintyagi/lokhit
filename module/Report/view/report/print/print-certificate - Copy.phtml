@@ -1,0 +1,139 @@
+<script> ww = window.innerWidth;  // 1280px </script>
+<div style="clear:both"></div>
+<div id="print">
+	<style type= text/css>
+		.container { width:1280px; }
+		.header-right { float:right; }
+		#print {
+			border-top:1px solid #000;	
+		}
+		#print h1 { 
+			font-size: 67px;
+			font-weight: bold;
+			text-align: center; 
+			padding-bottom:0px;
+			margin-bottom:0px;
+			margin-left: 110px;
+			padding-top: 7px;
+		}
+		#print h2 {
+			font-size: 20px;
+			text-align: center; 
+			margin-top: -7px;
+		}
+		#print h2 span { font-weight: bold;}
+
+		.personal-details {
+			font-size: 20px;
+			margin-top: 21px;
+		}
+		.personal-details td { 
+			font-size: 24px;
+			padding-left: 7px !important;
+			padding-right: 7px !important;
+			padding-top: 6px;
+		}
+		.sum-of {
+			font-size: 24px;
+			padding-top:40px;
+		}
+		.crtable { margin-left: 83px;border-collapse:collapse;margin-top:12px;width:1150px; }
+		.crtable tr th, .crtable tr  td {  
+			border-top: 2px solid #000;
+			font-size: 20px;
+			padding-bottom: 5px;
+			padding-top: 5px; 
+		}
+		.print-by { 
+			font-size: 24px;
+			text-align:right;
+			width:315px; 
+		}
+	</style>
+	<div style="text-align:center;">
+	<h1>LOKHIT NIDHI LIMITED</h1>
+	<h2>Approved by Govt. of India Regn. No.U65923UP2015PLC071440<br/>
+	(Under Section 406 Companies Act 2013)<br/>
+	<span>Civil Line-II, Opp.P.W.D. Guest House, Bijnor-246701 (U.P.)</span></h2>
+	</div>
+	<table class="table personal-details">
+		<tr>
+			<td style="text-align:right;width:377px;">Received from: Name:</td>
+			<td style="width:800px;"><?php echo $this->certificate->firstname.' '.$this->certificate->lastname?></td>
+		</tr>
+		<tr>
+			<td style="text-align:right;width:225px;">S/o,D/o,W/o:</td>
+			<td><?php echo $this->certificate->gardian_name?></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td style="text-align:right;vertical-align:top;">Address:</td>
+			<td><?php echo $this->certificate->address?></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	<div class="sum-of">
+		<span style="  margin-left: 228px;text-align: right;">The Sum of Rs.:</span> <span> <?php echo number_format($this->certificate->start_ammount,2)?>/- &nbsp;&nbsp;(Rupees <?php echo ucwords(\Application\Service\NumberToWords::toWords($this->certificate->start_ammount))?> Only)</span>
+	</div>
+	<table class="crtable">
+		<tr>
+			<th style="width:221px;border-right: 2px solid #000;">Membership No</th>
+			<th style="width:167px;border-right: 2px solid #000;">C.F. No.</th>
+			<th style="width:134px;border-right: 2px solid #000;">Issue<br/>Date</th>
+			<th style="width:117px;border-right: 2px solid #000;">Period</th>
+			<th style="width:120px;border-right: 2px solid #000;">Interest Rate</th>
+			<th style="width:122px;border-right: 2px solid #000;">Maturity Date</th>
+			<th>Nominee's Name</th>
+		</tr>
+		<tr>
+			<td style="height:113px;border-right: 2px solid #000;">&nbsp;&nbsp;&nbsp;<?php echo $this->certificate->member_id?></td>
+			<td style="border-right: 2px solid #000;">&nbsp;&nbsp;<?php echo $this->certificate->cf_number?></td>
+			<td style="border-right: 2px solid #000;">&nbsp;&nbsp;<?php echo date('M d, Y',strtotime($this->certificate->start_date))?></td>
+			<td style="border-right: 2px solid #000;">&nbsp;&nbsp;<?php echo $this->certificate->period?></td>
+			<td style="border-right: 2px solid #000;">&nbsp;&nbsp;<?php echo $this->certificate->interest_rate?>%</td>
+			<td style="border-right: 2px solid #000;">&nbsp;&nbsp;<?php echo date('M d, Y',strtotime($this->certificate->end_date))?></td>
+			<td>&nbsp;&nbsp;<?php echo $this->certificate->nominee_name?> (<?php echo $this->certificate->nominee_relation?>)</td>
+		</tr>
+		<tr>
+			<td colspan="4" style="border-right: 2px solid #000;">Repayable To: &nbsp;<?php echo ucfirst($this->certificate->repayable_to)?></td>
+			<td colspan="3" style="padding-left:30px;">If Minor,Date of Birth/ Age</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="border-right: 2px solid #000;">(Ror R.D. Only) Mode:</td>
+			<td colspan="3" style="padding-left:30px;border-right: 2px solid #000;">Instalment Date</td>
+			<td colspan="2" style="padding-left:30px;">Date of last Instalment:</td>
+		</tr>
+		<tr>
+			<td colspan="7">Maturity Value Rs.: &nbsp;<?php echo number_format($this->certificate->final_ammount, 2)?>/- &nbsp;&nbsp;(Rupees <?php echo ucwords(\Application\Service\NumberToWords::toWords($this->certificate->final_ammount))?> Only)</td>
+		</tr>
+		<tr>
+			<td colspan="7" style="padding-top:30px;padding-bottom:40px;">Print by Name & ID:</td>
+		</tr>
+		<tr style="margin-bottom:10px;">
+			<td colspan="2" style="border-top: 0px solid #000;border-bottom:2px solid #000;">NOT TRANSFERABLE</td>
+			<td colspan="3" style="padding-left:20px;border-top: 0px solid #000;border-bottom:2px solid #000;">Branch Manager</td>
+			<td colspan="2" style="text-align:right;border-top: 0px solid #000;border-bottom:2px solid #000;">Authorised Signatory</td>
+		</tr>
+	</table>
+	<div style="text-align:center;font-size: 13px;">
+		Interest case from maturity date, Please persent this duly discharged for renewal/payment<br>
+		"referential rate is applicable only if the deposit is continued for the full contract period and in case of permature closure, interest shall be paid as per the applicable card rate only."
+	</div>
+</div>
+<p>&nbsp</p>
+<div style="padding:10px 10px;text-align:center;">	
+	<a href="<?php echo $this->url('investors');?>">Go Back</a>
+	<a style="margin:0 10px;" href="javascript:void(0);" onclick="printCertificate('print');">Print</a>
+</div>
+<script type="text/javascript">
+	function printCertificate(divname){
+		var printContents = document.getElementById(divname).innerHTML;
+		var originalContents = document.body.innerHTML;
+		document.body.innerHTML = printContents;
+		window.print();
+		document.body.innerHTML = originalContents;
+	}
+</script>
+

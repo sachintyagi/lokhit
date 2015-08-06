@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Please Sign In</h3>
+                </div>
+                <div class="panel-body">
+                    <?php
+                        $form = $this->loginForm;
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                    ?>
+                    <?php if (count($this->errors)) : ?>
+                        <div class="alert alert-danger">
+                            <?php foreach ($this->errors as $error) : ?>
+                            <?php if(is_array($error)) : echo current($error); else: echo $error;endif;?><br>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                        <fieldset>
+                            <div class="form-group">
+                                <?php echo $this->formElement($form->get('userid')); ?>
+                            </div>
+                            <div class="form-group">
+                                <?php echo $this->formElement($form->get('password')); ?>
+                            </div>
+                            <!-- Change this to a button or input when using this as a form -->
+                            <?php echo $this->formElement($form->get('submit')); ?>
+                        </fieldset>
+                    <?php echo $this->form()->closeTag($form); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

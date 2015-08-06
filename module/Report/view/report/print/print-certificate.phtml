@@ -1,0 +1,136 @@
+<div id="print">
+	<div style="position:absolute;font-size: 21px;">
+		<div class="name"><?php echo $this->certificate->firstname.' '.$this->certificate->lastname?></div>
+		<div class="soname"><?php echo $this->certificate->gardian_name?></div>
+		<div class="address"><?php echo $this->certificate->address?></div>
+		<div class="ammount"><?php echo number_format($this->certificate->start_ammount,2)?>/- &nbsp;&nbsp;(Rupees <?php echo ucwords(\Application\Service\NumberToWords::toWords($this->certificate->start_ammount))?> Only)</div>
+		<div class="member"><?php echo $this->certificate->member_id?></div>
+		<div class="cfnumber"><?php echo $this->certificate->cf_number?></div>
+		<div class="startdate"><?php echo date('M d, Y',strtotime($this->certificate->start_date))?></div>
+		<div class="period"><?php echo $this->certificate->period?></div>
+		<div class="interest"><?php echo $this->certificate->interest_rate?> %</div>
+		<div class="maturity"><?php echo date('M d, Y',strtotime($this->certificate->end_date))?></div>
+		<div class="nomenee"><?php echo $this->certificate->nominee_name?> (<?php echo $this->certificate->nominee_relation?>)</div>
+		<div class="repay"><?php echo ucfirst($this->certificate->repayable_to)?></div>
+		<div class="final"><?php echo number_format($this->certificate->final_ammount, 2)?>/- &nbsp;&nbsp;(Rupees <?php echo ucwords(\Application\Service\NumberToWords::toWords($this->certificate->final_ammount))?> Only)</div>
+	</div>
+	<style type="text/css">
+		body{
+			overflow-y: scroll;
+			overflow-x: hidden;
+		}
+		@page{
+			size: auto A4 landscape;
+			margin: 3mm;
+		}
+		#print{
+			background-image : url('<?php echo $this->basePath('img/certificate.jpg')?>');
+			background-position: center center;
+			background-repeat: no-repeat;
+			/*background-attachment: fixed;*/
+			background-size: cover;			
+			width:100%;
+			height:948px;			
+		}
+		.name{
+			margin:213px 0 0 312px;
+			width:100%;
+		}
+		.soname{
+			margin:10px 0 0 312px;
+			width:100%;
+		}
+		.address{
+			margin:10px 0 0 312px;
+			width:100%;
+		}
+		.ammount{
+			margin:50px 0 0 312px;
+			width:100%;
+		}
+		.member{
+			margin:86px 0 0 111px;
+			width:14%;
+		}
+		.cfnumber{
+			margin:-24px 0 0 293px;
+			width:15%;
+		}
+		.startdate{
+			margin:-24px 0 0 483px;
+			width:11%;
+		}
+		.period{
+			margin:-24px 0 0 632px;
+			width:9%;
+		}
+		.interest{
+			margin:-24px 0 0 777px;
+			width:7%;
+		}
+		.maturity{
+			margin:-24px 0 0 888px;
+			width:11%;
+		}
+		.nomenee{
+			margin:-24px 0 0 1026px;
+			width:22%;
+		}
+		.repay{
+			margin: 91px 0 0 198px;
+			width: 22%;
+		}
+		.final{
+			margin: 72px 0 0 235px;
+			width: 87%;
+		}
+		.btn {
+			-moz-user-select: none;
+			background-image: none;
+			border: 1px solid transparent;
+			border-radius: 4px;
+			cursor: pointer;
+			display: inline-block;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 1.42857;
+			margin-bottom: 0;
+			padding: 6px 12px;
+			text-align: center;
+			vertical-align: middle;
+			white-space: nowrap;
+			text-decoration:none;
+		}
+		.btn-primary {
+			background-color: #337ab7;
+			border-color: #2e6da4;
+			color: #fff;
+		}
+		.btn-success {
+			background-color: #5cb85c;
+			border-color: #4cae4c;
+			color: #fff;
+		}
+	</style>
+</div>
+<div style="padding:10px 10px;text-align:center;">	
+	<a class="btn btn-primary" href="<?php echo $this->url('investors-list');?>">Go Back</a>
+	<a class="btn btn-success" style="margin:0 10px;" href="javascript:void(0);" onclick="printCertificate('print');">Print</a>
+</div>
+<script type="text/javascript">
+	function printCertificate(divname){
+		var printContents = document.getElementById(divname).innerHTML;
+		var originalContents = document.body.innerHTML;
+		document.body.innerHTML = printContents;
+		window.print();
+		document.body.innerHTML = originalContents;
+	}
+	
+	jQuery(document).bind("keyup keydown", function(e){
+		if(e.ctrlKey && e.keyCode == 80){
+			printCertificate('print');
+			return false;
+		}
+	});
+</script>
+

@@ -1,0 +1,18 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <?php echo $this->headTitle($this->translate('Lokhit Nidhi'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+		
+		<?php echo $this->headScript()->prependFile($this->basePath('components/jquery/dist/jquery.min.js'))?>
+    </head>
+    <body>
+        <?php echo $this->content; ?>
+    </body>
+</html>
