@@ -5,10 +5,11 @@ use Zend\InputFilter\InputFilter;
  
 class MemberFilter extends InputFilter {
  
-    public function __construct(){
-        
-        $isEmpty = \Zend\Validator\NotEmpty::IS_EMPTY;
+	public function __construct($sm){
+		$isEmpty = \Zend\Validator\NotEmpty::IS_EMPTY;
+		//$notInArray = \Zend\Validator\InArray::NOT_IN_ARRAY;
         $invalidEmail = \Zend\Validator\EmailAddress::INVALID_FORMAT;
+		$recordExists = \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND;
 		
         $this->add(array(
             'name' => 'firstname',
@@ -28,9 +29,9 @@ class MemberFilter extends InputFilter {
                 ),
             ),
         ));
-       
+		
 		$this->add(array(
-            'name' => 'emailid',
+            'name' => 'gardian_name',
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -41,10 +42,53 @@ class MemberFilter extends InputFilter {
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'Email Id can not be empty.'
+                            $isEmpty => 'S/o, D/o, W/o Name can not be empty.'
                         )
                     )
                 )
+            )
+        ));
+       
+		$this->add(array(
+            'name' => 'emailid',
+            'required' => false,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                /*array(
+                    'name' => 'NotEmpty',
+                    'options' => array(
+                        'messages' => array(
+                            $isEmpty => 'Email Id can not be empty.'
+                        )
+                    )
+                ),*/
+				array(
+                    'name' => 'EmailAddress',
+                    'options' => array(
+                        'domain' => 'true',
+                        'hostname' => 'true',
+                        'mx' => 'true',
+                        'deep' => 'true',
+                        'message' => array(
+                            $invalidEmail => 'Invalid email address.',
+							//$isEmpty => 'Email Id can not be empty.'
+                        ),
+                    ),
+                ),
+				array(
+                    'name' => 'Db\NoRecordExists',
+                    'options' => array(
+                        'table' => 'members',
+                        'field' => 'emailid',
+                        'adapter' => $sm->get('Zend\Db\Adapter\Adapter'),
+						'message' => array(
+                            $recordExists => 'Email address already register with us.',
+                        ),
+                    ),
+                ),
             )
         ));
 		
@@ -68,7 +112,27 @@ class MemberFilter extends InputFilter {
         ));
 		
 		$this->add(array(
-            'name' => 'gardian_name',
+            'name' => 'gender',
+            'required' => true,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+               array(
+                    'name' => 'NotEmpty',
+                    'options' => array(
+                        'messages' => array(
+                            $isEmpty => 'Gender can not be empty.',
+							//$notInArray => 'Please choose a gender'
+                        )
+                    )
+                )
+            )
+        ));
+		
+		$this->add(array(
+            'name' => 'state_id',
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -79,7 +143,7 @@ class MemberFilter extends InputFilter {
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'S/o, D/o, W/o Name can not be empty.'
+                            $isEmpty => 'Please select state.'
                         )
                     )
                 )
@@ -142,82 +206,5 @@ class MemberFilter extends InputFilter {
                 ),				
             )
         ));
-		
-		$this->add(array(
-            'name' => 'nominee_address',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Nominee Address can not be empty.'
-                        )
-                    )
-                )
-            )
-        ));
-		
-		$this->add(array(
-            'name' => 'address',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Address Date can not be empty.'
-                        )
-                    )
-                )
-            )
-        ));
-		
-		$this->add(array(
-            'name' => 'state_id',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Please select state.'
-                        )
-                    )
-                )
-            )
-        ));
-		
-		$this->add(array(
-            'name' => 'city_id',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Please select city.'
-                        )
-                    )
-                )
-            )
-        ));
-		
     }
 }

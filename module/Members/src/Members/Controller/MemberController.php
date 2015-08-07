@@ -36,33 +36,10 @@ class MemberController extends AbstractActionController
 		$memberForm = new MemberForm();
 		$states = $this->getTable($this->states,'Application\Model\StateTable')->fetchAllAsArray();
 		$memberForm->get('state_id')->setValueOptions($states);
-		$errors = array();
-		$stateid = '';
-		$cityid = '';
-		if($memberId) {
-			$member = $this->getTable($this->memberTable,'Application\Model\MemberTable')->find($memberId);
-			$memberForm->get('firstname')->setValue($member->firstname);
-			$memberForm->get('lastname')->setValue($member->lastname);
-			$memberForm->get('emailid')->setValue($member->emailid);		
-			$memberForm->get('branch_id')->setValue($member->branch_id);		
-			$memberForm->get('mobile_number')->setValue($member->mobile_number);
-			$memberForm->get('dob')->setValue($member->dob);
-			$memberForm->get('gender')->setValue($member->gender);
-			$stateid = $member->state_id;
-			$cityid = $member->city_id;
-			$memberForm->get('country_id')->setValue($member->country_id);
-			$memberForm->get('state_id')->setValue($stateid);
-			$memberForm->get('address')->setValue($member->address);
-			$memberForm->get('gardian_name')->setValue($member->gardian_name);
-			$memberForm->get('nominee_relation')->setValue($member->nominee_relation);
-			$memberForm->get('nominee_address')->setValue($member->nominee_address);
-			$memberForm->get('nominee_name')->setValue($member->nominee_name);
-			$memberForm->get('member_id')->setValue($member->member_id);
- 		}
 		$request = $this->getRequest();
 		if($request->isPost()) {
 			$data = $request->getPost();
-			$memberForm->setInputFilter(new MemberFilter());
+			$memberForm->setInputFilter(new MemberFilter($this->getServiceLocator()));
 			$memberForm->setData($data);
 			if($memberForm->isValid()) {
 				if($memberId) {
@@ -94,8 +71,6 @@ class MemberController extends AbstractActionController
 		}
         return new ViewModel(array(
 				'memberForm'	=> $memberForm,
-				'stateid'		=> $stateid,
-				'cityid'		=> $cityid,
 				'errors'		=> $errors
 			)
 		);

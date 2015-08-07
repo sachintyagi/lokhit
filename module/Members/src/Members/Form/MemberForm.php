@@ -122,6 +122,7 @@ class MemberForm extends Form {
 			'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'mobile_number',
+				'maxlength'=> 10,
             ),
         ));	
 		
