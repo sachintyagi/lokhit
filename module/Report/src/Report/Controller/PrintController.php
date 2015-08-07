@@ -13,12 +13,7 @@ class PrintController extends AbstractActionController {
 	}
 	
 	function printCertificateAction()
-	{
-		if (!$this->getServiceLocator()
-                        ->get('AuthService')->hasIdentity()) {
-            return $this->redirect()->toRoute('login');
-        }
-		
+	{		
 		$this->layout('layout/empty');
 		$investmentId = $this->params()->fromRoute('id',0);
 		$investments = $this->getTable($this->memberInvestmentsTable,'Application\Model\MemberInvestmentsTable')->findInvestors('1', $investmentId);		

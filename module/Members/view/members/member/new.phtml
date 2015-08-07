@@ -20,7 +20,6 @@
 					$form = $this->memberForm;
 					$form->prepare();
 					echo $this->form()->openTag($form);
-					print_r($this->errors);
 				?>
 				<div class="col-lg-6">						
 					<div class="form-group">
@@ -134,10 +133,10 @@
 			stateId = $(this).val();
 			getCities(stateId,'');	
 		});	
-		if($('#state_id').val()) {	
-			getCities($('#state_id').val());
-		}
-		$('#dob').datepicker({});
+		setTimeout(function(){
+			getCities($('#state_id').val(), $('#city_id').val());
+		}, 200);
+		//$('#dob').datepicker({});
 	})
 	function getCities(stateid,cityid) {
 		$.ajax({
@@ -145,8 +144,18 @@
 			async:false,
 			url: '<?php echo $this->basepath(); ?>/city',
 			data: { 'stateid':stateid,'cityid':cityid },
-			success: function(cities) {
-				$('#city_id').html(cities);
+			success: function(result) {
+				var html = '<option value="">-Choose City-</option>';
+				if(result.status) {					
+					for(x in result.response.data) {
+						if(result.response.data[x].selected) {
+							html += '<option selected value="'+result.response.data[x].id+'">'+result.response.data[x].name+'</option>';
+						} else {
+							html += '<option value="'+result.response.data[x].id+'">'+result.response.data[x].name+'</option>';
+						}
+					}
+				}
+				$('#city_id').html(html);
 			}
 		});
 	}

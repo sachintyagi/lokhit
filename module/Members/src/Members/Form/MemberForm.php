@@ -8,7 +8,7 @@ class MemberForm extends Form {
 	
 	protected $states;
 	
-	public function __construct() {
+	public function __construct($sm) {
         
 		parent::__construct('Member');
         $this->setAttribute('method', 'post');
@@ -66,7 +66,7 @@ class MemberForm extends Form {
                 'label' => 'Date Of Birth',
             ),
             'attributes' => array(
-                'class' => 'form-control',
+                'class' => 'form-control datepicker',
                 'id' => 'dob',
             ),
 		));
@@ -206,7 +206,8 @@ class MemberForm extends Form {
             'options' => array(
                 'label' => 'State',
 				'empty_option' => '-Choose State-',
-            ),
+				'value_options' => $sm->get('Application\Model\StateTable')->fetchAllAsArray()
+            ),			
 			'attributes' => array(
 				'class' => 'form-control',
                 'id' => 'state_id',

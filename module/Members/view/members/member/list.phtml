@@ -47,8 +47,8 @@
 							<td><?php echo $member->emailid; ?></td>
 							<td><?php echo $member->mobile_number; ?></td>
 							<td>
-								<a title="Edit" href="<?php echo $this->basepath(); ?>/members/new/<?php echo $member->id; ?>" >Edit</a> | 
-								<a title="Delete" onclick="deleteMember('<?php echo $member->id; ?>')" href="javascript:void(0);">Delete</a>
+								<a title="Edit" href="<?php echo $this->basepath(); ?>/members/new/<?php echo $member->id; ?>" ><i class="glyphicon glyphicon-edit"></i></a> | 
+								<a title="Delete" onclick="deleteMember('<?php echo $member->id; ?>')" href="javascript:void(0);"><i class="glyphicon glyphicon-remove-sign"></i></a>
 							</td>
 						</tr>
 					<?php $count++; endforeach; ?>

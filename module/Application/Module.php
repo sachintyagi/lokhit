@@ -17,13 +17,43 @@ use Zend\Db\TableGateway\TableGateway;
 
 class Module
 {
+	protected $whitelist = array(
+		'login',
+		'logout',
+    );
+	
     public function onBootstrap(MvcEvent $e)
     {
-        $eventManager        = $e->getApplication()->getEventManager();
+		$app = $e->getApplication();
+		$eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
-        $moduleRouteListener->attach($eventManager);
+        $moduleRouteListener->attach($eventManager);		
+		$app->getEventManager()->attach(\Zend\Mvc\MvcEvent::EVENT_ROUTE, array($this, 'isLogedIn'));
     }
-
+	
+	public function isLogedIn($e) {
+		$app = $e->getApplication();
+        $sm  = $app->getServiceManager();
+        $allowedRoutes = $this->whitelist;
+        $auth = $sm->get('AuthService');
+        $routeMatch = $e->getRouteMatch();
+		$routeName = $routeMatch->getMatchedRouteName();
+		$sm->get('ViewHelperManager')->get('HeadTitle')->set('Lokhit: '.$routeName);
+		if (!$auth->hasIdentity() && !in_array($routeName,$allowedRoutes))
+		{
+			$response = $e->getResponse();
+			$response->getHeaders()->addHeaderLine(
+					'Location',
+					$e->getRouter()->assemble(
+							array(),
+							array('name' => 'login')
+					)
+			);
+			$response->setStatusCode(302);
+			return $response;
+		}
+	}
+	
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';

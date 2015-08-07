@@ -1,4 +1,4 @@
-Lokhit Nidhi
+Lokhit
 =======================
 
 Introduction
@@ -22,7 +22,7 @@ Alternately, clone the repository and manually invoke `composer` using the shipp
 `composer.phar`:
 
     cd my/project/dir
-    git clone git://github.com/zendframework/ZendSkeletonApplication.git
+    git clone git://github.com/sachintyagi/lokhit.git
     cd ZendSkeletonApplication
     php composer.phar self-update
     php composer.phar install

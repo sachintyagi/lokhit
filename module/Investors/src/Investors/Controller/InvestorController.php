@@ -16,12 +16,7 @@ class InvestorController extends AbstractActionController
 	protected $memberInstallmentsTable;
 		
     public function listAction()
-    {
-		if (!$this->getServiceLocator()
-                        ->get('AuthService')->hasIdentity()) {
-            return $this->redirect()->toRoute('login');
-        }
-		
+    {		
 		$investments = $this->getTable($this->memberInvestmentsTable,'Application\Model\MemberInvestmentsTable')->findInvestors('1');
 		return new ViewModel(array(
 			'investments' => $investments
@@ -30,10 +25,6 @@ class InvestorController extends AbstractActionController
 	
 	public function newAction()
     {
-		if (!$this->getServiceLocator()
-                        ->get('AuthService')->hasIdentity()) {
-            return $this->redirect()->toRoute('login');
-        }
 		$investorId = $this->params()->fromRoute('id',0);
 		$investorForm = new InvestorForm();
 		$request = $this->getRequest();

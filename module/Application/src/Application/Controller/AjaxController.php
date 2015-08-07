@@ -15,22 +15,29 @@ class AjaxController extends AbstractActionController
 	
     public function cityAction()
     {
+		$cities = array();
+		$status = false;
 		$request = $this->getRequest();
-		$cityHtml = '<option value="" >Choose one</option>';
 		if($request->isPost()) {
 			$data = $request->getPost();
 			$stateId = $data['stateid'];
-			$cityId = $data['cityid'];
-			$cities = $this->getTable($this->cityTable,'Application\Model\CityTable')->findByState($stateId);
-			foreach($cities as $key => $city) {
-				if($city->id == $cityId) {
-					$cityHtml .= '<option value="'.$city->id.'" selected="selected">'.$city->name.'</option>';
+			$citiesData = $this->getTable($this->cityTable,'Application\Model\CityTable')->findByState($data['stateid']);
+			foreach($citiesData as $city) {
+				if(isset($data['cityid']) && $data['cityid']==$city->id) {
+					$city->selected = true;
 				} else {
-					$cityHtml .= '<option value="'.$city->id.'" >'.$city->name.'</option>';
+					$city->selected = false;
 				}
+				$cities[] = (array)$city; 
+				$status = true;
 			}
 		}
-        echo $cityHtml; exit;
+		return new JsonModel(array(
+			'response'=> array(
+				'data' => $cities
+			),			
+			'status' => $status
+		));
     }
 	
 	public function palnCalculationAction() {

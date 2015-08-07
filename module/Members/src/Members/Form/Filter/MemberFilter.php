@@ -7,8 +7,7 @@ class MemberFilter extends InputFilter {
  
 	public function __construct($sm){
 		$isEmpty = \Zend\Validator\NotEmpty::IS_EMPTY;
-		//$notInArray = \Zend\Validator\InArray::NOT_IN_ARRAY;
-        $invalidEmail = \Zend\Validator\EmailAddress::INVALID_FORMAT;
+		$invalidEmail = \Zend\Validator\EmailAddress::INVALID_FORMAT;
 		$recordExists = \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND;
 		
         $this->add(array(
@@ -27,6 +26,15 @@ class MemberFilter extends InputFilter {
                         )
                     )
                 ),
+            ),
+        ));
+		
+		$this->add(array(
+            'name' => 'lastname',
+            'required' => false,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
             ),
         ));
 		
@@ -124,7 +132,6 @@ class MemberFilter extends InputFilter {
                     'options' => array(
                         'messages' => array(
                             $isEmpty => 'Gender can not be empty.',
-							//$notInArray => 'Please choose a gender'
                         )
                     )
                 )
@@ -148,6 +155,16 @@ class MemberFilter extends InputFilter {
                     )
                 )
             )
+        ));
+		
+		$this->add(array(
+            'name' => 'city_id',
+            'required' => false,
+			'disable_inarray_validator' => true,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
         ));
 		
 		$this->add(array(

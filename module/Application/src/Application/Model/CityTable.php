@@ -39,4 +39,19 @@ class CityTable
         });
         return $resultSet;
     }
+	
+	public function fetchAllAsArray($stateid = null)
+    {
+		$cities = array();
+        $resultSet = $this->tableGateway->select(function($select) use ($stateid){
+			if($stateid) {
+                $select->where(array('stateid'=>$stateid));
+            }
+			$select->order('name');
+		});
+		foreach($resultSet as $city) {	
+			$cities[$city->id] = $city->name;
+		}
+        return $cities;
+    }
 }

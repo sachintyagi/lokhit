@@ -13,13 +13,10 @@ class MemberController extends AbstractActionController
 	protected $memberTable;
 	protected $branchsTable;
 	protected $states;
+	protected $cities;
 	
     public function listAction()
     {
-		if (!$this->getServiceLocator()
-                        ->get('AuthService')->hasIdentity()) {
-            return $this->redirect()->toRoute('login');
-        }
 		$members = $this->getTable($this->memberTable,'Application\Model\MemberTable')->fetchAll('1');
 		return new ViewModel(array(
 			'members' => $members
@@ -28,19 +25,18 @@ class MemberController extends AbstractActionController
 	
 	public function newAction()
     {
-		if (!$this->getServiceLocator()
-                        ->get('AuthService')->hasIdentity()) {
-            return $this->redirect()->toRoute('login');
-        }
 		$memberId = $this->params()->fromRoute('id',0);
-		$memberForm = new MemberForm();
-		$states = $this->getTable($this->states,'Application\Model\StateTable')->fetchAllAsArray();
-		$memberForm->get('state_id')->setValueOptions($states);
+		$memberForm = new MemberForm($this->getServiceLocator());
+	
 		$request = $this->getRequest();
 		if($request->isPost()) {
 			$data = $request->getPost();
 			$memberForm->setInputFilter(new MemberFilter($this->getServiceLocator()));
 			$memberForm->setData($data);
+			
+			$cities = $this->getTable($this->cities,'Application\Model\CityTable')->fetchAllAsArray($memberForm->get('state_id')->getValue());
+			$memberForm->get('city_id')->setValueOptions($cities);
+			
 			if($memberForm->isValid()) {
 				if($memberId) {
 					$data->id = $memberId;
@@ -65,13 +61,11 @@ class MemberController extends AbstractActionController
 				if($saveddata) {
 					$this->redirect()->toRoute('members');
 				}
-			} else {
-				$errors = $memberForm->getMessages();
 			}
 		}
+		
         return new ViewModel(array(
 				'memberForm'	=> $memberForm,
-				'errors'		=> $errors
 			)
 		);
     }
