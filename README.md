@@ -1,4 +1,4 @@
-ZendSkeletonApplication
+Lokhit Nidhi
 =======================
 
 Introduction
