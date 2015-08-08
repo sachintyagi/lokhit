@@ -10,7 +10,7 @@
 return array(
     'router' => array(
         'routes' => array(
-            'investors-list' => array(
+            'investors' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
                     'route'    => '/investors[/]',
@@ -20,7 +20,7 @@ return array(
                     ),
                 ),
             ),
-			'investors-new' => array(
+			'new-investors' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
                     'route'    => '/investors/new[/:id][/]',
@@ -30,7 +30,7 @@ return array(
                     ),
                 ),
             ),
-			'investors-new-installment' => array(
+			'new-installment' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
                     'route'    => '/investors/new-installment[/:id][/]',

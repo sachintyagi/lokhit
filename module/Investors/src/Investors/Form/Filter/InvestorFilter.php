@@ -1,17 +1,16 @@
 <?php 
-namespace Members\Form\Filter;
+namespace Investors\Form\Filter;
  
 use Zend\InputFilter\InputFilter;
  
-class MemberFilter extends InputFilter {
+class InvestorFilter extends InputFilter {
  
     public function __construct(){
         
         $isEmpty = \Zend\Validator\NotEmpty::IS_EMPTY;
-        $invalidEmail = \Zend\Validator\EmailAddress::INVALID_FORMAT;
 		
-        $this->add(array(
-            'name' => 'firstname',
+		$this->add(array(
+            'name' => 'member_id',
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -22,26 +21,27 @@ class MemberFilter extends InputFilter {
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'First Name can not be empty.',                            
+                            $isEmpty => 'Member code can not be empty.',                            
                         )
                     )
                 ),
             ),
         ));
-        
-        $this->add(array(
-            'name' => 'lastname',
+		
+		$this->add(array(
+            'name' => 'plan_id',
             'required' => true,
+			'disable_inarray_validator' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
                 array('name' => 'StringTrim'),
             ),
-            'validators' => array(
+			'validators' => array(
                 array(
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'Last Type can not be empty.'
+                            $isEmpty => 'Please choose plan.'
                         )
                     )
                 )
@@ -49,18 +49,19 @@ class MemberFilter extends InputFilter {
         ));
 		
 		$this->add(array(
-            'name' => 'emailid',
+            'name' => 'duration',
             'required' => true,
+			'disable_inarray_validator' => false,
             'filters' => array(
                 array('name' => 'StripTags'),
                 array('name' => 'StringTrim'),
             ),
-            'validators' => array(
+			'validators' => array(
                 array(
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'Email Id can not be empty.'
+                            $isEmpty => 'Please choose maturity time.'
                         )
                     )
                 )
@@ -68,18 +69,19 @@ class MemberFilter extends InputFilter {
         ));
 		
 		$this->add(array(
-            'name' => 'dob',
+            'name' => 'installment_type',
             'required' => true,
+			'disable_inarray_validator' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
                 array('name' => 'StringTrim'),
             ),
-            'validators' => array(
+			'validators' => array(
                 array(
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'Date of Birth can not be empty.'
+                            $isEmpty => 'Please choose installment type.'
                         )
                     )
                 )
@@ -87,18 +89,19 @@ class MemberFilter extends InputFilter {
         ));
 		
 		$this->add(array(
-            'name' => 'gardian_name',
+            'name' => 'start_ammount',
             'required' => true,
+			'disable_inarray_validator' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
                 array('name' => 'StringTrim'),
             ),
-            'validators' => array(
+			'validators' => array(
                 array(
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'Gardian Name can not be empty.'
+                            $isEmpty => 'Please choose deposite amount.'
                         )
                     )
                 )
@@ -106,7 +109,7 @@ class MemberFilter extends InputFilter {
         ));
 		
 		$this->add(array(
-            'name' => 'mobile_number',
+            'name' => 'interest_rate',
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -117,15 +120,15 @@ class MemberFilter extends InputFilter {
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'Mobile Number can not be empty.'
+                            $isEmpty => 'Interest rate can not be empty.',                            
                         )
                     )
-                )
-            )
+                ),
+            ),
         ));
 		
 		$this->add(array(
-            'name' => 'nominee_name',
+            'name' => 'installment_ammount',
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -136,15 +139,15 @@ class MemberFilter extends InputFilter {
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'Nominee Name can not be empty.'
+                            $isEmpty => 'Installment amount can not be empty.',                            
                         )
                     )
-                )
-            )
+                ),
+            ),
         ));
 		
 		$this->add(array(
-            'name' => 'nominee_relation',
+            'name' => 'installment_date',
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -155,15 +158,15 @@ class MemberFilter extends InputFilter {
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'Nominee Relation can not be empty.'
+                            $isEmpty => 'Installment date can not be empty.',                            
                         )
                     )
-                ),				
-            )
+                ),
+            ),
         ));
 		
 		$this->add(array(
-            'name' => 'nominee_address',
+            'name' => 'final_ammount',
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -174,15 +177,15 @@ class MemberFilter extends InputFilter {
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'Nominee Address can not be empty.'
+                            $isEmpty => 'Maturity amount can not be empty.',                            
                         )
                     )
-                )
-            )
+                ),
+            ),
         ));
 		
 		$this->add(array(
-            'name' => 'address',
+            'name' => 'end_date',
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -193,124 +196,11 @@ class MemberFilter extends InputFilter {
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'Address Date can not be empty.'
+                            $isEmpty => 'Maturity date can not be empty.',                            
                         )
                     )
-                )
-            )
-        ));
-		
-		$this->add(array(
-            'name' => 'state_id',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
+                ),
             ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Please select state.'
-                        )
-                    )
-                )
-            )
         ));
-		
-		$this->add(array(
-            'name' => 'city_id',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Please select city.'
-                        )
-                    )
-                )
-            )
-        ));
-		
-		$this->add(array(
-            'name' => 'maxRequestDay',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Max Request Day can not be empty.'
-                        )
-                    )
-                )
-            )
-        ));
-		
-		$this->add(array(
-            'name' => 'apiDescription',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Description can not be empty.'
-                        )
-                    )
-                )
-            )
-        ));
-		
-		$this->add(array(
-            'name' => 'ttl',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Ttl can not be empty.'
-                        )
-                    )
-                )
-            )
-        ));
-		
-		$this->add(array(
-            'name' => 'objectType',
-            'required' => false,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            )
-        ));
-		
-		$this->add(array(
-            'name' => 'objectName',
-            'required' => false,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            )
-        ));
-    }
+	}
 }

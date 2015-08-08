@@ -20,7 +20,7 @@ return array(
                     ),
                 ),
             ),
-			'members-new' => array(
+			'new-members' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
                     'route'    => '/members/new[/:id][/]',
@@ -30,7 +30,7 @@ return array(
                     ),
                 ),
             ),
-			'members-delete' => array(
+			'delete-members' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
                     'route'    => '/members/delete[/:id][/]',

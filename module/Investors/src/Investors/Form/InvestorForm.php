@@ -15,6 +15,18 @@ class InvestorForm extends Form {
         $this->setAttribute('class', 'form-member');
 		
 		$this->add(array(
+            'name' => 'member_id',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Member ID',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'member_id',				
+            ),
+        ));
+		
+		$this->add(array(
 			 'type' => 'Zend\Form\Element\Hidden',
 			 'name' => 'branch_id',
 			 'attributes' => array(
@@ -36,6 +48,19 @@ class InvestorForm extends Form {
             ),
         ));
 	   	   
+		$this->add(array(
+            'type' => 'text',
+            'name' => 'gardian_name',
+            'options' => array(
+                'label' => 'Gardian Name'
+            ),
+			'attributes' => array(
+				'class' => 'form-control',
+                'id' => 'gardian_name',
+				'disabled'=>true,				
+            ),
+        ));	
+		
 	    $this->add(array(
             'name' => 'emailid',
             'type' => 'text',
@@ -89,31 +114,6 @@ class InvestorForm extends Form {
         ));
 		
 		$this->add(array(
-            'type' => 'text',
-            'name' => 'gardian_name',
-            'options' => array(
-                'label' => 'Gardian Name'
-            ),
-			'attributes' => array(
-				'class' => 'form-control',
-                'id' => 'gardian_name',
-				'disabled'=>true,				
-            ),
-        ));
-		
-		$this->add(array(
-            'name' => 'member_id',
-            'type' => 'text',
-            'options' => array(
-                'label' => 'Member ID',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'member_id',				
-            ),
-        ));
-		
-		$this->add(array(
             'name' => 'address',
             'type' => 'Zend\Form\Element\Textarea',
             'options' => array(
@@ -161,19 +161,6 @@ class InvestorForm extends Form {
         ));
 		
 		$this->add(array(
-            'name' => 'interest_rate',
-            'type' => 'text',
-            'options' => array(
-                'label' => 'Interest Rate',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'interest_rate',
-				'readonly'=>true,	
-            ),
-        ));
-		
-		$this->add(array(
             'name' => 'installment_type',
             'type' => 'Zend\Form\Element\Select',
             'options' => array(
@@ -183,6 +170,34 @@ class InvestorForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'installment_type',
+            ),
+        ));
+		
+		$this->add(array(
+            'name' => 'start_ammount',
+            'type' => 'Zend\Form\Element\Select',
+            'options' => array(
+                'label' => 'Amount',
+				'value_options' => array(
+					' ' => '-Choose Deposite Amount-',
+				),	
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'start_ammount',
+            ),
+        ));
+		
+		$this->add(array(
+            'name' => 'interest_rate',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Interest Rate',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'interest_rate',
+				'readonly'=>true,	
             ),
         ));
 		
@@ -199,44 +214,6 @@ class InvestorForm extends Form {
             ),
         ));
 		
-		/*$this->add(array(
-            'name' => 'start_ammount',
-            'type' => 'text',
-            'options' => array(
-                'label' => 'Ammount',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'start_ammount',
-            ),
-        ));		
-		*/
-		$this->add(array(
-            'name' => 'start_ammount',
-            'type' => 'Zend\Form\Element\Select',
-            'options' => array(
-                'label' => 'Amount',
-				'value_options' => array(
-					' ' => '-Choose Deposite Amount-',
-				),	
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'start_ammount',
-            ),
-        ));
-		$this->add(array(
-            'name' => 'final_ammount',
-            'type' => 'text',
-            'options' => array(
-                'label' => 'Ammount',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'final_ammount',
-				'readonly'=>true,
-            ),
-        ));	
 		$this->add(array(
             'name' => 'installment_date',
             'type' => 'text',
@@ -249,6 +226,19 @@ class InvestorForm extends Form {
 				'readonly'=>true,
             ),
         ));
+		
+		$this->add(array(
+            'name' => 'final_ammount',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Ammount',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'final_ammount',
+				'readonly'=>true,
+            ),
+        ));	
 		
 		$this->add(array(
             'name' => 'end_date',
