@@ -55,7 +55,7 @@
 							<td class="text-center">
 								<!--<a title="Edit" href="<?php echo $this->basepath(); ?>/add/<?php echo $invest->id; ?>" >Edit</a> | 
 								<a title="Delete" onclick="deleteMember('<?php echo $invest->id; ?>')" href="javascript:void(0);">Delete</a> | -->									
-								<a title="Print Certificate" href="<?php echo $this->basePath('reports/print-certificate/'.$invest->id)?>"><i class="glyphicon glyphicon-print"></i></a>
+								<a title="Print Certificate" href="<?php echo $this->basePath('reports/certificate/'.$invest->id)?>"><i class="glyphicon glyphicon-print"></i></a>
 								<?php if(1) :?>
 								&nbsp;| <a title="Renew" href="<?php echo $this->basePath('investors/new-installment/'.$invest->id)?>"><i class="glyphicon glyphicon-repeat"></i></a>
 								<?php  endif;?>

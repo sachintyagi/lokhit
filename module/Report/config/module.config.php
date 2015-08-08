@@ -10,7 +10,17 @@
 return array(
     'router' => array(
         'routes' => array(
-            'print-certificate' => array(
+            'certificate' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/reports/certificate[/:id][/]',
+                    'defaults' => array(
+                        'controller' => 'Report\Controller\Print',
+                        'action' => 'certificate',
+                    ),
+                ),
+            ),
+			'print-certificate' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
                     'route' => '/reports/print-certificate[/:id][/]',

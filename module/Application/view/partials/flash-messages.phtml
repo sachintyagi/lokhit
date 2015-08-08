@@ -1,44 +1,6 @@
 <?php 
-$flashMessage = $this->flashMessenger()->getMessages();
-if (count($flashMessage)) {
-	?>
-	<div class="alert flash-message">
-		<?php 
-			foreach ($flashMessage as $msg) { 
-				foreach ($msg as $type => $message) {
-					?>	
-						<div class="<?php echo $type; ?>">
-							<span><?php echo $message; ?></span>
-						</div>
-					<?php 
-				} 
-			}
-		?>
-	</div>
-	<?php 
-} 
-if(isset($this->messages) && !empty($this->messages)) : ?>
-<div class="alert flash-message">
-	<?php foreach ($this->messages as $type => $msg) : ?>
-		<div class="<?php echo $type; ?>">
-			<span><?php echo $msg; ?></span>
-		</div>
-	<?php endforeach; ?>
-</div>
-<?php endif; ?>
-<?php if(isset($this->errors) && !empty($this->errors)) : ?>
-<div class="alert flash-message">
-	<div class="error"><span>
-	<?php foreach ($this->errors as $key => $error) {
-			if(is_array($error)) {
-				foreach ($error as $k => $errmsg) {
-					echo $errmsg.'<br>';
-				}					
-			} else {
-				echo $error;
-			}
-		}
-	?>
-	</span></div>
-</div>
-<?php endif; ?>
+	echo $this->flashMessenger()->render('error',   array('alert', 'alert-dismissible', 'alert-danger'));
+	echo $this->flashMessenger()->render('info',    array('alert', 'alert-dismissible', 'alert-info'));
+	echo $this->flashMessenger()->render('default', array('alert', 'alert-dismissible', 'alert-warning'));
+	echo $this->flashMessenger()->render('success', array('alert', 'alert-dismissible', 'alert-success'));
+?>

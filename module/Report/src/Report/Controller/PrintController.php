@@ -12,6 +12,17 @@ class PrintController extends AbstractActionController {
 		
 	}
 	
+	function certificateAction()
+	{		
+		$this->layout('layout/empty');
+		$investmentId = $this->params()->fromRoute('id',0);
+		$investments = $this->getTable($this->memberInvestmentsTable,'Application\Model\MemberInvestmentsTable')->findInvestors('1', $investmentId);		
+		return new ViewModel(array(
+			'certificate' => $investments,
+			'id' => $investmentId
+		));
+	}
+	
 	function printCertificateAction()
 	{		
 		$this->layout('layout/empty');

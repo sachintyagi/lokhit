@@ -85,7 +85,7 @@ class InvestorController extends AbstractActionController
 				$this->getAdapter()->getDriver()->getConnection()->rollback();
 				throw new \Exception($e);
 			}
-			return $this->redirect()->toRoute('print-certificate',array('id'=>$investmentId));
+			return $this->redirect()->toRoute('certificate',array('id'=>$investmentId));
 		}	
         return new ViewModel(array(
 				'investorForm'	=> $investorForm,
