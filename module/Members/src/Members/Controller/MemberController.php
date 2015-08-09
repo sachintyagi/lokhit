@@ -79,9 +79,9 @@ class MemberController extends AbstractActionController
 				$saveddata = $this->getTable($this->memberTable,'Application\Model\MemberTable')->save($data);
 				if($saveddata) {
 					if($memberId) {
-						$this->flashMessenger()->addMessage('User information updated successfully', 'success');
+						$this->flashMessenger()->addMessage('Member information updated successfully', 'success');
 					} else {
-						$this->flashMessenger()->addMessage('New user added successfully', 'success');
+						$this->flashMessenger()->addMessage('New member added successfully', 'success');
 					}
 					$this->redirect()->toRoute('members');
 				}

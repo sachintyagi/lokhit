@@ -37,64 +37,65 @@ class InvestorController extends AbstractActionController
 			$investorForm->get('duration')->setDisableInArrayValidator(true);
 			$investorForm->get('installment_type')->setDisableInArrayValidator(true);
 			$investorForm->get('start_ammount')->setDisableInArrayValidator(true);
-			if($investorForm->isValid()) {
-				$investmentTable = $this->getTable($this->memberInvestmentsTable,'Application\Model\MemberInvestmentsTable');
-				$installmentTable = $this->getTable($this->memberInvestmentsTable,'Application\Model\MemberInstallmentsTable');
-				$palnDetails = $this->getTable($this->plansDetailsTable,'Application\Model\PlanFormulaTestTable')->planAmmountById($posts->duration);
-				$paln = $this->getTable($this->plansTable,'Application\Model\PlansTable')->find($posts->plan_id);
-				$maxData = $investmentTable->findMaxId();
+			if($investorForm->isValid()) {	
 				try{
 					$this->getAdapter()->getDriver()->getConnection()->beginTransaction();
+					$investmentTable = $this->getTable($this->memberInvestmentsTable,'Application\Model\MemberInvestmentsTable');
+					$installmentTable = $this->getTable($this->memberInvestmentsTable,'Application\Model\MemberInstallmentsTable');
+					$palnDetails = $this->getTable($this->plansDetailsTable,'Application\Model\PlanFormulaTestTable')->planAmmountById($posts->formula_id);					
+					$paln = $this->getTable($this->plansTable,'Application\Model\PlansTable')->find($palnDetails->plan_id);
+					$maxData = $investmentTable->findMaxId();
 					$totalInstallmant = 1;
-					if($palnDetails->installment_type = 'One Time') {
+					if($palnDetails->installment_type == 'One Time') {
 						$totalInstallmant = 1;
-					} else if($palnDetails->installment_type = 'Per Day') {
+					} else if($palnDetails->installment_type == 'Per Day') {
 						$totalInstallmant = 365;
-					} else if($palnDetails->installment_type = 'Monthly') {
+					} else if($palnDetails->installment_type == 'Monthly') {
 						$totalInstallmant = $palnDetails->duration;
-					} else if($palnDetails->installment_type = 'Quaterly') {
+					} else if($palnDetails->installment_type == 'Quaterly') {
 						$totalInstallmant = $palnDetails->duration/3;
-					} else if($palnDetails->installment_type = 'Half Yearly') {
+					} else if($palnDetails->installment_type == 'Half Yearly') {
 						$totalInstallmant = $palnDetails->duration/6;
-					} else if($palnDetails->installment_type = 'Yearly') {
+					} else if($palnDetails->installment_type == 'Yearly') {
 						$totalInstallmant = $palnDetails->duration/12;
 					}
 					
-					$investment = array(
+					$investmentData = array(
 						'branch_id' => $posts->branch_id,
 						'member_id' => $posts->member_id,
-						'plan_id' => $posts->plan_id,
-						'plan_details_id' => $posts->duration,
+						'plan_id' => $palnDetails->plan_id,
+						'plan_details_id' => $palnDetails->plan_details_id,
 						'cf_number' => $paln->name.'-'.$palnDetails->duration.$palnDetails->duration_type.'-'.sprintf('%08d',$maxData->max_id),
 						'period' => ($palnDetails->duration_type=='M')?($palnDetails->duration.' Months'):($palnDetails->duration.' Days'),	
 						'interest_rate' => $palnDetails->interest_rate,
 						'repayable_to' => 'Self',
-						'installment_type_id' => $posts->installment_type,
+						'installment_type_id' => $palnDetails->installment_type ,
 						'installment_no' => 1,
 						'installment_date' => $posts->installment_date,
-						'total_installment' => 1,
+						'total_installment' => $totalInstallmant,
 						'final_ammount' => $palnDetails->maturity_ammount,
-						'start_ammount' => $posts->installment_ammount,
+						'start_ammount' => $palnDetails->amount,
 						'deposit_amount' => $palnDetails->deposit_amount,
 						'start_date' => $posts->start_date,
 						'end_date' => $posts->end_date,
-					);				
-					$investmentId = $investmentTable->save($investment);
+					);					
+					$investmentId = $investmentTable->save($investmentData);
 					$installment = array(
 						'investment_id' => $investmentId,
-						'ammount' => $posts->installment_ammount,
+						'ammount' => $palnDetails->amount,
 						'status' => 1,
 						'created_at'=> date('Y-m-d H:i:s')
 					);
 					$installmentTable->save($installment);
-					$this->getAdapter()->getDriver()->getConnection()->commit();				
+					$this->getAdapter()->getDriver()->getConnection()->commit();	
+					//$this->flashMessenger()->addMessage('Member investment added successfully', 'success');	
+					return $this->redirect()->toRoute('certificate',array('id'=>$investmentId));
 				} catch(\Exception $e){
 					$this->getAdapter()->getDriver()->getConnection()->rollback();
-					throw new \Exception($e);
-				}
-				return $this->redirect()->toRoute('certificate',array('id'=>$investmentId));
-			}
-			
+					$this->flashMessenger()->addMessage('Oops! there are some error ('.$e->getMessage().') with this process. Please try after some time', 'error');	
+					return $this->redirect()->toRoute('new-investors');
+				}				
+			}			
 		}	
         
 		return new ViewModel(array(

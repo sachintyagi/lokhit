@@ -59,7 +59,7 @@ class InstallmentForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'period',
-				'disabled'=>true,	
+				'readonly'=>true,	
             ),
         ));
 		
@@ -72,7 +72,7 @@ class InstallmentForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'interest_rate',
-				'disabled'=>true,	
+				'readonly'=>true,	
             ),
         ));
 		
@@ -98,7 +98,7 @@ class InstallmentForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'installment_no',
-				'disabled'=>true,	
+				'readonly'=>true,	
             ),
         ));
 		
@@ -111,7 +111,7 @@ class InstallmentForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'total_installment',
-				'disabled'=>true,	
+				'readonly'=>true,	
             ),
         ));
 		

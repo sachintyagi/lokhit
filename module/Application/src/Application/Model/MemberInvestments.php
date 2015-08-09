@@ -65,7 +65,7 @@ class MemberInvestments
         $this->updated_by  = (!empty($data['updated_by'])) ? $data['updated_by'] : 0;
 		
         $this->status  = (!empty($data['status'])) ? $data['status'] : 0;
-        $this->max_id  = (!empty($data['max_id'])) ? $data['max_id'] : 1;
+        $this->max_id  = (!empty($data['max_id'])) ? $data['max_id']+1 : 1;
 		
         $this->firstname  = (!empty($data['firstname'])) ? $data['firstname'] : null;
         $this->lastname  = (!empty($data['lastname'])) ? $data['lastname'] : null;

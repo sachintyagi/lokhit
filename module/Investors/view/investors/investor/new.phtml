@@ -6,6 +6,7 @@
 </div>
 <!-- /.row -->
 <div class="row">
+	<?php echo $this->render('partials/flash-messages')?>
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			Member Investments
@@ -116,6 +117,7 @@
 					<div class="form-group">
 						<label>Maturity Date</label>
 						<?php echo $this->formElement($form->get('start_date')); ?>
+						<?php echo $this->formElement($form->get('formula_id')); ?>
 						<?php echo $this->formElement($form->get('end_date')); ?>
 						<?php if($this->formElementErrors($form->get('end_date'))) :?>
 						<div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('end_date')))?></div>
@@ -230,6 +232,7 @@
 					data:{id:formulaid},
 					success:function(returns) {
 						$('#interest_rate').val(returns.response.data.interest_rate);
+						$('#formula_id').val(returns.response.data.id);
 						$('#installment_ammount').val(returns.response.data.amount);
 						$('#final_ammount').val(returns.response.data.maturity_ammount);
 						$('#installment_date').val(returns.response.installment_date);
@@ -246,6 +249,7 @@
 			$('#start_ammount').html('<option value="">-Choose Deposite Amount-</option>')
 			$('#final_ammount').val('');
 			$('#installment_ammount').val('');
+			$('#installment_date').val('');
 			$('#end_date').val('');
 			$('#interest_rate').val('');
 		}

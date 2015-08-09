@@ -5,7 +5,7 @@ class PlanFormulaTest
 {
     public $id;
     public $paln_id;
-    public $paln_details_id;
+    public $plan_details_id;
     public $amount;
     public $deposit_amount;
 	public $maturity_ammount;
@@ -19,7 +19,7 @@ class PlanFormulaTest
     {
         $this->id     = (!empty($data['id'])) ? $data['id'] : 0;
         $this->plan_id     = (!empty($data['plan_id'])) ? $data['plan_id'] : 0;
-        $this->paln_details_id  = (!empty($data['paln_details_id'])) ? $data['paln_details_id'] : null;  
+        $this->plan_details_id  = (!empty($data['plan_details_id'])) ? $data['plan_details_id'] : null;  
         $this->amount  = (!empty($data['amount'])) ? $data['amount'] : 0;  
         $this->deposit_amount  = (!empty($data['deposit_amount'])) ? $data['deposit_amount'] : 0;  
 		$this->maturity_ammount  = (!empty($data['maturity_ammount'])) ? $data['maturity_ammount'] : 0;

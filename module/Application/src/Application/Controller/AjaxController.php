@@ -197,12 +197,13 @@ class AjaxController extends AbstractActionController
 			$palnFormulaDetails = $this->getTable($this->plansDetailsTable,'Application\Model\PlanFormulaTestTable')->planAmmountByPlanDetailsId($posts->id);
 			if($palnFormulaDetails) {
 				foreach($palnFormulaDetails as $palnsFormula) {
-					$planAmmountData[] = (array)$palnsFormula;
+					$planAmmountData[$palnsFormula->amount] = (array)$palnsFormula;
 				}
 				$status = true;
 			}
 		}
-		
+		asort($planAmmountData);
+		//print_r($planAmmountData); exit;
 		return new JsonModel(array(
 			'response'=> array(
 				'data' => $planAmmountData,

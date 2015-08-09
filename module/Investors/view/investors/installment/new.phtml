@@ -6,6 +6,7 @@
 </div>
 <!-- /.row -->
 <div class="row">
+	<?php echo $this->render('partials/flash-messages')?>
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			Member Installment
@@ -17,26 +18,28 @@
 					$form->prepare();
 					echo $this->form()->openTag($form);
 				?>
-					<?php if (count($this->errors)) : ?>
-						<div class="alert alert-danger">
-							<?php foreach ($this->errors as $error) : ?>
-							<?php if(is_array($error)) : echo current($error); else: echo $error;endif;?><br>
-							<?php endforeach; ?>
-						</div>
-					<?php endif; ?>
 					<div class="col-lg-6">		
 						<div class="form-group">
 							<label>CF Number<span class="mandatory">*</span></label>
 							<?php echo $this->formElement($form->get('cf_number')); ?>
+							<?php if($this->formElementErrors($form->get('cf_number'))) :?>
+							<div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('cf_number')))?></div>
+							<?php endif;?>
 							<?php echo $this->formElement($form->get('investment_id'));?>
 						</div>
 						<div class="form-group">
 							<label>Period</label>
 							<?php echo $this->formElement($form->get('period'));?>
+							<?php if($this->formElementErrors($form->get('period'))) :?>
+							<div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('period')))?></div>
+							<?php endif;?>
 						</div>	
 						<div class="form-group">
 							<label>Interest Rate</label>
 							<?php echo $this->formElement($form->get('interest_rate'));?>
+							<?php if($this->formElementErrors($form->get('interest_rate'))) :?>
+							<div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('interest_rate')))?></div>
+							<?php endif;?>
 						</div>																										
 					</div>
 					<!-- /.col-lg-6 (nested) -->
@@ -44,14 +47,23 @@
 						<div class="form-group">
 							<label>Amount</label>
 							<?php echo $this->formElement($form->get('amount'));?>
+							<?php if($this->formElementErrors($form->get('amount'))) :?>
+							<div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('amount')))?></div>
+							<?php endif;?>
 						</div>	
 						<div class="form-group">
 							<label>Installment No</label>
 							<?php echo $this->formElement($form->get('installment_no'));?>
+							<?php if($this->formElementErrors($form->get('installment_no'))) :?>
+							<div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('installment_no')))?></div>
+							<?php endif;?>
 						</div>	
 						<div class="form-group">
 							<label>Remaining Installment</label>
 							<?php echo $this->formElement($form->get('total_installment'));?>
+							<?php if($this->formElementErrors($form->get('total_installment'))) :?>
+							<div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('total_installment')))?></div>
+							<?php endif;?>
 						</div>	
 					</div>
 					<!-- /.col-lg-6 (nested) -->
@@ -72,9 +84,14 @@
 </div>
 <script type="text/javascript">
 	$(document).ready(function() {
-		clearForm();
+		//clearForm();
 		$('#cf_number').keyup(function(){
 			cf_number = $(this).val();
+			cfdetails(cf_number);
+		});
+		//cfdetails($('#cf_number').val());
+		
+		function cfdetails(cf_number) {
 			if(cf_number) {
 				$.ajax({
 					url : '<?php echo $this->basePath('apis/investment-details')?>',
@@ -96,7 +113,7 @@
 			} else{
 				clearForm();
 			}
-		});
+		}
 		
 		function clearForm(){
 			$('#investment_id').val('');

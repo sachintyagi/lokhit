@@ -261,6 +261,15 @@ class InvestorForm extends Form {
 				 'id' => 'start_date'
 			 )
 		));
+		
+		$this->add(array(
+			 'type' => 'Zend\Form\Element\Hidden',
+			 'name' => 'formula_id',
+			 'attributes' => array(
+				 'value' => date('Y-m-d H:i:s'),
+				 'id' => 'formula_id'
+			 )
+		));
 				
         $this->add(array(
             'name' => 'save',
