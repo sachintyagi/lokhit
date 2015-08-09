@@ -19,7 +19,8 @@ class MemberForm extends Form {
 			 'name' => 'branch_id',
 			 'attributes' => array(
 				 'value' => '1',
-				 'id' => 'branch_id'
+				 'id' => 'branch_id',
+				 'maxlength'=> 100,
 			 )
 		));
 		
@@ -31,7 +32,8 @@ class MemberForm extends Form {
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'id' => 'firstname'
+                'id' => 'firstname',
+				'maxlength'=> 100,
             ),
         ));
  
@@ -44,6 +46,7 @@ class MemberForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'lastname',
+				'maxlength'=> 100,
             ),
 		));
 	   	   
@@ -55,7 +58,8 @@ class MemberForm extends Form {
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'id' => 'emailid'
+                'id' => 'emailid',
+				'maxlength'=> 255,
             ),
         ));
 
@@ -68,6 +72,7 @@ class MemberForm extends Form {
             'attributes' => array(
                 'class' => 'form-control datepicker',
                 'id' => 'dob',
+				'readonly'=> true,
             ),
 		));
 		
@@ -97,7 +102,8 @@ class MemberForm extends Form {
             ),
             'attributes' => array(
 				'class' => 'form-control',
-				'id' => 'password'
+				'id' => 'password',
+				'maxlength'=> 20,
             ),
         ));
 
@@ -110,6 +116,7 @@ class MemberForm extends Form {
 			'attributes' => array(
 				'class' => 'form-control',
                 'id' => 'gardian_name',
+				'maxlength'=> 200,
             ),
         ));
 		
@@ -135,6 +142,7 @@ class MemberForm extends Form {
 			'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'nominee_name',
+				'maxlength'=> 200,
             ),
         ));	
 		
@@ -147,6 +155,7 @@ class MemberForm extends Form {
 			'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'nominee_relation',
+				'maxlength'=> 50,
             ),
         ));	
 		
@@ -160,7 +169,8 @@ class MemberForm extends Form {
                 'class' => 'form-control',
                 'id' => 'nominee_address',
 				'cols' => '50',
-				'rows' => '3'
+				'rows' => '3',
+				'maxlength'=> 200,
             ),
         ));	
 		
@@ -187,7 +197,8 @@ class MemberForm extends Form {
                 'class' => 'form-control',
                 'id' => 'address',
 				'cols' => '50',
-				'rows' => '4'
+				'rows' => '4',
+				'maxlength'=> 300,
             ),
         ));
 		

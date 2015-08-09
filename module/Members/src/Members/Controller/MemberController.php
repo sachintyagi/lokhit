@@ -76,6 +76,7 @@ class MemberController extends AbstractActionController
 				}
 				$data = $data->toArray();
 				$data['status'] = 1;
+				$data['dob'] = date('Y-m-d', strtotime($data['dob']));
 				$saveddata = $this->getTable($this->memberTable,'Application\Model\MemberTable')->save($data);
 				if($saveddata) {
 					if($memberId) {
@@ -88,7 +89,11 @@ class MemberController extends AbstractActionController
 			}
 		}
 		
-        return new ViewModel(array(
+		$basePath = $this->getServiceLocator()->get('Request')->getBasePath();	
+		$this->getServiceLocator()->get('viewhelpermanager')->get('headLink')->appendStylesheet($basePath.'/css/jquery-ui.css');
+		$this->getServiceLocator()->get('viewhelpermanager')->get('headScript')->appendFile($basePath.'/js/jquery-ui.js');
+		
+		return new ViewModel(array(
 				'memberForm'	=> $memberForm,
 			)
 		);

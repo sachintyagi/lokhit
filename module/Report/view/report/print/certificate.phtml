@@ -122,4 +122,11 @@
 	<a class="btn btn-primary" href="<?php echo $this->url('investors');?>">Go Back</a>
 	<a class="btn btn-success" style="margin:0 10px;" target="_blank" href="<?php echo $this->url('print-certificate', array('id'=>$this->id));?>">Print</a>
 </div>
-
+<script type="text/javascript">
+	jQuery(document).bind("keyup keydown", function(e){
+		if(e.ctrlKey && e.keyCode == 80){
+			window.location.href = '<?php echo $this->url('print-certificate', array('id'=>$this->id));?>';
+			return false;
+		}
+	});
+</script>

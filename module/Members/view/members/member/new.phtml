@@ -136,7 +136,14 @@
 		setTimeout(function(){
 			getCities($('#state_id').val(), $('#city_id').val());
 		}, 200);
-		//$('#dob').datepicker({});
+		$( "#dob" ).datepicker({
+			changeMonth: true,
+			changeYear: true,
+			dateFormat: 'yy-mm-dd',
+			maxDate : new Date(),
+			yearRange: "-80:+0"
+			
+		});
 	})
 	function getCities(stateid,cityid) {
 		$.ajax({
