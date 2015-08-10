@@ -229,3 +229,5 @@ li{ list-style: none; }
 	transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s
 }
 .form-company .col-lg-2 { text-align:right; }
+.form-company .col-lg-2 { text-align:right; }
+.company-logo { width:100px;height:100px; }

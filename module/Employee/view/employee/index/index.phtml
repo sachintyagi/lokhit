@@ -1,10 +1,10 @@
 <div class="row">
 	<div class="col-lg-12">
-		<h3 class="page-header">Employee List
+		<h1 class="page-header">Employee List
 			<span class="job-btn pull-right">
 				<a href="<?php echo $this->url('new-employee')?>" class="btn btn-primary">New Employee</a>
 			</span>
-		</h3>
+		</h1>
 		<?php 
 			if(!empty($this->flashMessages[0])) {
 				foreach($this->flashMessages[0] as $class => $message) {
@@ -34,3 +34,4 @@
 	</div>
 	<!-- /.col-lg-12 -->		
 </div>
+<!-- /.row -->

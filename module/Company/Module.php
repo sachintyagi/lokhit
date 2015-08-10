@@ -42,7 +42,32 @@ class Module
 	
 	public function getServiceConfig() {
         return array(
-            
+			'factories' => array(
+				//Company
+				'Company\Model\CompanyTable' => function($sm) {
+					$tableGateway = $sm->get('CompanyTableGateway');
+					$table = new \Company\Model\CompanyTable($tableGateway);
+					return $table;
+				},
+				'CompanyTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new \Company\Model\Company());
+					return new TableGateway('companies', $dbAdapter, null, $resultSetPrototype);
+				},
+				//Branch
+				'Company\Model\BranchTable' => function($sm) {
+					$tableGateway = $sm->get('BranchTableGateway');
+					$table = new \Company\Model\BranchTable($tableGateway);
+					return $table;
+				},
+				'BranchTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new \Company\Model\Branch());
+					return new TableGateway('branches', $dbAdapter, null, $resultSetPrototype);
+				},
+			)
         );
 	}
 }

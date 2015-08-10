@@ -113,6 +113,26 @@ return array(
                     ),
                 ),
             ),
+			'state' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route'    => '/state',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Ajax',
+                        'action'     => 'state',
+                    ),
+                ),
+            ),
+			'branch' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/branch[/]',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Ajax',
+                        'action' => 'branch',
+                    ),
+                ),
+            ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them

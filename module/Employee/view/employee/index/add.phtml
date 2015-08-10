@@ -1,10 +1,10 @@
 <div class="row">
 	<div class="col-lg-12">
-		<h3 class="page-header">New Employee
+		<h1 class="page-header">New Employee
 			<span class="job-btn pull-right">
 				<a href="<?php echo $this->url('employee-list')?>" class="btn btn-primary">Employee List</a>
 			</span>
-		</h3>
+		</h1>
 		<?php 
 			if(!empty($this->flashMessages[0])) {
 				foreach($this->flashMessages[0] as $class => $message) {
@@ -28,7 +28,7 @@
 <div class="row">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			Employee Personal Information Section
+			Personal Information Section
 		</div>
 		<div class="panel-body">
 			<div class="row">
@@ -54,11 +54,19 @@
 						</div>
 						<div class="form-group">
 							<label>Email Id <span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('emailid')); ?>
+							<?php echo $this->formElement($form->get('email_id')); ?>
 						</div>
 						<div class="form-group">
 							<label>Company<span class="mandatory">*</span></label>
 							<?php echo $this->formElement($form->get('company_id')); ?>
+						</div>
+						<div class="form-group">
+							<label>Blood Group<span class="mandatory">*</span></label>
+							<?php echo $this->formElement($form->get('blood_group')); ?>
+						</div>
+						<div class="form-group">
+							<label>Photo<span class="mandatory">*</span></label>
+							<?php echo $this->formElement($form->get('photo')); ?>
 						</div>
 					</div>
 					<!-- /.col-lg-6 (nested) -->
@@ -76,12 +84,16 @@
 							<?php echo $this->formElement($form->get('mother_name')); ?>
 						</div>
 						<div class="form-group">
-							<label>Spouse <span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('spouse')); ?>
+							<label>Spouse Name</label>
+							<?php echo $this->formElement($form->get('spouse_name')); ?>
 						</div>
 						<div class="form-group">
 							<label>Branch <span class="mandatory">*</span></label>
 							<?php echo $this->formElement($form->get('branch_id')); ?>
+						</div>
+						<div class="form-group">
+							<label>Status <span class="mandatory">*</span></label>
+							<?php echo $this->formElement($form->get('status')); ?>
 						</div>
 					</div>
 				</form>
@@ -93,7 +105,7 @@
 		  
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			Employee Address Section
+			Address Section
 		</div>
 		<div class="panel-body">
 			<div class="row">
@@ -130,7 +142,7 @@
 	
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			Employee Permanent Address Section
+			Permanent Address Section
 		</div>
 		<div class="panel-body">
 			<div class="row">
@@ -167,6 +179,72 @@
 						<?php echo $this->formElement($form->get('per_mobileno')); ?>
 					</div>
 				</div>
+			</div>
+			<!-- /.row (nested) -->
+		</div>
+		<!-- /.panel-body -->
+	</div>
+	
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			Education Section
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-lg-6">						
+					<div class="form-group">
+						<label>Certificate <span class="mandatory">*</span></label>
+						<?php echo $this->formElement($form->get('certificate')); ?>
+					</div>							
+					<div class="form-group">
+						<label>University <span class="mandatory">*</span></label>
+						<?php echo $this->formElement($form->get('university')); ?>
+					</div>
+				</div>
+				<!-- /.col-lg-6 (nested) -->
+				<div class="col-lg-6">
+					<div class="form-group">
+						<label>Year <span class="mandatory">*</span></label>
+						<?php echo $this->formElement($form->get('year')); ?>
+					</div>
+					<div class="form-group">
+						<label>Percentage <span class="mandatory">*</span></label>
+						<?php echo $this->formElement($form->get('percentage')); ?>
+					</div>
+				</div>
+			</div>
+			<!-- /.row (nested) -->
+		</div>
+		<!-- /.panel-body -->
+	</div>
+	
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			Work Experience Section
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-lg-6">						
+					<div class="form-group">
+						<label>Previous Employer <span class="mandatory">*</span></label>
+						<?php echo $this->formElement($form->get('previous_employer')); ?>
+					</div>							
+					<div class="form-group">
+						<label>Designation <span class="mandatory">*</span></label>
+						<?php echo $this->formElement($form->get('designation')); ?>
+					</div>
+				</div>
+				<!-- /.col-lg-6 (nested) -->
+				<div class="col-lg-6">
+					<div class="form-group">
+						<label>From <span class="mandatory">*</span></label>
+						<?php echo $this->formElement($form->get('employee_from')); ?>
+					</div>
+					<div class="form-group">
+						<label>To <span class="mandatory">*</span></label>
+						<?php echo $this->formElement($form->get('employee_to')); ?>
+					</div>
+				</div>
 				<!-- /.col-lg-6 (nested) -->
 				<div class="clear"></div>						
 				<div class="col-lg-6">
@@ -178,4 +256,36 @@
 		</div>
 		<!-- /.panel-body -->
 	</div>
+	
 </div>
+<!-- /.row -->
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$('#country_id').change(function() {
+			countryId = $(this).val();
+			getStates(countryId,'');
+		});
+		countryId = $('#country_id').val();
+		if(countryId) {
+			getStates(countryId,"<?php echo $this->stateid; ?>");
+		}
+		
+		$('#per_country_id').change(function() {
+			perCountryId = $(this).val();
+			getPerStates(perCountryId,'');
+		});
+		perCountryId = $('#per_country_id').val();
+		if(perCountryId) {
+			getPerStates(perCountryId,"<?php echo $this->stateid; ?>");
+		}
+		
+		$('#company_id').change(function() {
+			companyId = $(this).val();
+			getBranches(companyId,'');
+		});
+		companyId = $('#company_id').val();
+		if(companyId) {
+			getBranches(companyId,"<?php echo $this->branchid; ?>");
+		}
+	});	
+</script>
