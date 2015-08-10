@@ -23,10 +23,20 @@ return array(
 			'new-company' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route' => '/new-company[/]',
+                    'route' => '/new-company[/:companyid][/]',
                     'defaults' => array(
                         'controller' => 'Company\Controller\Index',
                         'action' => 'add',
+                    ),
+                ),
+            ),
+			'delete-company' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/delete-company[/:companyid][/]',
+                    'defaults' => array(
+                        'controller' => 'Company\Controller\Index',
+                        'action' => 'delete',
                     ),
                 ),
             ),
@@ -43,10 +53,20 @@ return array(
 			'new-branch' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route' => '/new-branch[/]',
+                    'route' => '/new-branch[/:branchid][/]',
                     'defaults' => array(
                         'controller' => 'Company\Controller\Branch',
                         'action' => 'add',
+                    ),
+                ),
+            ),
+			'delete-branch' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/delete-branch[/:branchid][/]',
+                    'defaults' => array(
+                        'controller' => 'Company\Controller\Branch',
+                        'action' => 'delete',
                     ),
                 ),
             ),

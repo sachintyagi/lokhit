@@ -154,7 +154,7 @@ class Module
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new \Application\Model\Country());
-                    return new TableGateway('country', $dbAdapter, null, $resultSetPrototype);
+                    return new TableGateway('countries', $dbAdapter, null, $resultSetPrototype);
                 },
 				
 				//Palns

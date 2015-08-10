@@ -1,14 +1,16 @@
 <div class="row">
 	<div class="col-lg-12">
-		<h3 class="page-header">New Company</h3>
+		<h1 class="page-header">New Company</h1>
 		<a href="<?php echo $this->url('company-list')?>"><button class="btn btn-success pull-right" style="margin-top: -63px;">Company List</button></a>
 		<?php 
 			if(!empty($this->errors)) {
+				echo '<div class="alert alert-danger">';
 				foreach($this->errors as $class => $msgArr) {
 					foreach($msgArr as $message) {
-						echo '<div class="error">'.$message.'</div>';
+						echo $message.'<br>';
 					}
 				}
+				echo '</div>';
 			}
 		?>
 	</div>
@@ -28,7 +30,7 @@
 				<div class="col-lg-12">
 					<div class="form-group">
 						<label class="col-lg-2">Company Name <span class="mandatory">*</span></label>
-						<div class="col-lg-6"><?php echo $this->formElement($form->get('company_name')); ?></div>
+						<div class="col-lg-6"><?php echo $this->formElement($form->get('name')); ?></div>
 					</div>
 					<div class="clear"></div><br/>
 					<div class="form-group">
@@ -68,6 +70,17 @@
 					</div>
 					<div class="clear"></div><br/>
 					<div class="form-group">
+						<label class="col-lg-2">Logo <span class="mandatory">*</span></label>
+						<div class="col-lg-6">
+							<?php echo $this->formElement($form->get('logo')); ?>
+							<?php if($this->logo): ?>
+							<div class="clear"></div>
+							<img class="company-logo" src="<?php echo $this->basePath(); ?>/uploads/company/<?php echo $this->logo; ?>" >
+							<?php endif; ?>
+						</div>
+					</div>
+					<div class="clear"></div><br/>
+					<div class="form-group">
 						<label class="col-lg-2">Status <span class="mandatory">*</span></label>
 						<div class="col-lg-6"><?php echo $this->formElement($form->get('status')); ?></div>
 					</div>
@@ -84,3 +97,16 @@
 		</div>
 	</div>
 </div>	
+<!-- /.row -->
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$('#country_id').change(function() {
+			countryId = $(this).val();
+			getStates(countryId,'');
+		});
+		countryId = $('#country_id').val();
+		if(countryId) {
+			getStates(countryId,"<?php echo $this->stateid; ?>");
+		}
+	});	
+</script>

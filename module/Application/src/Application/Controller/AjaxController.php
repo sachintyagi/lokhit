@@ -297,6 +297,46 @@ class AjaxController extends AbstractActionController
 		));
 	}
 	
+	public function stateAction()
+    {
+		$request = $this->getRequest();
+		$stateHtml = '<option value="" >Choose one</option>';
+		if($request->isPost()) {
+			$data = $request->getPost();
+			$countryId = $data['countryid'];
+			$stateId = $data['stateid'];
+			$states = $this->getTable($this->cityTable,'Application\Model\StateTable')->findByCountry($countryId);
+			foreach($states as $key => $state) {
+				if($state->id == $stateId) {
+					$stateHtml .= '<option value="'.$state->id.'" selected="selected">'.$state->name.'</option>';
+				} else {
+					$stateHtml .= '<option value="'.$state->id.'" >'.$state->name.'</option>';
+				}
+			}
+		}
+        echo $stateHtml; exit;
+    }
+	
+	public function branchAction()
+    {
+		$request = $this->getRequest();
+		$branchHtml = '<option value="" >Choose one</option>';
+		if($request->isPost()) {
+			$data = $request->getPost();
+			$companyId = $data['companyid'];
+			$branchId = $data['branchid']; 
+			$branches = $this->getTable($this->branchTable,'Company\Model\BranchTable')->findByCompany($companyId);
+			foreach($branches as $key => $branch) {
+				if($branch->id == $branchId) {
+					$branchHtml .= '<option value="'.$branch->id.'" selected="selected">'.$branch->name.'</option>';
+				} else {
+					$branchHtml .= '<option value="'.$branch->id.'" >'.$branch->name.'</option>';
+				}
+			}
+		}
+        echo $branchHtml; exit;
+    }
+	
 	function fDInterest($investment, $year,$rate,$n){
 		/** Formula A = P(1 + (r*n) **/		
 		$rate = $rate/100;

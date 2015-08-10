@@ -10,7 +10,7 @@ class BranchFilter extends InputFilter {
         $isEmpty = \Zend\Validator\NotEmpty::IS_EMPTY;
         
         $this->add(array(
-            'name' => 'branch_name',
+            'name' => 'name',
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -28,6 +28,24 @@ class BranchFilter extends InputFilter {
             ),
         ));
 		
+		$this->add(array(
+            'name' => 'code',
+            'required' => true,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'NotEmpty',
+                    'options' => array(
+                        'messages' => array(
+                            $isEmpty => 'Branch Code can not be empty.',
+                        )
+                    )
+                ),
+            ),
+        ));
 		$this->add(array(
             'name' => 'company_id',
             'required' => true,
@@ -197,37 +215,6 @@ class BranchFilter extends InputFilter {
                     )
                 ),
             ),
-        ));
-		
-		$this->add(array(
-            'name' => 'logo',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-				array(
-					'name' => 'Zend\Validator\File\Size',
-					'options' => array(
-						'min' => 120,
-						'max' => 10485760,
-					),
-				),
-				array(
-					'name' => 'Zend\Validator\File\Extension',
-					'options' => array(
-						'extension' => array('png','jpeg','jpg'),
-						'case '	=> true
-					),
-				),
-				array(
-					'name'    => 'Zend\Validator\File\MimeType',
-					'options' => array(
-					   'mimeType' => array('image/jpeg','image/jpg','image/png'),
-					),
-				),
-			),
-        ));
+        ));		
     }
 }

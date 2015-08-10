@@ -10,7 +10,7 @@ class CompanyFilter extends InputFilter {
         $isEmpty = \Zend\Validator\NotEmpty::IS_EMPTY;
         
         $this->add(array(
-            'name' => 'company_name',
+            'name' => 'name',
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -180,7 +180,7 @@ class CompanyFilter extends InputFilter {
             ),
         ));
 		
-		$this->add(array(
+		/*$this->add(array(
             'name' => 'logo',
             'required' => true,
             'filters' => array(
@@ -209,6 +209,6 @@ class CompanyFilter extends InputFilter {
 					),
 				),
 			),
-        ));
+        ));*/
     }
 }

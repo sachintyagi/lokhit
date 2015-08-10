@@ -13,7 +13,7 @@ class BranchForm extends Form {
         $this->setAttribute('class', 'form-branch');
  
         $this->add(array(
-            'name' => 'branch_name',
+            'name' => 'name',
             'type' => 'text',
             'options' => array(
                 'label' => 'Branch Name',
@@ -21,7 +21,20 @@ class BranchForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'autofocus' => "",
-                'id' => 'branch_name'
+                'id' => 'name'
+            ),
+        ));
+		
+		$this->add(array(
+            'name' => 'code',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Branch Code',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'autofocus' => "",
+                'id' => 'code'
             ),
         ));
 		
@@ -30,9 +43,9 @@ class BranchForm extends Form {
             'type' => 'Zend\Form\Element\Select',
             'options' => array(
                 'label' => 'Parent Branch',
-                'value_options' => array(
-                    '' => 'Choose one',
-                ),
+				'empty_option' => 'Choose one',
+                'value_options' => array(),
+				'disable_inarray_validator' => true,
             ),
             'attributes' => array(
                 'class' => 'form-control',
@@ -45,9 +58,9 @@ class BranchForm extends Form {
             'type' => 'Zend\Form\Element\Select',
             'options' => array(
                 'label' => 'Company Name',
-                'value_options' => array(
-                    '' => 'Choose one',
-                ),
+				'empty_option' => 'Choose one',
+                'value_options' => array(),
+				'disable_inarray_validator' => true,
             ),
             'attributes' => array(
                 'class' => 'form-control',
@@ -112,9 +125,9 @@ class BranchForm extends Form {
             'type' => 'Zend\Form\Element\Select',
             'options' => array(
                 'label' => 'State',
-                'value_options' => array(
-                    '' => 'Choose one',
-                ),
+				'empty_option' => 'Choose one',
+                'value_options' => array(),
+				'disable_inarray_validator' => true,
             ),
             'attributes' => array(
                 'class' => 'form-control',
@@ -127,9 +140,9 @@ class BranchForm extends Form {
             'type' => 'Zend\Form\Element\Select',
             'options' => array(
                 'label' => 'Country',
-                'value_options' => array(
-                    '' => 'Choose one',
-                ),
+				'empty_option' => 'Choose one',
+                'value_options' => array(),
+				'disable_inarray_validator' => true,
             ),
             'attributes' => array(
                 'class' => 'form-control',
@@ -186,6 +199,5 @@ class BranchForm extends Form {
 				'id'	=> 'reset'
             ),
         ));
-    }
-	
+    }	
 }

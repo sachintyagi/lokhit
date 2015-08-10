@@ -21,7 +21,7 @@
                         ->prependStylesheet($this->basePath('components/metisMenu/dist/metisMenu.min.css'))
                         ->prependStylesheet($this->basePath('components/bootstrap/dist/css/bootstrap.min.css'))
         ?>
-
+		<script type="text/javascript"> var BASEPATH = "<?php echo $this->basePath(); ?>" </script>
         <!-- Scripts -->
         <?php echo $this->headScript()
             ->prependFile($this->basePath('js/admin.js'))
@@ -35,6 +35,7 @@
 			/** Bootstrap **/
             ->prependFile($this->basePath('components/bootstrap/dist/js/bootstrap.min.js'))
 			/** JQuery and Html5 Shiv **/
+            ->prependFile($this->basePath('js/common.js'))
             ->prependFile($this->basePath('components/jquery/dist/jquery.min.js'))
             ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
             ->prependFile($this->basePath('js/html5shiv.js'),   'text/javascript', array('conditional' => 'lt IE 9',))

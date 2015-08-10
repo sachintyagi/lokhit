@@ -13,7 +13,7 @@ class CompanyForm extends Form {
         $this->setAttribute('class', 'form-company');
  
         $this->add(array(
-            'name' => 'company_name',
+            'name' => 'name',
             'type' => 'text',
             'options' => array(
                 'label' => 'Company Name',
@@ -21,7 +21,7 @@ class CompanyForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'autofocus' => "",
-                'id' => 'company_name'
+                'id' => 'name'
             ),
         ));
 		
@@ -82,9 +82,9 @@ class CompanyForm extends Form {
             'type' => 'Zend\Form\Element\Select',
             'options' => array(
                 'label' => 'State',
-                'value_options' => array(
-                    '' => 'Choose one',
-                ),
+				'empty_option' => 'Choose one',
+                'value_options' => array(),
+				'disable_inarray_validator' => true,
             ),
             'attributes' => array(
                 'class' => 'form-control',
@@ -97,9 +97,9 @@ class CompanyForm extends Form {
             'type' => 'Zend\Form\Element\Select',
             'options' => array(
                 'label' => 'Country',
-                'value_options' => array(
-                    '' => 'Choose one',
-                ),
+				'empty_option' => 'Choose one',
+                'value_options' => array(),
+				'disable_inarray_validator' => true,
             ),
             'attributes' => array(
                 'class' => 'form-control',
@@ -121,12 +121,11 @@ class CompanyForm extends Form {
 		
 		$this->add(array(
             'name' => 'logo',
-            'type' => 'text',
+            'type' => 'file',
             'options' => array(
                 'label' => 'Company Logo',
             ),
             'attributes' => array(
-                'class' => 'form-control',
                 'id' => 'apiKey'
             ),
         ));
