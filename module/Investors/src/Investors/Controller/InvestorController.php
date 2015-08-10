@@ -26,6 +26,8 @@ class InvestorController extends AbstractActionController
 	
 	public function newAction()
     {
+		$auth = $this->getServiceLocator()->get('AuthService');
+		$authData = $auth->getIdentity();
 		$investorId = $this->params()->fromRoute('id',0);
 		$investorForm = new InvestorForm();
 		$investorForm->setInputFilter(new InvestorFilter());
@@ -46,22 +48,29 @@ class InvestorController extends AbstractActionController
 					$paln = $this->getTable($this->plansTable,'Application\Model\PlansTable')->find($palnDetails->plan_id);
 					$maxData = $investmentTable->findMaxId();
 					$totalInstallmant = 1;
+					$lastInstallmentDate = null;
 					if($palnDetails->installment_type == 'One Time') {
 						$totalInstallmant = 1;
+						$lastInstallmentDate = date('Y-m-d');
 					} else if($palnDetails->installment_type == 'Per Day') {
 						$totalInstallmant = 365;
+						$lastInstallmentDate = $posts->end_date;
 					} else if($palnDetails->installment_type == 'Monthly') {
 						$totalInstallmant = $palnDetails->duration;
+						$lastInstallmentDate = date('Y-m-d',strtotime('-1 month',strtotime($posts->end_date)));
 					} else if($palnDetails->installment_type == 'Quaterly') {
 						$totalInstallmant = $palnDetails->duration/3;
+						$lastInstallmentDate = date('Y-m-d',strtotime('-3 month',strtotime($posts->end_date)));
 					} else if($palnDetails->installment_type == 'Half Yearly') {
 						$totalInstallmant = $palnDetails->duration/6;
+						$lastInstallmentDate = date('Y-m-d',strtotime('-6 month',strtotime($posts->end_date)));
 					} else if($palnDetails->installment_type == 'Yearly') {
 						$totalInstallmant = $palnDetails->duration/12;
+						$lastInstallmentDate = date('Y-m-d',strtotime('-12 month',strtotime($posts->end_date)));
 					}
 					
 					$investmentData = array(
-						'branch_id' => $posts->branch_id,
+						'branch_id' => $authData->branch_id,
 						'member_id' => $posts->member_id,
 						'plan_id' => $palnDetails->plan_id,
 						'plan_details_id' => $palnDetails->plan_details_id,
@@ -69,15 +78,19 @@ class InvestorController extends AbstractActionController
 						'period' => ($palnDetails->duration_type=='M')?($palnDetails->duration.' Months'):($palnDetails->duration.' Days'),	
 						'interest_rate' => $palnDetails->interest_rate,
 						'repayable_to' => 'Self',
-						'installment_type_id' => $palnDetails->installment_type ,
+						'installment_type' => $palnDetails->installment_type ,
 						'installment_no' => 1,
 						'installment_date' => $posts->installment_date,
 						'total_installment' => $totalInstallmant,
+						'last_installment_date' => $lastInstallmentDate,
 						'final_ammount' => $palnDetails->maturity_ammount,
 						'start_ammount' => $palnDetails->amount,
 						'deposit_amount' => $palnDetails->deposit_amount,
 						'start_date' => $posts->start_date,
 						'end_date' => $posts->end_date,
+						'created_by' => $authData->id,
+						'created_at'=> date('Y-m-d H:i:s'),
+						'updated_by'=> $authData->id,						
 					);					
 					$investmentId = $investmentTable->save($investmentData);
 					$installment = array(

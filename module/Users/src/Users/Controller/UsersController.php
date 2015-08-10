@@ -53,7 +53,7 @@ class UsersController extends AbstractActionController
                         $errors[] = 'Invalid login details';
                     }
                 }
-            } else { echo 2; exit;
+            } else {
                 $errors = $loginForm->getMessages();
             }
         }

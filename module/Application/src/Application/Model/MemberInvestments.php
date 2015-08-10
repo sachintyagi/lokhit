@@ -12,10 +12,11 @@ class MemberInvestments
 	public $period;
 	public $repayable_to;
 	public $interest_rate;
-	public $installment_type_id;
+	public $installment_type;
 	public $installment_no;
 	public $installment_date;
 	public $total_installment;
+	public $last_installment_date;
     public $final_ammount;
     public $start_ammount;
     public $deposit_amount;
@@ -36,6 +37,7 @@ class MemberInvestments
 	public $address;
 	public $nominee_name;
 	public $nominee_relation;
+	public $dob;
 
 
     public function exchangeArray($data)
@@ -49,9 +51,10 @@ class MemberInvestments
 		$this->period = (!empty($data['period'])) ? $data['period'] : null;
 		$this->interest_rate = (!empty($data['interest_rate'])) ? $data['interest_rate'] : null;
 		$this->repayable_to = (!empty($data['repayable_to'])) ? $data['repayable_to'] : null;
-		$this->installment_type_id = (!empty($data['installment_type_id'])) ? $data['installment_type_id'] : 0;
+		$this->installment_type = (!empty($data['installment_type'])) ? $data['installment_type'] : null;
 		$this->installment_no = (!empty($data['installment_no'])) ? $data['installment_no'] : 0;
 		$this->installment_date = (!empty($data['installment_date'])) ? $data['installment_date'] : null;
+		$this->last_installment_date = (!empty($data['last_installment_date'])) ? $data['last_installment_date'] : null;
 		$this->total_installment = (!empty($data['total_installment'])) ? $data['total_installment'] : null;
 		
         $this->final_ammount  = (!empty($data['final_ammount'])) ? $data['final_ammount'] : '0.00';
@@ -74,5 +77,6 @@ class MemberInvestments
         $this->address  = (!empty($data['address'])) ? $data['address'] : null;
         $this->nominee_name  = (!empty($data['nominee_name'])) ? $data['nominee_name'] : null;
         $this->nominee_relation  = (!empty($data['nominee_relation'])) ? $data['nominee_relation'] : null;
+        $this->dob  = (!empty($data['dob'])) ? $data['dob'] : null;
     }
 }
