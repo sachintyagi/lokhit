@@ -47,6 +47,21 @@ class BranchsTable
         }
         return $row;
     }
+    
+    public function findWithCompany($id){
+        $id  = (int) $id;
+        $resultSet = $this->tableGateway->select(function(Select $select) use ($id){
+            //$select->join('members', 'member_investments.member_id = members.member_id', array('firstname', 'lastname', 'member_id', 'emailid', 'gardian_name','address','nominee_name','nominee_relation','dob'));
+            
+            if($id) {
+                $select->where(array('branchs.id'=>$id));
+            }		
+        });
+        if($resultSet) {
+            $resultSet = $resultSet->current();
+        }
+        return $resultSet;
+    }
 	
     public function save($data)
     {

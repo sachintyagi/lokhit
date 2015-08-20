@@ -69,6 +69,18 @@ class Module
             ),
         );
     }
+    
+    public function getViewHelperConfig()
+    {
+        return array(
+            'factories' => array(
+                'ageinyears' => function($sm) {
+                    $helper = new View\Helper\AgeInYears();
+                    return $helper;
+                }
+            )
+        );   
+   }
 	
 	public function getServiceConfig() {
         return array(

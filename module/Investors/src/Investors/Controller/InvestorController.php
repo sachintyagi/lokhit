@@ -74,7 +74,7 @@ class InvestorController extends AbstractActionController
 						'member_id' => $posts->member_id,
 						'plan_id' => $palnDetails->plan_id,
 						'plan_details_id' => $palnDetails->plan_details_id,
-						'cf_number' => $paln->name.'-'.$palnDetails->duration.$palnDetails->duration_type.'-'.sprintf('%08d',$maxData->max_id),
+						'cf_number' => $paln->name.$palnDetails->duration.$palnDetails->duration_type.sprintf('%08d',$maxData->max_id),
 						'period' => ($palnDetails->duration_type=='M')?($palnDetails->duration.' Months'):($palnDetails->duration.' Days'),	
 						'interest_rate' => $palnDetails->interest_rate,
 						'repayable_to' => 'Self',

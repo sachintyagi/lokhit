@@ -12,6 +12,7 @@ use Users\Form\Filter\LoginFilter;
 class UsersController extends AbstractActionController
 {
 	protected $authservice;
+	protected $branchsTable;
 	
 	public function loginAction()
     {
@@ -38,9 +39,13 @@ class UsersController extends AbstractActionController
 
                 $result = $this->getAuthService()->authenticate();
                 if ($result->isValid()) {
-                    $row = $this->getAuthService()->getAdapter()->getResultRowObject(null, 'password');
-                    if($row && $row->status) {
-                        $this->getAuthService()->getStorage()->write($this->getAuthService()->getAdapter()->getResultRowObject(null, 'password'));
+                    $userRow = $this->getAuthService()->getAdapter()->getResultRowObject(null, 'password');
+                    if($userRow && $userRow->status) {
+                        $branchsTable = $this->getTable($this->branchsTable,'Application\Model\BranchsTable');
+                        if($branch = $branchsTable->findWithCompany($userRow->branch_id)) {
+                            $userRow->branch = $branch;
+                        }
+                        $this->getAuthService()->getStorage()->write($userRow);
                         return $this->redirect()->toRoute('home');
                     } else {
                         $session = new Container('User');

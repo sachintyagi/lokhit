@@ -1,7 +1,15 @@
 <?php $user = $this->identity();?>
 <div id="print">
 	<div style="position:absolute;font-size: 21px;">
-		<div class="name"><?php echo $this->certificate->firstname.' '.$this->certificate->lastname?></div>
+		<div class="name">
+                    <?php echo $this->certificate->firstname.' '.$this->certificate->lastname?>
+                    <?php if($this->certificate->dob) :?>
+                        <?php $years = $this->ageinyears($this->certificate->dob, 'years')?>
+                        <?php if($years > 18): ?>
+                        (<?php echo $years?>)
+                        <?php endif;?>
+                    <?php endif;?>
+                </div>
 		<div class="soname"><?php echo $this->certificate->gardian_name?></div>
 		<div class="address"><?php echo $this->certificate->address?></div>
 		<div class="ammount"><?php echo number_format($this->certificate->start_ammount,2)?>/- &nbsp;&nbsp;(Rupees <?php echo ucwords(\Application\Service\NumberToWords::toWords($this->certificate->start_ammount))?> Only)</div>
@@ -13,12 +21,23 @@
 		<div class="maturity"><?php echo date('M d, Y',strtotime($this->certificate->end_date))?></div>
 		<div class="nomenee"><?php echo $this->certificate->nominee_name?> (<?php echo $this->certificate->nominee_relation?>)</div>
 		<div class="repay"><?php echo ucfirst($this->certificate->repayable_to)?></div>
-		<div class="dob"><?php echo date('M d, Y',strtotime($this->certificate->dob))?></div>
+		<div class="dob">&nbsp;
+                    <?php if($this->certificate->dob) :?>
+                        <?php if($years <=18): ?>
+                        <?php echo date('M d, Y',strtotime($this->certificate->dob))?>
+                        <?php endif;?>
+                    <?php endif;?>                    
+                </div>
 		<div class="mode"><?php echo ucfirst($this->certificate->installment_type)?></div>
 		<div class="installmentdate"><?php echo ucfirst($this->certificate->installment_date)?></div>
 		<div class="lastinstallmentdate"><?php echo date('M d, Y',strtotime($this->certificate->last_installment_date))?></div>
 		<div class="final"><?php echo number_format($this->certificate->final_ammount, 2)?>/- &nbsp;&nbsp;(Rupees <?php echo ucwords(\Application\Service\NumberToWords::toWords($this->certificate->final_ammount))?> Only)</div>
-		<div class="prentedby"><?php echo $user->name?> (<?php echo $user->id?>)</div>
+		<div class="prentedby"><?php echo $user->name?> 
+                    <?php if(isset($user->branch)) :?>
+                    (<?php echo $user->branch->code.'-'.$user->id?>)
+                    <?php endif;?>
+                </div>
+                
 	</div>
 	<style type="text/css">
 		body{
