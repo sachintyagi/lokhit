@@ -41,11 +41,7 @@ class BranchController extends AbstractActionController {
 			$countryArr[$country->id] = $country->name;
 		}
 		$branchForm->get('country_id')->setValueOptions($countryArr);
-		$branches = $this->getTable($this->branchTable,'Company\Model\BranchTable')->fetchAll('1');
-		foreach($branches as $row) {
-			$branchesArr[$row->id] = $row->name;
-		}
-		$branchForm->get('parent_id')->setValueOptions($branchesArr);
+		
 		$companies = $this->getTable($this->companyTable,'Company\Model\CompanyTable')->fetchAll('1');
 		foreach($companies as $row) {
 			$companiesArr[$row->id] = $row->name;
@@ -65,6 +61,7 @@ class BranchController extends AbstractActionController {
 			$branchForm->get('pincode')->setValue($branch->pincode);
 			$branchForm->get('status')->setValue($branch->status);
 			$stateid = $branch->state_id;
+			$branchid = $branch->parent_id;
 		}
 		$request = $this->getRequest();
 		if($request->isPost()) {
@@ -72,6 +69,8 @@ class BranchController extends AbstractActionController {
 			$branchForm->setInputFilter(new BranchFilter);
 			$branchForm->setData($data);
 			if($branchForm->isValid()) {
+				$companyid = $data['company_id'];
+				$data['code'] = $this->branchCode($companyid);
 				$branchId = $this->getTable($this->branchTable,'Company\Model\BranchTable')->save($data,$branchid);
 				if($branchId) {
 					$this->flashMessenger()->addMessage(array('success' => 'Branch Created successfully!'));	
@@ -86,8 +85,27 @@ class BranchController extends AbstractActionController {
 		return new ViewModel(array(
 			'branchForm' 	=> $branchForm,
 			'stateid'	  	=> $stateid,
+			'branchid'	  	=> $branchid,
 			'errors'	  	=> $errors
 		));
+	}
+	
+	function branchCode($companyid) {
+		$code = '';
+		$branchRow = $this->getTable($this->branchTable,'Company\Model\BranchTable')->getBranchCode($companyid);
+		if(isset($branchRow->code) && !empty($branchRow->code)) {
+			$code = $branchRow->code;
+		} else {
+			$code = '000';
+		}
+		$code = $code+1;
+		if(strlen($companyid)==1) {
+			$companyid = '00'.$companyid;
+		} else if(strlen($companyid)==2) {
+			$companyid = '0'.$companyid;
+		}
+		$branchcode = $companyid.$code;
+		return $branchcode;
 	}
 	
 	public function deleteAction() {

@@ -30,12 +30,33 @@ return array(
                     ),
                 ),
             ),
+			'roles' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/employee/roles[/]',
+                    'defaults' => array(
+                        'controller' => 'Employee\Controller\Role',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
+			'new-role' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/employee/new-role[/]',
+                    'defaults' => array(
+                        'controller' => 'Employee\Controller\Role',
+                        'action' => 'add',
+                    ),
+                ),
+            ),
         ),
     ),
 	
     'controllers' => array(
         'invokables' => array(
             'Employee\Controller\Index' 	=> 'Employee\Controller\IndexController',
+            'Employee\Controller\Role' 		=> 'Employee\Controller\RoleController',
         ),
     ),
 	'view_manager' => array(

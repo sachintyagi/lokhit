@@ -6,6 +6,7 @@ class Branch
     public $id;
     public $parent_id;
     public $company_id;
+    public $companyname;
     public $name;
     public $code;
     public $phone_no;
@@ -26,6 +27,7 @@ class Branch
     {
         $this->id     = (!empty($data['id'])) ? $data['id'] : 0;
         $this->parent_id     = (!empty($data['parent_id'])) ? $data['parent_id'] : 0;
+        $this->companyname     = (!empty($data['companyname'])) ? $data['companyname'] : null;
         $this->company_id     = (!empty($data['company_id'])) ? $data['company_id'] : 0;
         $this->name  = (!empty($data['name'])) ? $data['name'] : null;
         $this->code  = (!empty($data['code'])) ? $data['code'] : null;

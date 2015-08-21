@@ -9,6 +9,7 @@ return array(
 		'Members',
         'Report',
 		'Users',
+		'Navigation',
     ),
 
     // These are various options for the listeners attached to the ModuleManager

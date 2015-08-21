@@ -19,6 +19,12 @@ class BranchTable
             if($status) {
                 $select->where(array('status'=>'1'));
             }
+			$select->join(
+				'companies',
+				'companies.id=branches.company_id',
+				array('companyname'=>'name'),
+				$select::JOIN_INNER
+			);
         });
         return $resultSet;
     }
@@ -66,7 +72,7 @@ class BranchTable
             $this->tableGateway->insert($newdata);
 			return $this->tableGateway->lastInsertValue; 
         } else {
-            if ($this->find($id)) {
+            if($this->find($id)) {
 				$this->tableGateway->update($newdata, array('id' => $id));
 				return $id;
             } else {
@@ -74,6 +80,16 @@ class BranchTable
             }
         }
     }
+	
+	function getBranchCode($companyid) {
+		$resultSet = $this->tableGateway->select(function(Select $select) {
+            $select->columns(array('code'));
+			$select->order('id desc');
+			$select->limit(1);
+        });
+		$row = $resultSet->current();
+        return $row;
+	}
 
     public function delete($id)
     {

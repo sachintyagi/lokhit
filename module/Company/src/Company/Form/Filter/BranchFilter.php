@@ -29,23 +29,15 @@ class BranchFilter extends InputFilter {
         ));
 		
 		$this->add(array(
-            'name' => 'code',
-            'required' => true,
+            'name' => 'parent_id',
+            'required' => false,
             'filters' => array(
                 array('name' => 'StripTags'),
                 array('name' => 'StringTrim'),
             ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Branch Code can not be empty.',
-                        )
-                    )
-                ),
-            ),
+            'validators' => array(),
         ));
+		
 		$this->add(array(
             'name' => 'company_id',
             'required' => true,
@@ -198,23 +190,5 @@ class BranchFilter extends InputFilter {
             ),
         ));
 		
-		$this->add(array(
-            'name' => 'status',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Status can not be empty.',
-                        )
-                    )
-                ),
-            ),
-        ));		
     }
 }

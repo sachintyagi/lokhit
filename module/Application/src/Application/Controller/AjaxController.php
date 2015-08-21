@@ -12,6 +12,7 @@ class AjaxController extends AbstractActionController
 	protected $plansInstallmentTable;
 	protected $memberInvestmentTable;
 	protected $cityTable;
+	protected $branchTable;
 	
     public function cityAction()
     {
@@ -305,7 +306,7 @@ class AjaxController extends AbstractActionController
 			$data = $request->getPost();
 			$countryId = $data['countryid'];
 			$stateId = $data['stateid'];
-			$states = $this->getTable($this->cityTable,'Application\Model\StateTable')->findByCountry($countryId);
+			$states = $this->getTable($this->stateTable,'Application\Model\StateTable')->findByCountry($countryId);
 			foreach($states as $key => $state) {
 				if($state->id == $stateId) {
 					$stateHtml .= '<option value="'.$state->id.'" selected="selected">'.$state->name.'</option>';

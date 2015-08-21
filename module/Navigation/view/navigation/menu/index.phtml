@@ -1,0 +1,70 @@
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">Menu List
+			<span class="job-btn pull-right">
+				<a href="<?php echo $this->url('new-menu')?>" class="btn btn-primary">New Menu</a>
+			</span>
+		</h1>
+		<?php echo $this->render('partials/flash-messages')?>
+	</div>
+	<!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading"><i class="fa fa-table fa-fw"></i> Menu Table</div>
+			<!-- /.panel-heading -->
+			<div class="panel-body table-responsive">
+				<?php if(count($this->menus) > 0): ?>
+					<table class="table table-striped table-bordered table-hover" id="menu-list">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Menu Name</th>
+							<th>Parent Menu</th>
+							<th>Navigation</th>
+							<th>Active</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					<?php $count=1; foreach($this->menus as $menu): ?>
+						<tr>
+							<td><?php echo $count; ?></td>
+							<td><?php echo $menu->name; ?></td>
+							<td><?php echo $menu->parent_menu; ?></td>
+							<td><?php echo ($menu->is_navigation==1)?'YES':'NO'; ?></td>
+							<td><?php echo ($menu->active==1)?'YES':'NO'; ?></td>
+							<td>
+								<a title="View" href=""><i class="fa fa-search"></i></a>&nbsp;| 
+								<a title="Edit" href="<?php echo $this->basePath(); ?>/menus/new-menu/<?php echo $menu->id; ?>"><i class="fa fa-pencil"></i></a>&nbsp;| 
+								<a title="Delete" href="javascript:void(0);" onclick="deleteMenu('<?php echo $menu->id; ?>')"><i class="fa fa-times"></i></a>
+							</td>
+						</tr>
+					<?php $count++; endforeach; ?>
+					</tbody>
+					</table>
+				<?php else: ?>
+				<?php endif; ?>
+			</div>
+			<!-- /.panel-body -->
+		</div>
+		<!-- /.panel -->			
+	</div>
+	<!-- /.col-lg-12 -->		
+</div>
+<!-- /.row -->
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#menu-list').DataTable({
+		responsive: true
+	});	
+});
+function deleteMenu(companyId) {
+	if(confirm('Are you sure for delete this menu?')) {
+		window.location.href = '<?php echo $this->basePath(); ?>/delete-menu/'+menuId;
+	}
+}
+</script>

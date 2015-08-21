@@ -15,15 +15,13 @@ INSERT INTO  `plans_details` (
 )
 VALUES (
 NULL ,  '3',  '365',  'D',  'Per Day',  '5.5',  '1', '2015-08-18 00:00:00',  '1', 
-CURRENT_TIMESTAMP ,  '1',  '0';
+CURRENT_TIMESTAMP ,  '1',  '0');
 
 UPDATE  `plan_formula_test` SET `deposit_amount` =  '1800',
 `maturity_ammount` =  '18450' WHERE `plan_formula_test`.`id` =121;
-);
 
 UPDATE  `plan_formula_test` SET `deposit_amount` =  '36000',
 `maturity_ammount` =  '36900' WHERE `plan_formula_test`.`id` =122;
-);
 
 
 

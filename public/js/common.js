@@ -32,7 +32,7 @@ function getBranches(companyId,branchId) {
 		data:{ "companyid":companyId,"branchid":branchId },
 		url: BASEPATH + "/branch",
 		success:function(reponse) {
-			$('#branch_id').html(reponse);
+			$('#parent_id').html(reponse);
 		},
 		error:function(error) {
 			alert(error);

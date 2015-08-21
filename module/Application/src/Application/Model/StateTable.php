@@ -40,4 +40,13 @@ class StateTable
 		}
         return $states;
     }
+	public function findByCountry($countryid)
+	{
+        $resultSet = $this->tableGateway->select(function(Select $select) use ($countryid){
+            if($countryid) {
+                $select->where(array('countryid'=>$countryid));
+            }
+        });
+        return $resultSet;
+    }
 }

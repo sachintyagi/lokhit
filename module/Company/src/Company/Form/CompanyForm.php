@@ -136,7 +136,6 @@ class CompanyForm extends Form {
             'options' => array(
                 'label' => 'Active',
                 'value_options' => array(
-					'' => 'Choose one',
 					'1' => 'Yes',
 					'0' => 'No'
 				),

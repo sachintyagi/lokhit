@@ -231,3 +231,8 @@ li{ list-style: none; }
 .form-company .col-lg-2 { text-align:right; }
 .form-company .col-lg-2 { text-align:right; }
 .company-logo { width:100px;height:100px; }
+
+/********** Navigation CSS ***********/
+.permission .menu-permission { margin-left:30px; }
+.permission .module { margin-top:10px; }
+.permission .menu-permission .menu label { width:150px; }

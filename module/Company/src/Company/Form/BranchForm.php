@@ -33,8 +33,8 @@ class BranchForm extends Form {
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'autofocus' => "",
-                'id' => 'code'
+                'id' => 'code',
+				'disabled' => true,	
             ),
         ));
 		
@@ -43,15 +43,14 @@ class BranchForm extends Form {
             'type' => 'Zend\Form\Element\Select',
             'options' => array(
                 'label' => 'Parent Branch',
-				'empty_option' => 'Choose one',
-                'value_options' => array(),
+				'empty_option'  => 'Choose one',
 				'disable_inarray_validator' => true,
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'id' => 'parent_id',
+				'id' => 'parent_id'
             ),
-		));
+        ));
 		
 		$this->add(array(
             'name' => 'company_id',
@@ -168,7 +167,6 @@ class BranchForm extends Form {
             'options' => array(
                 'label' => 'Active',
                 'value_options' => array(
-					'' => 'Choose one',
 					'1' => 'Yes',
 					'0' => 'No'
 				),
