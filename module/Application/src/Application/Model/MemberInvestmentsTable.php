@@ -33,7 +33,7 @@ class MemberInvestmentsTable
         return $customers;
     }
 	
-	public function findInvestors($branch, $investmentId=null){
+	public function findInvestors($investmentId=null, $branch=null){
 		$resultSet = $this->tableGateway->select(function(Select $select) use ($branch, $investmentId){
 			$select->columns(array(
 				'id',

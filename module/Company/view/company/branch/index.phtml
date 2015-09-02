@@ -23,6 +23,7 @@
 						<tr>
 							<th>#</th>
 							<th>Branch Name</th>
+							<th>Branch Code</th>
 							<th>Company Name</th>
 							<th>Phone Number</th>
 							<th>City</th>
@@ -35,10 +36,11 @@
 						<tr>
 							<td><?php echo $count; ?></td>
 							<td><?php echo $branch->name; ?></td>
+							<td><?php echo $branch->code; ?></td>
 							<td><?php echo $branch->companyname; ?></td>
 							<td><?php echo $branch->phone_no; ?></td>
 							<td><?php echo $branch->city; ?></td>
-							<td><?php echo ($branch->status==1)?'Active':'Inactive'; ?></td>
+							<td><?php echo ($branch->status==1)?'Enable':'Desable'; ?></td>
 							<td>
 								<a title="View" href="<?php echo $this->basePath(); ?>/new-branch/<?php echo $branch->id; ?>"><i class="fa fa-search "></i></a>&nbsp;| 
 								<a title="Edit" href="<?php echo $this->basePath(); ?>/new-branch/<?php echo $branch->id; ?>"><i class="fa fa-pencil"></i></a>&nbsp;| 
@@ -49,6 +51,7 @@
 					</tbody>
 					</table>
 				<?php else: ?>
+                                    <div class="text-center">No branches found<div>
 				<?php endif; ?>
 			</div>
 			<!-- /.panel-body -->

@@ -123,6 +123,16 @@ return array(
                     ),
                 ),
             ),
+            'states' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route'    => '/states',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Ajax',
+                        'action'     => 'states',
+                    ),
+                ),
+            ),
 			'branch' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(

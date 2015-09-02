@@ -25,11 +25,18 @@ class MemberController extends AbstractActionController
 	
 	public function newAction()
     {
+            
 		$memberId = $this->params()->fromRoute('id',0);
 		$memberForm = new MemberForm($this->getServiceLocator());
 		$memberForm->setInputFilter(new MemberFilter($this->getServiceLocator()));
 		$request = $this->getRequest();
-		
+                
+                $auth = $this->getServiceLocator()->get('AuthService');
+		$authData = $auth->getIdentity();
+                $branches = $this->getTable($this->branchsTable,'Application\Model\BranchsTable')->fetchAllAsArray($authData->branch->company_id);
+                
+                $memberForm->get('branch_id')->setValueOptions($branches);
+                
 		if($memberId) {
 			$member = $this->getTable($this->memberTable,'Application\Model\MemberTable')->find($memberId);
 			$memberForm->get('firstname')->setValue($member->firstname);
@@ -49,8 +56,8 @@ class MemberController extends AbstractActionController
 			$memberForm->get('nominee_address')->setValue($member->nominee_address);
 			$memberForm->get('nominee_name')->setValue($member->nominee_name);
 			$memberForm->get('member_id')->setValue($member->member_id);
- 		}
-		
+                }
+                
 		if($request->isPost()) {
 			$data = $request->getPost();			
 			$memberForm->setData($data);			
@@ -58,7 +65,7 @@ class MemberController extends AbstractActionController
 			$memberForm->get('city_id')->setValueOptions($cities);			
 			if($memberForm->isValid()) {
 				if($memberId) {
-					$data->id = $memberId;
+                                    $data->id = $memberId;
 				}
 				if(empty($data->member_id)) {
 					$branch = $this->getTable($this->branchsTable,'Application\Model\BranchsTable')->find($data->branch_id);
@@ -72,11 +79,14 @@ class MemberController extends AbstractActionController
 						$maxId = $maxIdData->max_id;
 					}
 					$maxId = $maxId+1;
-					$data->member_id = $code.'-'.sprintf('%08d',$maxId);
+					$data->member_id = $code.sprintf('%08d',$maxId);
 				}
 				$data = $data->toArray();
 				$data['status'] = 1;
 				$data['dob'] = date('Y-m-d', strtotime($data['dob']));
+                                $data['created_by'] =  $authData->id;
+                                $data['created_at'] = date('Y-m-d H:i:s');
+                                $data['updated_by'] = $authData->id;
 				$saveddata = $this->getTable($this->memberTable,'Application\Model\MemberTable')->save($data);
 				if($saveddata) {
 					if($memberId) {

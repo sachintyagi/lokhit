@@ -16,7 +16,7 @@ class PrintController extends AbstractActionController {
 	{		
 		$this->layout('layout/empty');
 		$investmentId = $this->params()->fromRoute('id',0);
-		$investments = $this->getTable($this->memberInvestmentsTable,'Application\Model\MemberInvestmentsTable')->findInvestors('1', $investmentId);	
+		$investments = $this->getTable($this->memberInvestmentsTable,'Application\Model\MemberInvestmentsTable')->findInvestors($investmentId);	
 		if(!$investments) {
 			$this->flashMessenger()->addMessage('Oops! there are some error with this process. Please try after some time', 'error');	
 			return $this->redirect()->toRoute('investors');
@@ -31,7 +31,7 @@ class PrintController extends AbstractActionController {
 	{		
 		$this->layout('layout/empty');
 		$investmentId = $this->params()->fromRoute('id',0);
-		$investments = $this->getTable($this->memberInvestmentsTable,'Application\Model\MemberInvestmentsTable')->findInvestors('1', $investmentId);	
+		$investments = $this->getTable($this->memberInvestmentsTable,'Application\Model\MemberInvestmentsTable')->findInvestors($investmentId);	
 		if(!$investments) {
 			$this->flashMessenger()->addMessage('Oops! there are some error with this process. Please try after some time', 'error');	
 			return $this->redirect()->toRoute('investors');

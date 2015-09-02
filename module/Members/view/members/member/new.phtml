@@ -21,14 +21,21 @@
 					$form->prepare();
 					echo $this->form()->openTag($form);
 				?>
-				<div class="col-lg-6">						
+				<div class="col-lg-6">	
+                                        <div class="form-group">
+						<label>Branch <span class="mandatory">*</span></label>
+						<?php echo $this->formElement($form->get('branch_id')); ?>
+						<?php if($this->formElementErrors($form->get('branch_id'))) :?>
+						<div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('branch_id')))?></div>
+						<?php endif;?>						
+					</div>
 					<div class="form-group">
 						<label>First Name <span class="mandatory">*</span></label>
 						<?php echo $this->formElement($form->get('firstname')); ?>
 						<?php if($this->formElementErrors($form->get('firstname'))) :?>
 						<div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('firstname')))?></div>
 						<?php endif;?>
-						<?php echo $this->formElement($form->get('branch_id')); ?>
+						
 					</div>
 					<div class="form-group">
 						<label>Last Name</label>
@@ -73,9 +80,15 @@
 						<label>Member Code <span class="mandatory">*</span></label>
 						<?php echo $this->formElement($form->get('member_id')); ?>
 					</div>
+                                        <div class="form-group">
+						<label>Country <span class="mandatory">*</span></label>
+						<?php echo $this->formElement($form->get('country_id')); ?>
+						<?php if($this->formElementErrors($form->get('country_id'))) :?>
+						<div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('country_id')))?></div>
+						<?php endif;?>
+					</div>
 					<div class="form-group">
 						<label>State <span class="mandatory">*</span></label>
-						<?php echo $this->formElement($form->get('country_id')); ?>
 						<?php echo $this->formElement($form->get('state_id')); ?>
 						<?php if($this->formElementErrors($form->get('state_id'))) :?>
 						<div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('state_id')))?></div>

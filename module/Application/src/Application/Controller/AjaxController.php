@@ -12,8 +12,35 @@ class AjaxController extends AbstractActionController
 	protected $plansInstallmentTable;
 	protected $memberInvestmentTable;
 	protected $cityTable;
+	protected $statesTable;
 	protected $branchTable;
-	
+        
+    public function statesAction()
+    {
+		$states = array();
+		$status = false;
+		$request = $this->getRequest();
+		if($request->isPost()) {
+			$data = $request->getPost();
+                        $statesData = $this->getTable($this->statesTable,'Application\Model\StateTable')->findByCountry($data['countryid']);
+                        foreach($statesData as $state) {
+				if(isset($data['stateid']) && $data['stateid']==$state->id) {
+					$state->selected = true;
+				} else {
+					$state->selected = false;
+				}
+                        	$states[] = (array)$state; 
+				$status = true;
+			}
+		}
+		return new JsonModel(array(
+			'response'=> array(
+				'data' => $states
+			),			
+			'status' => $status
+		));
+    }
+    
     public function cityAction()
     {
 		$cities = array();

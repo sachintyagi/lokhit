@@ -34,7 +34,7 @@ class BranchForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'code',
-				'disabled' => true,	
+                'readonly' => true,	
             ),
         ));
 		
@@ -76,7 +76,8 @@ class BranchForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'autofocus' => "",
-                'id' => 'phone_no'
+                'id' => 'phone_no',
+                'maxlength'=> 12,
             ),
         ));
 		
@@ -89,7 +90,8 @@ class BranchForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'autofocus' => "",
-                'id' => 'mobile_no'
+                'id' => 'mobile_no',
+                'maxlength'=> 10,
             ),
         ));
 		
@@ -157,7 +159,8 @@ class BranchForm extends Form {
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'id' => 'pincode'
+                'id' => 'pincode',
+                'maxlength'=> 6,
             ),
 		));
 	   
@@ -167,12 +170,12 @@ class BranchForm extends Form {
             'options' => array(
                 'label' => 'Active',
                 'value_options' => array(
-					'1' => 'Yes',
-					'0' => 'No'
-				),
-				'disable_inarray_validator' => true,
+                    '1' => 'Enable',
+                    '0' => 'Desable'
+                ),
+                'disable_inarray_validator' => true,
             ),			
-			'attributes' => array(
+            'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'status',
             ),

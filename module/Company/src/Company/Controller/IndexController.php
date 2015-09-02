@@ -69,7 +69,7 @@ class IndexController extends AbstractActionController {
 				}
 				$companyId = $this->getTable($this->companyTable,'Company\Model\CompanyTable')->save($data,$companyid);
 				if($companyId) {
-					$this->flashMessenger()->addMessage(array('success' => 'Company Created successfully!'));	
+					$this->flashMessenger()->addMessage('Company Created successfully!', 'success');	
 					$this->redirect()->toRoute('company-list');
 				} else {
 					$this->flashMessenger()->addMessage(array('error' => 'Company Not Created!'));

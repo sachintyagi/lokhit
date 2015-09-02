@@ -15,13 +15,20 @@ class MemberForm extends Form {
         $this->setAttribute('class', 'form-member');
 		
 		$this->add(array(
-			 'type' => 'Zend\Form\Element\Hidden',
+			 'type' => 'Zend\Form\Element\Select',
 			 'name' => 'branch_id',
-			 'attributes' => array(
-				 'value' => '1',
-				 'id' => 'branch_id',
-				 'maxlength'=> 100,
-			 )
+                         'options' => array(
+                        'label' => 'Branch',
+				'empty_option' => '-Choose Branch-',
+				'value_options' => array(
+					 
+				 ),
+            ),
+			'attributes' => array(
+				'class' => 'form-control',
+                'id' => 'branch_id',
+            ),
+			 
 		));
 		
         $this->add(array(
@@ -169,7 +176,7 @@ class MemberForm extends Form {
                 'class' => 'form-control',
                 'id' => 'nominee_address',
 				'cols' => '50',
-				'rows' => '3',
+				'rows' => '4',
 				'maxlength'=> 200,
             ),
         ));	
@@ -203,10 +210,14 @@ class MemberForm extends Form {
         ));
 		
 		$this->add(array(
-			 'type' => 'Zend\Form\Element\Hidden',
+			 'type' => 'Zend\Form\Element\Select',
 			 'name' => 'country_id',
+                         'options' => array(
+                        'label' => 'State',
+                                            'value_options' => array('95'=>'India')
+                        ),	
 			 'attributes' => array(
-				 'value' => '1',
+                             'class' => 'form-control',
 				 'id' => 'country_id'
 			 )
 		));

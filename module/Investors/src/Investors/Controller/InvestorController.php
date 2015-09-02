@@ -18,7 +18,10 @@ class InvestorController extends AbstractActionController
 		
     public function listAction()
     {		
-		$investments = $this->getTable($this->memberInvestmentsTable,'Application\Model\MemberInvestmentsTable')->findInvestors('1');
+            $auth = $this->getServiceLocator()->get('AuthService');
+		$authData = $auth->getIdentity();
+		
+                $investments = $this->getTable($this->memberInvestmentsTable,'Application\Model\MemberInvestmentsTable')->findInvestors(null, $authData->branch->id);
 		return new ViewModel(array(
 			'investments' => $investments
 		));

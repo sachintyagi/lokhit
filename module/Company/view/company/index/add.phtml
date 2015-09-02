@@ -99,14 +99,26 @@
 </div>	
 <!-- /.row -->
 <script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$('#country_id').change(function() {
-			countryId = $(this).val();
-			getStates(countryId,'');
+	
+    function getStatess() {
+		$.ajax({
+			type: "POST",
+			url: '<?php echo $this->basePath(); ?>/states',
+			data: {countryid:$('#country_id').val(), 'stateid':"<?php echo $this->stateid; ?>"},
+			success: function(result) {
+				var html = '<option value="">-Choose State-</option>';
+				if(result.status) {					
+					for(x in result.response.data) {
+						if(result.response.data[x].selected) {
+							html += '<option selected value="'+result.response.data[x].id+'">'+result.response.data[x].name+'</option>';
+						} else {
+							html += '<option value="'+result.response.data[x].id+'">'+result.response.data[x].name+'</option>';
+						}
+					}
+				}
+				$('#state_id').html(html);
+			}
 		});
-		countryId = $('#country_id').val();
-		if(countryId) {
-			getStates(countryId,"<?php echo $this->stateid; ?>");
-		}
-	});	
+	}    
+
 </script>

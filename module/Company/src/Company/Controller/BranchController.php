@@ -21,7 +21,7 @@ class BranchController extends AbstractActionController {
 	
 	function indexAction()
 	{
-		$branches = $this->getTable($this->branchTable,'Company\Model\BranchTable')->fetchAll();
+		$branches = $this->getTable($this->branchTable,'Application\Model\BranchsTable')->fetchAll();
 		return new ViewModel(array(
 			'branches' => $branches
 		));
@@ -34,21 +34,26 @@ class BranchController extends AbstractActionController {
 		$branchesArr = array();
 		$companiesArr = array();
 		$stateid='';
-		$branchid = $this->params()->fromRoute('branchid',null);		
-		$branchForm = new BranchForm();		
+		$branchid = $this->params()->fromRoute('branchid',null);
+                
+                $branchForm = new BranchForm();		
+                
+                $auth = $this->getServiceLocator()->get('AuthService');
+		$authData = $auth->getIdentity();
+                
 		$countries = $this->getTable($this->countryTable,'Application\Model\CountryTable')->fetchAll();
 		foreach($countries as $country) {
 			$countryArr[$country->id] = $country->name;
 		}
 		$branchForm->get('country_id')->setValueOptions($countryArr);
 		
-		$companies = $this->getTable($this->companyTable,'Company\Model\CompanyTable')->fetchAll('1');
+		$companies = $this->getTable($this->companyTable,'Application\Model\CompanyTable')->fetchAll('1');
 		foreach($companies as $row) {
 			$companiesArr[$row->id] = $row->name;
 		}
 		$branchForm->get('company_id')->setValueOptions($companiesArr);
 		if($branchid) {
-			$branch = $this->getTable($this->branchTable,'Company\Model\BranchTable')->find($branchid);
+			$branch = $this->getTable($this->branchTable,'Application\Model\BranchsTable')->find($branchid);
 			$branchForm->get('parent_id')->setValue($branch->parent_id);
 			$branchForm->get('company_id')->setValue($branch->company_id);
 			$branchForm->get('name')->setValue($branch->name);
@@ -70,10 +75,20 @@ class BranchController extends AbstractActionController {
 			$branchForm->setData($data);
 			if($branchForm->isValid()) {
 				$companyid = $data['company_id'];
-				$data['code'] = $this->branchCode($companyid);
-				$branchId = $this->getTable($this->branchTable,'Company\Model\BranchTable')->save($data,$branchid);
+                                if(empty($data['code'])) {
+                                    $maxIdData = $this->getTable($this->branchTable,'Application\Model\BranchsTable')->findMaxId();
+                                    $maxId = $maxIdData->max_id;
+                                    $maxId = $maxId+1;
+                                    $code = $companyid.sprintf('%03d',$maxId);
+                                    $data['code'] = $code;
+                                } 
+                                if($branchid = $this->params()->fromRoute('branchid',null)) {
+                                   $data['id'] = $branchid; 
+                                }
+                                $data['updated_by'] = $authData->id;
+                                $branchId = $this->getTable($this->branchTable,'Application\Model\BranchsTable')->save($data,$branchid);
 				if($branchId) {
-					$this->flashMessenger()->addMessage(array('success' => 'Branch Created successfully!'));	
+					$this->flashMessenger()->addMessage('Branch Created successfully!', 'success');	
 					$this->redirect()->toRoute('branch-list');
 				} else {
 					$this->flashMessenger()->addMessage(array('error' => 'Branch Not Created!'));
@@ -91,27 +106,20 @@ class BranchController extends AbstractActionController {
 	}
 	
 	function branchCode($companyid) {
-		$code = '';
-		$branchRow = $this->getTable($this->branchTable,'Company\Model\BranchTable')->getBranchCode($companyid);
+		$maxId = 0;
+		$branchRow = $this->getTable($this->branchTable,'Application\Model\BranchsTable')->getBranchCode($companyid);
 		if(isset($branchRow->code) && !empty($branchRow->code)) {
-			$code = $branchRow->code;
+                    $code = $branchRow->code;
 		} else {
-			$code = '000';
-		}
-		$code = $code+1;
-		if(strlen($companyid)==1) {
-			$companyid = '00'.$companyid;
-		} else if(strlen($companyid)==2) {
-			$companyid = '0'.$companyid;
-		}
-		$branchcode = $companyid.$code;
-		return $branchcode;
+                    
+		}                
+		return $code;
 	}
 	
 	public function deleteAction() {
 		$branchid = $this->params()->fromRoute('branchid',null);
 		if($branchid) {
-			$deleted = $this->getTable($this->branchTable,'Company\Model\BranchTable')->delete($branchid);
+			$deleted = $this->getTable($this->branchTable,'Application\Model\BranchsTable')->delete($branchid);
 			if($deleted) {
 				$this->flashMessenger()->addMessage(array('success' => 'Branch Deleted Successfully!'));
 			} else {

@@ -34,7 +34,8 @@ class CompanyForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'autofocus' => "",
-                'id' => 'phone_no'
+                'id' => 'phone_no',
+                'maxlength'=> 12,
             ),
         ));
 		
@@ -47,7 +48,8 @@ class CompanyForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'autofocus' => "",
-                'id' => 'mobile_no'
+                'id' => 'mobile_no',
+                'maxlength'=> 10,                
             ),
         ));
 		
@@ -82,7 +84,7 @@ class CompanyForm extends Form {
             'type' => 'Zend\Form\Element\Select',
             'options' => array(
                 'label' => 'State',
-				'empty_option' => 'Choose one',
+				'empty_option' => 'Choose state',
                 'value_options' => array(),
 				'disable_inarray_validator' => true,
             ),
@@ -97,13 +99,14 @@ class CompanyForm extends Form {
             'type' => 'Zend\Form\Element\Select',
             'options' => array(
                 'label' => 'Country',
-				'empty_option' => 'Choose one',
+				'empty_option' => 'Choose country',
                 'value_options' => array(),
 				'disable_inarray_validator' => true,
             ),
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'country_id',
+                'onchange'=>'getStatess()',
             ),
 		));
 		
@@ -115,7 +118,8 @@ class CompanyForm extends Form {
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'id' => 'pincode'
+                'id' => 'pincode',
+                'maxlength'=> 6,
             ),
 		));
 		

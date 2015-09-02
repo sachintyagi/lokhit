@@ -85,8 +85,19 @@ class Module
 	public function getServiceConfig() {
         return array(
             'factories' => array(
-				//Branch
-				'Application\Model\BranchsTable' => function($sm) {
+                'Application\Model\CompanyTable' => function($sm) {
+                    $tableGateway = $sm->get('ApplicationTableGateway');
+                    $table = new \Application\Model\CompanyTable($tableGateway);
+                    return $table;
+                },
+                'ApplicationTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new \Application\Model\Company());
+                    return new TableGateway('companies', $dbAdapter, null, $resultSetPrototype);
+                },
+                //Branch
+                'Application\Model\BranchsTable' => function($sm) {
                     $tableGateway = $sm->get('BranchsTableGateway');
                     $table = new \Application\Model\BranchsTable($tableGateway);
                     return $table;
@@ -95,7 +106,7 @@ class Module
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new \Application\Model\Branchs());
-                    return new TableGateway('branchs', $dbAdapter, null, $resultSetPrototype);
+                    return new TableGateway('branches', $dbAdapter, null, $resultSetPrototype);
                 },
 				
 				//Members

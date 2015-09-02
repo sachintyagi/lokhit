@@ -9,7 +9,25 @@ class MemberFilter extends InputFilter {
 		$isEmpty = \Zend\Validator\NotEmpty::IS_EMPTY;
 		$invalidEmail = \Zend\Validator\EmailAddress::INVALID_FORMAT;
 		$recordExists = \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND;
-		
+	$this->add(array(
+            'name' => 'branch_id',
+            'required' => true,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'NotEmpty',
+                    'options' => array(
+                        'messages' => array(
+                            $isEmpty => 'Please select branch.'
+                        )
+                    )
+                )
+            )
+        ));
+                
         $this->add(array(
             'name' => 'firstname',
             'required' => true,
