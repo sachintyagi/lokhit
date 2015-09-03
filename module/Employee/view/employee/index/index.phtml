@@ -1,8 +1,8 @@
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">Employee List
+		<h1 class="page-header">Agent List
 			<span class="job-btn pull-right">
-				<a href="<?php echo $this->url('new-employee')?>" class="btn btn-primary">New Employee</a>
+				<a href="<?php echo $this->url('new-employee')?>" class="btn btn-primary">New Agent</a>
 			</span>
 		</h1>
 		<?php 
@@ -23,10 +23,40 @@
 <div class="row">
 	<div class="col-lg-12">
 		<div class="panel panel-default">
-			<div class="panel-heading"><i class="fa fa-table fa-fw"></i> Employee Table</div>
+			<div class="panel-heading"><i class="fa fa-table fa-fw"></i> Agent Table</div>
 			<!-- /.panel-heading -->
 			<div class="panel-body table-responsive">
-				
+				<?php if(count($this->employees) > 0): ?>
+				<table class="table table-striped" style="word-wrap:break-word; table-layout:fixed;width:100%;">
+					<thead>
+						<tr>
+							<td style="width: 4%;"><strong>#</strong></td>
+							<td style="width: 10%;"><strong>Full Name</strong></td>
+							<td style="width: 10%;"><strong>Email ID</strong></td>
+							<td style="width: 10%;"><strong>User ID</strong></td>							
+							<td style="width: 16%;"><strong>Mobile Number</strong></td>
+							<td style="width: 5%;"><strong>Action</strong></td>
+						</tr>
+					</thead>
+					<tbody>
+					<?php $count = 1; foreach($this->employees as $employee): ?>
+						<tr>
+							<td><?php echo $count; ?></td>
+							<td><?php echo ucwords($employee->first_name.' '.$employee->last_name); ?></td>
+							<td><?php echo $employee->email; ?></td>
+							<td><?php echo $employee->user_id; ?></td>
+							<td><?php echo $employee->mobile_no; ?></td>
+							<td>
+								<a title="Edit" href="<?php echo $this->basepath(); ?>/new-employee/<?php echo $employee->id; ?>" ><i class="glyphicon glyphicon-edit"></i></a> | 
+								<a title="Delete" onclick="deleteEmployee('<?php echo $employee->id; ?>')" href="javascript:void(0);"><i class="glyphicon glyphicon-remove-sign"></i></a>
+							</td>
+						</tr>
+					<?php $count++; endforeach; ?>
+					</tbody>
+				</table>
+				<?php else:?>
+					<div class="text-center">No member found<div>
+				<?php endif; ?>					
 			</div>
 			<!-- /.panel-body -->
 		</div>

@@ -276,6 +276,58 @@ class Module
                     return new TableGateway('temp_fd_plan', $dbAdapter, null, $resultSetPrototype);
                 },
 				
+				/// Role TableGateway
+				'Application\Model\RoleTable' => function($sm) {
+                    $tableGateway = $sm->get('RoleTableGateway');
+                    $table = new \Application\Model\RoleTable($tableGateway);
+                    return $table;
+                },
+                'RoleTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new \Application\Model\Role());
+                    return new TableGateway('roles', $dbAdapter, null, $resultSetPrototype);
+                },
+				
+				//Employee
+				'Application\Model\EmployeeTable' => function($sm) {
+					$tableGateway = $sm->get('EmployeeTableGateway');
+					$table = new \Application\Model\EmployeeTable($tableGateway);
+					return $table;
+				},
+				'EmployeeTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new \Application\Model\Employee());
+					return new TableGateway('employees', $dbAdapter, null, $resultSetPrototype);
+				},
+				
+				//EmployeeEducation
+				'Application\Model\EmployeeEducationTable' => function($sm) {
+					$tableGateway = $sm->get('EmployeeEducationTableGateway');
+					$table = new \Application\Model\EmployeeEducationTable($tableGateway);
+					return $table;
+				},
+				'EmployeeEducationTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new \Application\Model\EmployeeEducation());
+					return new TableGateway('employee_educations', $dbAdapter, null, $resultSetPrototype);
+				},
+				
+				//EmployeeExperience
+				'Application\Model\EmployeeExperienceTable' => function($sm) {
+					$tableGateway = $sm->get('EmployeeExperienceTableGateway');
+					$table = new \Application\Model\EmployeeExperienceTable($tableGateway);
+					return $table;
+				},
+				'EmployeeExperienceTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new \Application\Model\EmployeeExperience());
+					return new TableGateway('employee_experiences', $dbAdapter, null, $resultSetPrototype);
+				},
+				
 			)
 		);
 	}

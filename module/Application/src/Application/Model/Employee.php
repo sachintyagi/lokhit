@@ -1,5 +1,5 @@
 <?php 
-namespace Employee\Model;
+namespace Application\Model;
 
 class Employee
 {
@@ -12,7 +12,7 @@ class Employee
     public $mobile_no;
     public $father_name;
     public $mother_name;
-    public $email_id;
+    public $email;
     public $spouse_name;
     public $company_id;
     public $branch_id;
@@ -51,7 +51,7 @@ class Employee
         $this->mobile_no  = (!empty($data['mobile_no'])) ? $data['mobile_no'] : null;
         $this->father_name  = (!empty($data['father_name'])) ? $data['father_name'] : null;
         $this->mother_name  = (!empty($data['mother_name'])) ? $data['mother_name'] : null;
-        $this->email_id  = (!empty($data['email_id'])) ? $data['email_id'] : null;
+        $this->email  = (!empty($data['email'])) ? $data['email'] : null;
         $this->spouse_name  = (!empty($data['spouse_name'])) ? $data['spouse_name'] : null;
         $this->company_id  = (!empty($data['company_id'])) ? $data['company_id'] : null;
         $this->branch_id  = (!empty($data['branch_id'])) ? $data['branch_id'] : null;

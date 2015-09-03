@@ -23,7 +23,7 @@ return array(
 			'new-employee' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route' => '/new-employee[/]',
+                    'route' => '/new-employee[/:id][/]',
                     'defaults' => array(
                         'controller' => 'Employee\Controller\Index',
                         'action' => 'add',

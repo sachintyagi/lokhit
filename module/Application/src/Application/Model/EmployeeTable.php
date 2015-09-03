@@ -1,5 +1,5 @@
 <?php
-namespace Employee\Model;
+namespace Application\Model;
 
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Select;
@@ -77,6 +77,8 @@ class EmployeeTable
 			return $this->tableGateway->lastInsertValue; 
         } else {
             if($this->find($id)) {
+				unset($newdata['user_id']);
+				unset($newdata['password']);
 				$this->tableGateway->update($newdata, array('id' => $id));
 				return $id;
             } else {

@@ -13,6 +13,42 @@ class EmployeeForm extends Form {
         $this->setAttribute('class', 'form-employee');
  
         $this->add(array(
+            'name' => 'user_id',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Userid',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'user_id'
+            ),
+        ));
+		
+		$this->add(array(
+            'name' => 'password',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Password',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'password'
+            ),
+        ));
+		
+		$this->add(array(
+            'name' => 'cpassword',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Confirm Password',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'cpassword'
+            ),
+        ));
+		
+		$this->add(array(
             'name' => 'first_name',
             'type' => 'text',
             'options' => array(
@@ -61,14 +97,14 @@ class EmployeeForm extends Form {
         ));
 		
 		$this->add(array(
-            'name' => 'email_id',
+            'name' => 'email',
             'type' => 'text',
             'options' => array(
-                'label' => 'Email Id',
+                'label' => 'Email',
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'id' => 'email_id'
+                'id' => 'email'
             ),
         ));
 		
@@ -143,6 +179,21 @@ class EmployeeForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'company_id',
+            ),
+		));
+		
+		$this->add(array(
+            'name' => 'role_id',
+            'type' => 'Zend\Form\Element\Select',
+            'options' => array(
+                'label' => 'Role',
+				'empty_option' => 'Choose one',
+                'value_options' => array(),
+				'disable_inarray_validator' => true,
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'role_id',
             ),
 		));
 		
@@ -298,26 +349,26 @@ class EmployeeForm extends Form {
 		));
 		
 		$this->add(array(
-            'name' => 'per_phoneno',
+            'name' => 'per_phone_no',
             'type' => 'text',
             'options' => array(
                 'label' => 'Phone Number',
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'id' => 'per_phoneno'
+                'id' => 'per_phone_no'
             ),
 		));
 		
 		$this->add(array(
-            'name' => 'per_mobileno',
+            'name' => 'per_mobile_no',
             'type' => 'text',
             'options' => array(
                 'label' => 'Mobile Number',
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'id' => 'per_mobileno'
+                'id' => 'per_mobile_no'
             ),
 		));
 	   

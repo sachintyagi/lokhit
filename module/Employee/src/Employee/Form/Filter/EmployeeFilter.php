@@ -10,6 +10,63 @@ class EmployeeFilter extends InputFilter {
         $isEmpty = \Zend\Validator\NotEmpty::IS_EMPTY;
         
         $this->add(array(
+            'name' => 'user_id',
+            'required' => true,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'NotEmpty',
+                    'options' => array(
+                        'messages' => array(
+                            $isEmpty => 'User Id can not be empty.',
+                        )
+                    )
+                ),
+            ),
+        ));
+		
+		$this->add(array(
+            'name' => 'password',
+            'required' => true,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'NotEmpty',
+                    'options' => array(
+                        'messages' => array(
+                            $isEmpty => 'Password can not be empty.',
+                        )
+                    )
+                ),
+            ),
+        ));
+		
+		$this->add(array(
+            'name' => 'cpassword',
+            'required' => true,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'NotEmpty',
+                    'options' => array(
+                        'messages' => array(
+                            $isEmpty => 'Confirm Password can not be empty.',
+                        )
+                    )
+                ),
+            ),
+        ));
+		
+		$this->add(array(
             'name' => 'first_name',
             'required' => true,
             'filters' => array(
@@ -86,7 +143,7 @@ class EmployeeFilter extends InputFilter {
         ));
 		
 		$this->add(array(
-            'name' => 'email_id',
+            'name' => 'email',
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -273,7 +330,27 @@ class EmployeeFilter extends InputFilter {
                     )
                 ),
             ),
-        ));*/
+        ));
+		
+		$this->add(array(
+            'name' => 'role_id',
+            'required' => true,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'NotEmpty',
+                    'options' => array(
+                        'messages' => array(
+                            $isEmpty => 'Role can not be empty.',
+                        )
+                    )
+                ),
+            ),
+        ));
+		*/
 		
 		$this->add(array(
             'name' => 'pincode',
@@ -390,7 +467,7 @@ class EmployeeFilter extends InputFilter {
         ));
 		
 		$this->add(array(
-            'name' => 'per_phoneno',
+            'name' => 'per_phone_no',
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -409,7 +486,7 @@ class EmployeeFilter extends InputFilter {
         ));
 		
 		$this->add(array(
-            'name' => 'per_mobileno',
+            'name' => 'per_mobile_no',
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
