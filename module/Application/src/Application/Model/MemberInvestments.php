@@ -28,9 +28,10 @@ class MemberInvestments
     public $updated_by;
 	public $status;
 	public $max_id;
-	
-	
-	public $firstname;
+	public $employee_code;
+
+
+        public $firstname;
 	public $lastname;
 	public $emailid;
 	public $gardian_name;
@@ -62,6 +63,7 @@ class MemberInvestments
         $this->deposit_amount  = (!empty($data['deposit_amount'])) ? $data['deposit_amount'] : '0.00';
         $this->start_date  = (!empty($data['start_date'])) ? $data['start_date'] : null;
         $this->end_date  = (!empty($data['end_date'])) ? $data['end_date'] : null;
+        $this->employee_code  = (!empty($data['employee_code'])) ? $data['employee_code'] : null;
 		$this->created_at  = (!empty($data['created_at'])) ? $data['created_at'] : 0;
         $this->created_by  = (!empty($data['created_by'])) ? $data['created_by'] : 0;
         $this->updated_at  = (!empty($data['updated_at'])) ? $data['updated_at'] : 0;

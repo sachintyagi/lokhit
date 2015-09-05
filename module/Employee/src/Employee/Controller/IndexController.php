@@ -15,6 +15,7 @@ class IndexController extends AbstractActionController {
 	protected $companyTable;
 	protected $roleTable;
 	protected $employeeTable;
+        protected $branchTable;
 	
 	public function __construct() {
 		
@@ -22,11 +23,16 @@ class IndexController extends AbstractActionController {
 	
 	function indexAction()
 	{
-		$employees = $this->getTable($this->employeeTable,'Application\Model\EmployeeTable')->fetchAll('1');
-		
-		return new ViewModel(array(
-			'employees' => $employees
-		));
+            $auth = $this->getServiceLocator()->get('AuthService');
+            $authData = $auth->getIdentity();
+            if($authData->role_id == 1 || $authData->role_id == 2) {
+                $employees = $this->getTable($this->employeeTable,'Application\Model\EmployeeTable')->fetchAll('1');
+            } else {
+                $employees = $this->getTable($this->employeeTable,'Application\Model\EmployeeTable')->fetchAll('1', $authData->branch->id);
+            }
+            return new ViewModel(array(
+                'employees' => $employees
+            ));
 	}
 	
 	function addAction()
@@ -39,11 +45,11 @@ class IndexController extends AbstractActionController {
 		$employeeForm = new EmployeeForm();		
 		$countries = $this->getTable($this->countryTable,'Application\Model\CountryTable')->fetchAll();		
 		foreach($countries as $country) {
-			$countryArr[$country->id] = $country->name;
+                    $countryArr[$country->id] = $country->name;
 		}
 		$companies = $this->getTable($this->companyTable,'Company\Model\CompanyTable')->fetchAll();
 		foreach($companies as $company) {
-			$companyArr[$company->id] = $company->name;
+                    $companyArr[$company->id] = $company->name;
 		}
 		$rolesArr = $this->getTable($this->roleTable,'Application\Model\RoleTable')->fetchAllAsArray();
 		unset($rolesArr[1]); unset($rolesArr[2]);
@@ -60,6 +66,7 @@ class IndexController extends AbstractActionController {
 			$employeeForm->get('role_id')->setValue($employee->role_id);
 			$employeeForm->get('country_id')->setValue($employee->country_id);
 			$employeeForm->get('per_country_id')->setValue($employee->per_country_id);
+			$employeeForm->get('employee_code')->setValue($employee->employee_code);
 			$employeeForm->get('first_name')->setValue($employee->first_name);
 			$employeeForm->get('last_name')->setValue($employee->last_name);
 			$employeeForm->get('blood_group')->setValue($employee->blood_group);
@@ -104,6 +111,15 @@ class IndexController extends AbstractActionController {
 				}
 				$auth = $this->getServiceLocator()->get('AuthService');
 				$authData = $auth->getIdentity();
+                                
+                                if(empty($data['employee_code'])) {
+                                    $branch = $this->getTable($this->branchTable,'Application\Model\BranchsTable')->find($data['branch_id']);
+                                    $maxIdData = $this->getTable($this->employeeTable,'Application\Model\EmployeeTable')->findMaxId();
+                                    $maxId = $maxIdData->max_id;
+                                    $maxId = $maxId+1;
+                                    $code = $branch->code.sprintf('%04d',$maxId);
+                                    $data['employee_code'] = $code;
+                                }
 				$data['created_by'] =  $authData->id;
 				$data['created_at'] = date('Y-m-d H:i:s');
 				$data['updated_by'] = $authData->id;
@@ -118,13 +134,14 @@ class IndexController extends AbstractActionController {
 				$errors = $employeeForm->getMessages();
 			}
 		}
+                
 		return new ViewModel(array(
-			'employeeForm' 	=> $employeeForm,
-			'employeeid'		=> $employeeid,
-			'state_id'		=> $state_id,
-			'per_state_id'	=> $per_state_id,
-			'branch_id'		=> $branch_id,
-			'errors'		=> $errors
+                    'employeeForm' 	=> $employeeForm,
+                    'employeeid'	=> $employeeid,
+                    'state_id'		=> $state_id,
+                    'per_state_id'	=> $per_state_id,
+                    'branch_id'		=> $branch_id,
+                    'errors'		=> $errors
 		));
 	}
 	

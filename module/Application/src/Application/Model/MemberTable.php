@@ -23,7 +23,7 @@ class MemberTable
         return $resultSet;
     }
 
-	public function fetchAllAsArray($status = false)
+    public function fetchAllAsArray($status = false)
     {
 		$customers = array();
         $resultSet = $this->tableGateway->select(function(Select $select) use ($status){

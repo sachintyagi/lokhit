@@ -22,11 +22,11 @@
 					<thead>
 						<tr>
 							<td style="width: 4%;"><strong>#</strong></td>
-							<td style="width: 10%;"><strong>Full Name</strong></td>
-							<td style="width: 10%;"><strong>Member ID</strong></td>
-							<td style="width: 10%;"><strong>S/o, D/o, W/o</strong></td>
-							<td style="width: 16%;"><strong>Email</strong></td>
-							<td style="width: 16%;"><strong>Mobile Number</strong></td>
+                                                        <td style="width: 10%;"><strong>Member ID</strong></td>
+							<td style="width: 13%;"><strong>Full Name</strong></td>							
+							<td style="width: 15%;"><strong>S/o, D/o, W/o</strong></td>
+                                                        <td style="width: 10%;"><strong>Mobile Number</strong></td>
+							<td style="width: 15%;"><strong>Email</strong></td>							
 							<td style="width: 5%;"><strong>Action</strong></td>
 						</tr>
 					</thead>
@@ -34,14 +34,14 @@
 					<?php $count = 1; foreach($this->members as $member): ?>
 						<tr>
 							<td><?php echo $count; ?></td>
-							<td><?php echo ucwords($member->firstname.' '.$member->lastname); ?></td>
 							<td><?php echo $member->member_id; ?></td>
+                                                        <td><?php echo ucwords($member->firstname.' '.$member->lastname); ?></td>
 							<td><?php echo $member->gardian_name; ?></td>
-							<td><?php echo $member->emailid; ?></td>
-							<td><?php echo $member->mobile_number; ?></td>
+                                                        <td><?php echo $member->mobile_number; ?></td>
+							<td><?php echo $member->emailid; ?></td>							
 							<td>
-								<a title="Edit" href="<?php echo $this->basepath(); ?>/members/new/<?php echo $member->id; ?>" ><i class="glyphicon glyphicon-edit"></i></a> | 
-								<a title="Delete" onclick="deleteMember('<?php echo $member->id; ?>')" href="javascript:void(0);"><i class="glyphicon glyphicon-remove-sign"></i></a>
+                                                            <a title="Edit" href="<?php echo $this->basepath(); ?>/members/new/<?php echo $member->id; ?>" ><i class="glyphicon glyphicon-edit"></i></a> | 
+                                                            <a title="Delete" onclick="deleteMember('<?php echo $member->id; ?>')" href="javascript:void(0);"><i class="glyphicon glyphicon-remove-sign"></i></a>
 							</td>
 						</tr>
 					<?php $count++; endforeach; ?>

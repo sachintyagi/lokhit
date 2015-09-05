@@ -18,7 +18,14 @@
 					$form->prepare();
 					echo $this->form()->openTag($form);
 				?>
-				<div class="col-lg-6">		
+				<div class="col-lg-6">	
+                                        <div class="form-group">
+						<label>Agent Name</label>
+						<?php echo $this->formElement($form->get('employee_code')); ?>
+						<?php if($this->formElementErrors($form->get('employee_code'))) :?>
+						<div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('employee_code')))?></div>
+						<?php endif;?>
+					</div>
 					<div class="form-group">
 						<label>Member Code <span class="mandatory">*</span></label>
 						<?php echo $this->formElement($form->get('member_id')); ?>
@@ -57,7 +64,7 @@
 					</div>														
 				</div>
 				<!-- /.col-lg-6 (nested) -->
-				<div class="col-lg-6">	
+				<div class="col-lg-6">	                                        
 					<div class="form-group">
 						<label>Plan</label>
 						<?php echo $this->formElement($form->get('plan_id')); ?>

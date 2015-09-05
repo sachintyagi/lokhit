@@ -8,7 +8,7 @@ class EmployeeForm extends Form {
  
 	public function __construct() {
         
-		parent::__construct('Employee');
+        parent::__construct('Employee');
         $this->setAttribute('method', 'post');
         $this->setAttribute('class', 'form-employee');
  
@@ -23,8 +23,20 @@ class EmployeeForm extends Form {
                 'id' => 'user_id'
             ),
         ));
+        $this->add(array(
+            'name' => 'employee_code',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Employee Code',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'employee_code',
+                'readonly' => true,
+            ),
+        ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'password',
             'type' => 'text',
             'options' => array(

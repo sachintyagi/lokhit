@@ -26,13 +26,17 @@ class CountryTable
 	
     public function fetchAll()
     {
-        $resultSet = $this->tableGateway->select();
+        $resultSet = $this->tableGateway->select(function($select){
+                        $select->where('id=95');
+			$select->order('name');
+        });
         return $resultSet;
     }
 	public function fetchAllAsArray()
     {
 		$states = array();
         $resultSet = $this->tableGateway->select(function($select){
+                        $select->where('id=95');
 			$select->order('name');
 		});
 		foreach($resultSet as $state) {	

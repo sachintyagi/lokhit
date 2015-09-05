@@ -26,14 +26,29 @@ class InvestorForm extends Form {
             ),
         ));
 		
-		$this->add(array(
-			 'type' => 'Zend\Form\Element\Hidden',
-			 'name' => 'branch_id',
-			 'attributes' => array(
-				 'value' => '1',
-				 'id' => 'branch_id'
-			 )
-		));
+        $this->add(array(
+                 'type' => 'Zend\Form\Element\Hidden',
+                 'name' => 'branch_id',
+                 'attributes' => array(
+                         'value' => '1',
+                         'id' => 'branch_id'
+                 )
+        ));
+        
+        $this->add(array(
+            'name' => 'employee_code',
+            'type' => 'Zend\Form\Element\Select',
+            'options' => array(
+                'label' => 'Agent',
+                'empty_option' => '-Choose Agent-',
+                'value_options' => array(),	
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'value' => '1',
+                'id' => 'employee_code'
+            )
+        ));
 		
         $this->add(array(
             'name' => 'name',

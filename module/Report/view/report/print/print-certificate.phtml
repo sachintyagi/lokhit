@@ -32,12 +32,12 @@
 		<div class="installmentdate"><?php echo ucfirst($this->certificate->installment_date)?></div>
 		<div class="lastinstallmentdate"><?php echo date('M d, Y',strtotime($this->certificate->last_installment_date))?></div>
 		<div class="final"><?php echo number_format($this->certificate->final_ammount, 2)?>/- &nbsp;&nbsp;(Rupees <?php echo ucwords(\Application\Service\NumberToWords::toWords($this->certificate->final_ammount))?> Only)</div>
-		<div class="prentedby">
-                    <?php echo $user->name?> 
-                    <?php if(isset($user->branch)) :?>
-                        (<?php echo $user->branch->code.'-'.$user->id?>)
+		<div class="prentedby"><?php echo $user->first_name?> <?php echo $user->last_name?>
+                    <?php if(isset($user->employee_code)) :?>
+                        (<?php echo $user->employee_code?>)
                     <?php endif;?>
                 </div>
+                <div class="agentcode"><b>Agent Code</b>:<?php echo $this->certificate->employee_code?></div>
 	</div>
 	<style type="text/css">
 		body{
@@ -77,7 +77,7 @@
 			width:14%;
 		}
 		.cfnumber{
-			margin:-24px 0 0 408px;
+			margin:-24px 0 0 409px;
 			width:15%;
 			white-space: nowrap;
 		}
@@ -100,6 +100,7 @@
 		.nomenee{
 			margin:-24px 0 0 1230px;
 			width:22%;
+                        white-space: nowrap;
 		}
 		.repay{
 			margin: 108px 0 0 300px;
@@ -117,6 +118,7 @@
 			margin: -22px 0 0 778px;
 			width: 22%;
 			font-size: 18px;
+                        white-space: nowrap;
 		}
 		.lastinstallmentdate{
 			margin: -16px 0 0 1305px;
@@ -128,6 +130,10 @@
 		}
 		.prentedby{
 			margin: 45px 0 0 413px;
+			width: 87%;
+		}
+                .agentcode{
+			margin: -26px 0 0 1101px;
 			width: 87%;
 		}
 		.btn {

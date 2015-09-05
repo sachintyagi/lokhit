@@ -9,7 +9,7 @@ class InvestorFilter extends InputFilter {
         
         $isEmpty = \Zend\Validator\NotEmpty::IS_EMPTY;
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'member_id',
             'required' => true,
             'filters' => array(
@@ -28,7 +28,7 @@ class InvestorFilter extends InputFilter {
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'plan_id',
             'required' => true,
 			'disable_inarray_validator' => true,
@@ -48,10 +48,10 @@ class InvestorFilter extends InputFilter {
             )
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'duration',
             'required' => true,
-			'disable_inarray_validator' => false,
+            'disable_inarray_validator' => false,
             'filters' => array(
                 array('name' => 'StripTags'),
                 array('name' => 'StringTrim'),
@@ -67,8 +67,28 @@ class InvestorFilter extends InputFilter {
                 )
             )
         ));
+        
+        $this->add(array(
+            'name' => 'employee_code',
+            'required' => true,
+            'disable_inarray_validator' => false,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'NotEmpty',
+                    'options' => array(
+                        'messages' => array(
+                            $isEmpty => 'Please choose a agent.'
+                        )
+                    )
+                )
+            )
+        ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'installment_type',
             'required' => true,
 			'disable_inarray_validator' => true,
@@ -88,7 +108,7 @@ class InvestorFilter extends InputFilter {
             )
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'start_ammount',
             'required' => true,
 			'disable_inarray_validator' => true,
@@ -108,7 +128,7 @@ class InvestorFilter extends InputFilter {
             )
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'interest_rate',
             'required' => true,
             'filters' => array(
@@ -127,7 +147,7 @@ class InvestorFilter extends InputFilter {
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'installment_ammount',
             'required' => true,
             'filters' => array(
@@ -146,7 +166,7 @@ class InvestorFilter extends InputFilter {
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'installment_date',
             'required' => true,
             'filters' => array(
@@ -165,7 +185,7 @@ class InvestorFilter extends InputFilter {
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'final_ammount',
             'required' => true,
             'filters' => array(
@@ -184,7 +204,7 @@ class InvestorFilter extends InputFilter {
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'end_date',
             'required' => true,
             'filters' => array(

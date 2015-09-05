@@ -37,10 +37,10 @@ class Member
         $this->branch_id    = (!empty($data['branch_id'])) ? $data['branch_id'] : 0;
         $this->customer_id  = (!empty($data['customer_id'])) ? $data['customer_id'] : 0;
         $this->firstname = (!empty($data['firstname'])) ? $data['firstname'] : null;
-		$this->lastname = (!empty($data['lastname'])) ? $data['lastname'] : null;
-        $this->emailid  = (!empty($data['emailid'])) ? $data['emailid'] : null;
+        $this->lastname = (!empty($data['lastname'])) ? $data['lastname'] : null;
+        $this->emailid  = (!empty($data['emailid'])) ? $data['emailid'] : 'Na';
         $this->password  = (!empty($data['password'])) ? $data['password'] : null;
-        $this->mobile_number  = (!empty($data['mobile_number'])) ? $data['mobile_number'] : null;
+        $this->mobile_number  = (!empty($data['mobile_number'])) ? $data['mobile_number'] : 'Na';
         $this->dob  = (!empty($data['dob'])) ? $data['dob'] : null;
         $this->gender  = (!empty($data['gender'])) ? $data['gender'] : null;
         $this->country_id  = (!empty($data['country_id'])) ? $data['country_id'] : 0;

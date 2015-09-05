@@ -33,38 +33,39 @@ class MemberInvestmentsTable
         return $customers;
     }
 	
-	public function findInvestors($investmentId=null, $branch=null){
-		$resultSet = $this->tableGateway->select(function(Select $select) use ($branch, $investmentId){
-			$select->columns(array(
-				'id',
-				'start_ammount',
-				'final_ammount',
-				'start_date',				
-				'end_date',	
-				'cf_number',
-				'period',	
-				'interest_rate',	
-				'repayable_to',	
-				'installment_type',
-				'installment_no',
-				'installment_date',
-				'last_installment_date',
-				'total_installment',
-			));
-			$select->join('members', 'member_investments.member_id = members.member_id', array('firstname', 'lastname', 'member_id', 'emailid', 'gardian_name','address','nominee_name','nominee_relation','dob'));
-			
-			if($branch) {
+    public function findInvestors($investmentId=null, $branch=null){
+            $resultSet = $this->tableGateway->select(function(Select $select) use ($branch, $investmentId){
+            $select->columns(array(
+                    'id',
+                    'start_ammount',
+                    'final_ammount',
+                    'start_date',				
+                    'end_date',	
+                    'cf_number',
+                    'period',	
+                    'interest_rate',	
+                    'repayable_to',	
+                    'installment_type',
+                    'installment_no',
+                    'installment_date',
+                    'last_installment_date',
+                    'employee_code',
+                    'total_installment',
+            ));
+            $select->join('members', 'member_investments.member_id = members.member_id', array('firstname', 'lastname', 'member_id', 'emailid', 'gardian_name','address','nominee_name','nominee_relation','dob'));
+            //echo $select->getSqlString(); exit;
+            if($branch) {
                 $select->where(array('member_investments.branch_id'=>$branch));
             }
-			if($investmentId) {
-				$select->where(array('member_investments.id'=>$investmentId));
-			}
+            if($investmentId) {
+                    $select->where(array('member_investments.id'=>$investmentId));
+            }
         });	
-		if($investmentId) {
-			$resultSet = $resultSet->current();
-		}
-		return $resultSet;
-	}
+        if($investmentId) {
+            $resultSet = $resultSet->current();
+        }
+        return $resultSet;
+    }
 	
     public function find($id)
 	{
