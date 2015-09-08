@@ -1,24 +1,8 @@
 <div class="row">
-	<div class="col-lg-12">
-		<h1 class="page-header">New Agent
-			<span class="job-btn pull-right">
-				<a href="<?php echo $this->url('employee-list')?>" class="btn btn-primary">Agent List</a>
-			</span>
-		</h1>
-		<?php 
-			if(!empty($this->flashMessages[0])) {
-				foreach($this->flashMessages[0] as $class => $message) {
-					echo '<div class="'.$class.'">'.$message.'</div>';	
-				}
-			}
-			if ($this->error) {
-				echo '<div class="error">'.$this->error.'</div>';	
-			}
-		?>
-	</div>
-	<!-- /.col-lg-12 -->
+    <div class="col-lg-12">
+        <h1 class="page-header">New Agent</h1>
+    </div>
 </div>
-<!-- /.row -->
 
 <?php
 	$form = $this->employeeForm;
@@ -31,72 +15,121 @@
 			Personal Information Section
 		</div>
 		<div class="panel-body">
-			<div class="row">
-					<?php if (count($this->errors)) : ?>
-						<div class="alert alert-danger">
-							<?php foreach ($this->errors as $error) : ?>
-							<?php if(is_array($error)) : echo current($error); else: echo $error;endif;?><br>
-							<?php endforeach; ?>
-						</div>
-					<?php endif; ?>
-					<div class="col-lg-6">						
-						<div class="form-group">
-							<label>Name <span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('employee_name')); ?>
-						</div>							
-						<div class="form-group">
-							<label>Father Name<span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('father_name')); ?>
-						</div>
-						<div class="form-group">
-							<label>Email Id <span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('email')); ?>
-						</div>
-						<div class="form-group">
-							<label>Company<span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('company_id')); ?>
-						</div>
-                                                <div class="form-group">
-							<label>Branch <span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('branch_id')); ?>
-						</div>
-						<div class="form-group">
-							<label>Role <span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('role_id')); ?>
-						</div>						
-					</div>
-					<!-- /.col-lg-6 (nested) -->
-					<div class="col-lg-6">
-						<div class="form-group">
-							<label>Mobile Number <span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('mobile_no')); ?>
-						</div>
-						<div class="form-group">
-							<label>Mother Name<span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('mother_name')); ?>
-						</div>
-						<div class="form-group">
-							<label>Introducer Name</label>
-							<?php echo $this->formElement($form->get('introducer_name')); ?>
-						</div>
-						<div class="form-group">
-							<label>Blood Group<span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('blood_group')); ?>
-						</div>
-						<div class="form-group">
-							<label>Status <span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('status')); ?>
-						</div>						
-						<div class="form-group">
-							<label>Photo<span class="mandatory">*</span></label>
-							<?php echo $this->formElement($form->get('photo')); ?>
-						</div>
-					</div>
-				</form>
-			</div>
-			<!-- /.row (nested) -->
-		</div>
-		<!-- /.panel-body -->
+                    <div class="row">
+                        <div class="col-lg-6">						
+                            <div class="form-group">
+                                <label>Name <span class="mandatory">*</span></label>
+                                <?php echo $this->formElement($form->get('employee_name')); ?>
+                                <?php if($this->formElementErrors($form->get('employee_name'))) :?>
+                                <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('employee_name')))?></div>
+                                <?php endif;?>
+                            </div>
+                            <div class="form-group">
+                                <label>Mobile Number <span class="mandatory">*</span></label>
+                                <?php echo $this->formElement($form->get('mobile_no')); ?>
+                                <?php if($this->formElementErrors($form->get('mobile_no'))) :?>
+                                <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('mobile_no')))?></div>
+                                <?php endif;?>
+                            </div>
+                            <div class="form-group">
+                                <label>Father Name<span class="mandatory">*</span></label>
+                                <?php echo $this->formElement($form->get('father_name')); ?>
+                                <?php if($this->formElementErrors($form->get('father_name'))) :?>
+                                <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('father_name')))?></div>
+                                <?php endif;?>
+                            </div>
+                            <div class="form-group">
+                                <label>Mother Name<span class="mandatory">*</span></label>
+                                <?php echo $this->formElement($form->get('mother_name')); ?>
+                                <?php if($this->formElementErrors($form->get('mother_name'))) :?>
+                                <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('mother_name')))?></div>
+                                <?php endif;?>
+                            </div>
+                            <div class="form-group">
+                                <label>Nominee Name<span class="mandatory">*</span></label>
+                                <?php echo $this->formElement($form->get('nominee_name')); ?>
+                                <?php if($this->formElementErrors($form->get('nominee_name'))) :?>
+                                <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('nominee_name')))?></div>
+                                <?php endif;?>
+                            </div>
+                            <div class="form-group">
+                                <label>Nominee Relation<span class="mandatory">*</span></label>
+                                <?php echo $this->formElement($form->get('nominee_relation')); ?>
+                                <?php if($this->formElementErrors($form->get('nominee_relation'))) :?>
+                                <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('nominee_relation')))?></div>
+                                <?php endif;?>
+                            </div>
+                            <div class="form-group">
+                                <label>Nominee Address<span class="mandatory">*</span></label>
+                                <?php echo $this->formElement($form->get('nominee_address')); ?>
+                                <?php if($this->formElementErrors($form->get('nominee_address'))) :?>
+                                <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('nominee_address')))?></div>
+                                <?php endif;?>
+                            </div>
+                        </div>
+                        <!-- /.col-lg-6 (nested) -->
+                        <div class="col-lg-6">
+                            
+                            <div class="form-group">
+                                <label>Email Id</label>
+                                <?php echo $this->formElement($form->get('email')); ?>
+                                <?php if($this->formElementErrors($form->get('email'))) :?>
+                                <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('email')))?></div>
+                                <?php endif;?>
+                            </div>
+                            <div class="form-group">
+                                <label>Company<span class="mandatory">*</span></label>
+                                <?php echo $this->formElement($form->get('company_id')); ?>
+                                <?php if($this->formElementErrors($form->get('company_id'))) :?>
+                                <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('company_id')))?></div>
+                                <?php endif;?>
+                            </div>
+                            <div class="form-group">
+                                <label>Branch <span class="mandatory">*</span></label>
+                                <?php echo $this->formElement($form->get('branch_id')); ?>
+                                <?php if($this->formElementErrors($form->get('branch_id'))) :?>
+                                <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('branch_id')))?></div>
+                                <?php endif;?>
+                            </div>
+                            <div class="form-group">
+                                <label>Role <span class="mandatory">*</span></label>
+                                <?php echo $this->formElement($form->get('role_id')); ?>
+                                <?php if($this->formElementErrors($form->get('role_id'))) :?>
+                                <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('role_id')))?></div>
+                                <?php endif;?>
+                            </div>
+                            <div class="form-group">
+                                <label>Introducer Name</label>
+                                <?php echo $this->formElement($form->get('introducer_code')); ?>
+                                <?php if($this->formElementErrors($form->get('introducer_code'))) :?>
+                                <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('introducer_code')))?></div>
+                                <?php endif;?>
+                            </div>
+                            <div class="form-group">
+                                <label>Blood Group</label>
+                                <?php echo $this->formElement($form->get('blood_group')); ?>
+                                <?php if($this->formElementErrors($form->get('blood_group'))) :?>
+                                <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('blood_group')))?></div>
+                                <?php endif;?>
+                            </div>
+                            <div class="form-group">
+                                <label>Status <span class="mandatory">*</span></label>
+                                <?php echo $this->formElement($form->get('status')); ?>
+                                <?php if($this->formElementErrors($form->get('status'))) :?>
+                                <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('status')))?></div>
+                                <?php endif;?>
+                            </div>						
+                            <div class="form-group">
+                                <label>Photo<span class="mandatory">*</span></label>
+                                <?php echo $this->formElement($form->get('photo')); ?>
+                                <?php if($this->formElementErrors($form->get('photo'))) :?>
+                                <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('photo')))?></div>
+                                <?php endif;?>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
 	</div>
 		  
 	<div class="panel panel-default" id="login-section">
@@ -107,23 +140,35 @@
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="form-group">
-						<label>User Id <span class="mandatory">*</span></label>
-						<?php echo $this->formElement($form->get('user_id')); ?>
+                                            <label>User Id</label>
+                                            <?php echo $this->formElement($form->get('user_id')); ?>
+                                            <?php if($this->formElementErrors($form->get('user_id'))) :?>
+                                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('user_id')))?></div>
+                                            <?php endif;?>
 					</div>
 					<div class="form-group">
-						<label>Code<span class="mandatory">*</span></label>
-						<?php echo $this->formElement($form->get('employee_code')); ?>
+                                            <label>Code</label>
+                                            <?php echo $this->formElement($form->get('employee_code')); ?>
+                                            <?php if($this->formElementErrors($form->get('employee_code'))) :?>
+                                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('employee_code')))?></div>
+                                            <?php endif;?>
 					</div>
 				</div>
 				<!-- /.col-lg-6 (nested) -->
 				<div class="col-lg-6">
 					<div class="form-group">
-						<label>Password <span class="mandatory">*</span></label>
-						<?php echo $this->formElement($form->get('password')); ?>
+                                            <label>Password</label>
+                                            <?php echo $this->formElement($form->get('password')); ?>
+                                            <?php if($this->formElementErrors($form->get('password'))) :?>
+                                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('password')))?></div>
+                                            <?php endif;?>
 					</div>
 					<div class="form-group">
-						<label>Confirm Password <span class="mandatory">*</span></label>
-						<?php echo $this->formElement($form->get('cpassword')); ?>
+                                            <label>Confirm Password</label>
+                                            <?php echo $this->formElement($form->get('cpassword')); ?>
+                                            <?php if($this->formElementErrors($form->get('cpassword'))) :?>
+                                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('cpassword')))?></div>
+                                            <?php endif;?>
 					</div>
 				</div>
 			</div>
@@ -141,29 +186,47 @@
 					<div class="form-group">
                                             <label>Address <span class="mandatory">*</span></label>
                                             <?php echo $this->formElement($form->get('per_address')); ?>
+                                            <?php if($this->formElementErrors($form->get('per_address'))) :?>
+                                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('per_address')))?></div>
+                                            <?php endif;?>
 					</div>
                                         <div class="form-group">
                                             <label>Mobile Number <span class="mandatory">*</span></label>
                                             <?php echo $this->formElement($form->get('per_mobile_no')); ?>
+                                            <?php if($this->formElementErrors($form->get('per_mobile_no'))) :?>
+                                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('per_mobile_no')))?></div>
+                                            <?php endif;?>
 					</div>
 					<div class="form-group">
-						<label>Country <span class="mandatory">*</span></label>
-						<?php echo $this->formElement($form->get('per_country_id')); ?>
+                                            <label>Country <span class="mandatory">*</span></label>
+                                            <?php echo $this->formElement($form->get('per_country_id')); ?>
+                                            <?php if($this->formElementErrors($form->get('per_country_id'))) :?>
+                                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('per_country_id')))?></div>
+                                            <?php endif;?>
 					</div>
 				</div>
 				<!-- /.col-lg-6 (nested) -->
 				<div class="col-lg-6">					
 					<div class="form-group">
-						<label>State <span class="mandatory">*</span></label>
-						<?php echo $this->formElement($form->get('per_state_id')); ?>
+                                            <label>State <span class="mandatory">*</span></label>
+                                            <?php echo $this->formElement($form->get('per_state_id')); ?>
+                                            <?php if($this->formElementErrors($form->get('father_name'))) :?>
+                                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('father_name')))?></div>
+                                            <?php endif;?>
 					</div>
                                         <div class="form-group">
                                             <label>City <span class="mandatory">*</span></label>
                                             <?php echo $this->formElement($form->get('per_city')); ?>
+                                            <?php if($this->formElementErrors($form->get('per_city'))) :?>
+                                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('per_city')))?></div>
+                                            <?php endif;?>
 					</div>
 					<div class="form-group">
-						<label>Pincode<span class="mandatory">*</span></label>
-						<?php echo $this->formElement($form->get('per_pincode')); ?>
+                                            <label>Pincode</label>
+                                            <?php echo $this->formElement($form->get('per_pincode')); ?>
+                                            <?php if($this->formElementErrors($form->get('per_pincode'))) :?>
+                                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('per_pincode')))?></div>
+                                            <?php endif;?>
 					</div>
 					
 				</div>				
@@ -181,27 +244,42 @@
 			<div class="row">
 				<div class="col-lg-6">						
 					<div class="form-group">
-						<label>Address <span class="mandatory">*</span></label>
-						<?php echo $this->formElement($form->get('address')); ?>
+                                            <label>Address <span class="mandatory">*</span></label>
+                                            <?php echo $this->formElement($form->get('address')); ?>
+                                            <?php if($this->formElementErrors($form->get('address'))) :?>
+                                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('address')))?></div>
+                                            <?php endif;?>
 					</div>							
 					<div class="form-group">
-						<label>Country <span class="mandatory">*</span></label>
-						<?php echo $this->formElement($form->get('country_id')); ?>
+                                            <label>Country <span class="mandatory">*</span></label>
+                                            <?php echo $this->formElement($form->get('country_id')); ?>
+                                            <?php if($this->formElementErrors($form->get('country_id'))) :?>
+                                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('country_id')))?></div>
+                                            <?php endif;?>
 					</div>
 				</div>
 				<!-- /.col-lg-6 (nested) -->
 				<div class="col-lg-6">					
 					<div class="form-group">
-						<label>State <span class="mandatory">*</span></label>
-						<?php echo $this->formElement($form->get('state_id')); ?>
+                                            <label>State <span class="mandatory">*</span></label>
+                                            <?php echo $this->formElement($form->get('state_id')); ?>
+                                            <?php if($this->formElementErrors($form->get('state_id'))) :?>
+                                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('state_id')))?></div>
+                                            <?php endif;?>
 					</div>
                                         <div class="form-group">
-						<label>City <span class="mandatory">*</span></label>
-						<?php echo $this->formElement($form->get('city')); ?>
+                                            <label>City <span class="mandatory">*</span></label>
+                                            <?php echo $this->formElement($form->get('city')); ?>
+                                            <?php if($this->formElementErrors($form->get('city'))) :?>
+                                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('city')))?></div>
+                                            <?php endif;?>
 					</div>
 					<div class="form-group">
-						<label>Pincode<span class="mandatory">*</span></label>
-						<?php echo $this->formElement($form->get('pincode')); ?>
+                                            <label>Pincode</label>
+                                            <?php echo $this->formElement($form->get('pincode')); ?>
+                                            <?php if($this->formElementErrors($form->get('pincode'))) :?>
+                                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('pincode')))?></div>
+                                            <?php endif;?>
 					</div>
 				</div>
                                 <div class="clear"></div>						

@@ -8,3 +8,5 @@ alter table `employees` drop column `last_name`, drop column `phone_no`, drop co
 
 
 alter table `employees` change `introducer_name` `introducer_code` varchar(20) NULL;
+alter table `members` add unique `Unique_Member_Id` (`member_id`);
+alter table `employees` add column `nominee_name` varchar(100) NULL after `introducer_code`, add column `nominee_relation` varchar(50) NULL after `nominee_name`, add column `nominee_address` varchar(255) NULL after `nominee_relation`;

@@ -42,7 +42,7 @@ class InvestorController extends AbstractActionController
         if($authData->role_id == 1 || $authData->role_id == 2) {
             $employees = $this->getTable($this->employeeTable,'Application\Model\EmployeeTable')->fetchAllAsArray($authData->branch->company_id);
         } else {
-            $employees = $this->getTable($this->employeeTable,'Application\Model\EmployeeTable')->fetchAllAsArray($authData->branch->company_id);
+            $employees = $this->getTable($this->employeeTable,'Application\Model\EmployeeTable')->fetchAllAsArray($authData->branch->company_id, $authData->branch->id);
         }
         $investorForm->get('employee_code')->setValueOptions($employees);
         

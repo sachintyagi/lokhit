@@ -42,6 +42,8 @@ class IndexController extends AbstractActionController {
 		$errors = array();
 		$countryArr = array(); $companyArr = array();
 		$stateid=''; $photo='';
+                $auth = $this->getServiceLocator()->get('AuthService');
+                $authData = $auth->getIdentity();
 		$employeeForm = new EmployeeForm();		
 		$countries = $this->getTable($this->countryTable,'Application\Model\CountryTable')->fetchAll();		
 		foreach($countries as $country) {
@@ -52,7 +54,18 @@ class IndexController extends AbstractActionController {
                     $companyArr[$company->id] = $company->name;
 		}
 		$rolesArr = $this->getTable($this->roleTable,'Application\Model\RoleTable')->fetchAllAsArray();
-		unset($rolesArr[1]); unset($rolesArr[2]);
+                if( $authData->role_id == 2) {
+                    $rolesArr['2'] = 'Owner';
+                }
+                unset($rolesArr[1]);		
+                
+                if($authData->role_id == 1 || $authData->role_id == 2) {
+                    $employees = $this->getTable($this->employeeTable,'Application\Model\EmployeeTable')->fetchAllAsArray($authData->branch->company_id);
+                } else {
+                    $employees = $this->getTable($this->employeeTable,'Application\Model\EmployeeTable')->fetchAllAsArray($authData->branch->company_id, $authData->branch->id);
+                }
+                $employeeForm->get('introducer_code')->setValueOptions($employees);
+                
 		$employeeForm->get('role_id')->setValueOptions($rolesArr);
 		$employeeForm->get('company_id')->setValueOptions($companyArr);
 		$employeeForm->get('country_id')->setValueOptions($countryArr);
@@ -67,29 +80,28 @@ class IndexController extends AbstractActionController {
 			$employeeForm->get('country_id')->setValue($employee->country_id);
 			$employeeForm->get('per_country_id')->setValue($employee->per_country_id);
 			$employeeForm->get('employee_code')->setValue($employee->employee_code);
-			$employeeForm->get('first_name')->setValue($employee->first_name);
-			$employeeForm->get('last_name')->setValue($employee->last_name);
+			$employeeForm->get('employee_name')->setValue($employee->employee_name);
 			$employeeForm->get('blood_group')->setValue($employee->blood_group);
-			$employeeForm->get('phone_no')->setValue($employee->phone_no);
 			$employeeForm->get('mobile_no')->setValue($employee->mobile_no);
 			$employeeForm->get('email')->setValue($employee->email);
 			$employeeForm->get('father_name')->setValue($employee->father_name);
 			$employeeForm->get('mother_name')->setValue($employee->mother_name);
-			$employeeForm->get('spouse_name')->setValue($employee->spouse_name);
+			$employeeForm->get('nominee_name')->setValue($employee->nominee_name);
+			$employeeForm->get('nominee_relation')->setValue($employee->nominee_relation);
+			$employeeForm->get('nominee_address')->setValue($employee->nominee_address);
+			$employeeForm->get('introducer_code')->setValue($employee->introducer_code);
 			$employeeForm->get('address')->setValue($employee->address);
 			$employeeForm->get('city')->setValue($employee->city);
 			$employeeForm->get('per_city')->setValue($employee->per_city);
 			$employeeForm->get('pincode')->setValue($employee->pincode);
 			$employeeForm->get('per_address')->setValue($employee->per_address);
 			$employeeForm->get('per_pincode')->setValue($employee->per_pincode);
-			$employeeForm->get('per_phone_no')->setValue($employee->per_phone_no);
 			$employeeForm->get('per_mobile_no')->setValue($employee->per_mobile_no);
 			$employeeForm->get('status')->setValue($employee->status);
 			$state_id = $employee->state_id;
 			$per_state_id = $employee->per_state_id;
 			$branch_id = $employee->branch_id;
 		}
-		
 		$request = $this->getRequest();
 		if($request->isPost()) {
 			$data = $request->getPost();
@@ -120,15 +132,22 @@ class IndexController extends AbstractActionController {
                                     $code = $branch->code.sprintf('%04d',$maxId);
                                     $data['employee_code'] = $code;
                                 }
+                                if(empty($data['user_id'])) {
+                                    $data['user_id'] = $data['employee_code'];
+                                }
+                                if(empty($data['password'])) {
+                                    $data['password'] = $data['password'];
+                                }
+                                
 				$data['created_by'] =  $authData->id;
 				$data['created_at'] = date('Y-m-d H:i:s');
 				$data['updated_by'] = $authData->id;
 				$employeeId = $this->getTable($this->employeeTable,'Application\Model\EmployeeTable')->save($data,$employeeid);
 				if($employeeId) {
-					$this->flashMessenger()->addMessage(array('success' => 'Employee Created successfully!'));	
+					$this->flashMessenger()->addMessage('Agent created successfully!','success');	
 					$this->redirect()->toRoute('employee-list');
 				} else {
-					$this->flashMessenger()->addMessage(array('error' => 'Employee Not Created!'));
+					$this->flashMessenger()->addMessage('Oops! there are some error with this process. Please try after some time!','error');
 				}
 			} else {
 				$errors = $employeeForm->getMessages();

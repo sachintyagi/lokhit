@@ -11,7 +11,7 @@ class EmployeeFilter extends InputFilter {
         
         $this->add(array(
             'name' => 'user_id',
-            'required' => true,
+            'required' => false,
             'filters' => array(
                 array('name' => 'StripTags'),
                 array('name' => 'StringTrim'),
@@ -28,9 +28,9 @@ class EmployeeFilter extends InputFilter {
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'password',
-            'required' => true,
+            'required' => false,
             'filters' => array(
                 array('name' => 'StripTags'),
                 array('name' => 'StringTrim'),
@@ -47,9 +47,9 @@ class EmployeeFilter extends InputFilter {
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'cpassword',
-            'required' => true,
+            'required' => false,
             'filters' => array(
                 array('name' => 'StripTags'),
                 array('name' => 'StringTrim'),
@@ -66,7 +66,7 @@ class EmployeeFilter extends InputFilter {
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'employee_name',
             'required' => true,
             'filters' => array(
@@ -85,8 +85,7 @@ class EmployeeFilter extends InputFilter {
             ),
         ));
 		
-		
-		$this->add(array(
+        $this->add(array(
             'name' => 'mobile_no',
             'required' => true,
             'filters' => array(
@@ -105,9 +104,9 @@ class EmployeeFilter extends InputFilter {
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'email',
-            'required' => true,
+            'required' => false,
             'filters' => array(
                 array('name' => 'StripTags'),
                 array('name' => 'StringTrim'),
@@ -124,7 +123,7 @@ class EmployeeFilter extends InputFilter {
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'father_name',
             'required' => true,
             'filters' => array(
@@ -136,14 +135,14 @@ class EmployeeFilter extends InputFilter {
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'Father Name can not be empty.',
+                            $isEmpty => 'Father name can not be empty.',
                         )
                     )
                 ),
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'mother_name',
             'required' => true,
             'filters' => array(
@@ -155,15 +154,14 @@ class EmployeeFilter extends InputFilter {
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'Mother Name can not be empty.',
+                            $isEmpty => 'Mother name can not be empty.',
                         )
                     )
                 ),
             ),
         ));
-		
-		$this->add(array(
-            'name' => 'introducer_name',
+        $this->add(array(
+            'name' => 'nominee_name',
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -174,14 +172,51 @@ class EmployeeFilter extends InputFilter {
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'Introducer name can not be empty.',
+                            $isEmpty => 'Mominee name can not be empty.',
+                        )
+                    )
+                ),
+            ),
+        ));
+        $this->add(array(
+            'name' => 'nominee_relation',
+            'required' => true,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'NotEmpty',
+                    'options' => array(
+                        'messages' => array(
+                            $isEmpty => 'Nominee relation can not be empty.',
                         )
                     )
                 ),
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
+            'name' => 'introducer_code',
+            'required' => true,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'NotEmpty',
+                    'options' => array(
+                        'messages' => array(
+                            $isEmpty => 'Introducer can not be empty.',
+                        )
+                    )
+                ),
+            ),
+        ));
+		
+        $this->add(array(
             'name' => 'address',
             'required' => true,
             'filters' => array(
@@ -200,7 +235,7 @@ class EmployeeFilter extends InputFilter {
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'city',
             'required' => true,
             'filters' => array(
@@ -315,9 +350,9 @@ class EmployeeFilter extends InputFilter {
         ));
 		*/
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'pincode',
-            'required' => true,
+            'required' => false,
             'filters' => array(
                 array('name' => 'StripTags'),
                 array('name' => 'StringTrim'),
@@ -334,7 +369,7 @@ class EmployeeFilter extends InputFilter {
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'per_address',
             'required' => true,
             'filters' => array(
@@ -353,7 +388,7 @@ class EmployeeFilter extends InputFilter {
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'per_city',
             'required' => true,
             'filters' => array(
@@ -410,9 +445,9 @@ class EmployeeFilter extends InputFilter {
             ),
         ));*/
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'per_pincode',
-            'required' => true,
+            'required' => false,
             'filters' => array(
                 array('name' => 'StripTags'),
                 array('name' => 'StringTrim'),
@@ -430,9 +465,9 @@ class EmployeeFilter extends InputFilter {
         ));
 		
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'per_mobile_no',
-            'required' => true,
+            'required' => false,
             'filters' => array(
                 array('name' => 'StripTags'),
                 array('name' => 'StringTrim'),

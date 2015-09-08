@@ -74,7 +74,7 @@ class EmployeeForm extends Form {
 		
 		
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'mobile_no',
             'type' => 'text',
             'options' => array(
@@ -86,7 +86,7 @@ class EmployeeForm extends Form {
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'email',
             'type' => 'text',
             'options' => array(
@@ -98,7 +98,7 @@ class EmployeeForm extends Form {
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'father_name',
             'type' => 'text',
             'options' => array(
@@ -110,7 +110,7 @@ class EmployeeForm extends Form {
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'mother_name',
             'type' => 'text',
             'options' => array(
@@ -121,20 +121,61 @@ class EmployeeForm extends Form {
                 'id' => 'mother_name'
             ),
         ));
-		
-		$this->add(array(
-            'name' => 'introducer_name',
+        
+        $this->add(array(
+            'name' => 'nominee_name',
             'type' => 'text',
             'options' => array(
-                'label' => 'Introducer Name',
+                'label' => 'Nominee Name',
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'id' => 'spouse_name'
+                'id' => 'nominee_name'
+            ),
+        ));
+        
+        $this->add(array(
+            'name' => 'nominee_relation',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Nominee Relation',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'naminee_relation'
+            ),
+        ));
+        
+        $this->add(array(
+            'name' => 'nominee_address',
+            'type' => 'Zend\Form\Element\Textarea',
+            'options' => array(
+                'label' => 'Nominee Address',				
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'per_address',
+                'cols' => '50',
+                'rows' => '4'
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
+            'name' => 'introducer_code',
+            'type' => 'Zend\Form\Element\Select',
+            'options' => array(
+                'label' => 'Introducer Code',
+                'empty_option' => 'Choose one',
+                'value_options' => array(),
+                'disable_inarray_validator' => true,
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'introducer_code',
+            ),
+        ));
+		
+        $this->add(array(
             'name' => 'blood_group',
             'type' => 'text',
             'options' => array(
@@ -146,7 +187,7 @@ class EmployeeForm extends Form {
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'photo',
             'type' => 'file',
             'options' => array(
@@ -157,7 +198,7 @@ class EmployeeForm extends Form {
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'company_id',
             'type' => 'Zend\Form\Element\Select',
             'options' => array(
@@ -172,7 +213,7 @@ class EmployeeForm extends Form {
             ),
 		));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'role_id',
             'type' => 'Zend\Form\Element\Select',
             'options' => array(
@@ -187,7 +228,7 @@ class EmployeeForm extends Form {
             ),
 		));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'branch_id',
             'type' => 'Zend\Form\Element\Select',
             'options' => array(
@@ -202,7 +243,7 @@ class EmployeeForm extends Form {
             ),
 		));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'address',
             'type' => 'Zend\Form\Element\Textarea',
             'options' => array(
@@ -216,7 +257,7 @@ class EmployeeForm extends Form {
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'city',
             'type' => 'text',
             'options' => array(
@@ -228,7 +269,7 @@ class EmployeeForm extends Form {
             ),
         ));
  
-		$this->add(array(
+        $this->add(array(
             'name' => 'state_id',
             'type' => 'Zend\Form\Element\Select',
             'options' => array(
@@ -241,9 +282,9 @@ class EmployeeForm extends Form {
                 'class' => 'form-control',
                 'id' => 'state_id',
             ),
-		));
-	   
-		$this->add(array(
+        ));
+   
+        $this->add(array(
             'name' => 'country_id',
             'type' => 'Zend\Form\Element\Select',
             'options' => array(
@@ -268,9 +309,9 @@ class EmployeeForm extends Form {
                 'class' => 'form-control',
                 'id' => 'pincode'
             ),
-		));
+        ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'per_address',
             'type' => 'Zend\Form\Element\Textarea',
             'options' => array(
@@ -284,7 +325,7 @@ class EmployeeForm extends Form {
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'per_city',
             'type' => 'text',
             'options' => array(
@@ -296,7 +337,7 @@ class EmployeeForm extends Form {
             ),
         ));
  
-		$this->add(array(
+        $this->add(array(
             'name' => 'per_state_id',
             'type' => 'Zend\Form\Element\Select',
             'options' => array(
@@ -309,9 +350,9 @@ class EmployeeForm extends Form {
                 'class' => 'form-control',
                 'id' => 'per_state_id',
             ),
-		));
+        ));
 	   
-		$this->add(array(
+        $this->add(array(
             'name' => 'per_country_id',
             'type' => 'Zend\Form\Element\Select',
             'options' => array(
@@ -324,9 +365,9 @@ class EmployeeForm extends Form {
                 'class' => 'form-control',
                 'id' => 'per_country_id',
             ),
-		));
+        ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'per_pincode',
             'type' => 'text',
             'options' => array(
@@ -336,10 +377,10 @@ class EmployeeForm extends Form {
                 'class' => 'form-control',
                 'id' => 'per_pincode'
             ),
-		));
+        ));
 		
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'per_mobile_no',
             'type' => 'text',
             'options' => array(
@@ -349,9 +390,9 @@ class EmployeeForm extends Form {
                 'class' => 'form-control',
                 'id' => 'per_mobile_no'
             ),
-		));
+        ));
 	   
-		$this->add(array(
+        $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'status',
             'options' => array(
@@ -369,7 +410,7 @@ class EmployeeForm extends Form {
             ),
         ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'certificate',
             'type' => 'text',
             'options' => array(
@@ -379,9 +420,9 @@ class EmployeeForm extends Form {
                 'class' => 'form-control',
                 'id' => 'certificate'
             ),
-		));
+        ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'university',
             'type' => 'text',
             'options' => array(
@@ -403,9 +444,9 @@ class EmployeeForm extends Form {
                 'class' => 'form-control',
                 'id' => 'year'
             ),
-		));
+        ));
 		
-		$this->add(array(
+        $this->add(array(
             'name' => 'percentage',
             'type' => 'text',
             'options' => array(
@@ -427,9 +468,9 @@ class EmployeeForm extends Form {
                 'class' => 'form-control',
                 'id' => 'previous_employer'
             ),
-		));
-		
-		$this->add(array(
+        ));
+
+        $this->add(array(
             'name' => 'designation',
             'type' => 'text',
             'options' => array(
@@ -439,9 +480,9 @@ class EmployeeForm extends Form {
                 'class' => 'form-control',
                 'id' => 'designation'
             ),
-		));
-		
-		$this->add(array(
+        ));
+
+        $this->add(array(
             'name' => 'employee_from',
             'type' => 'text',
             'options' => array(
@@ -451,9 +492,9 @@ class EmployeeForm extends Form {
                 'class' => 'form-control',
                 'id' => 'employee_from'
             ),
-		));
-		
-		$this->add(array(
+        ));
+
+        $this->add(array(
             'name' => 'employee_to',
             'type' => 'text',
             'options' => array(
@@ -473,8 +514,7 @@ class EmployeeForm extends Form {
                 'value' => 'Save',
                 'id'	=> 'save-branch'
             ),
-        ));
-		
+        ));	
     }
 	
 }

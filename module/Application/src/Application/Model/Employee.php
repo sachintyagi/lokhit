@@ -13,7 +13,10 @@ class Employee
     public $father_name;
     public $mother_name;
     public $email;
-    public $introducer_name;
+    public $introducer_code;
+    public $nominee_name;
+    public $nominee_relation;
+    public $nominee_address;
     public $company_id;
     public $branch_id;
     public $role_id;
@@ -51,7 +54,10 @@ class Employee
         $this->father_name      = (!empty($data['father_name'])) ? $data['father_name'] : null;
         $this->mother_name      = (!empty($data['mother_name'])) ? $data['mother_name'] : null;
         $this->email            = (!empty($data['email'])) ? $data['email'] : null;
-        $this->introducer_name  = (!empty($data['introducer_name'])) ? $data['introducer_name'] : null;
+        $this->introducer_code  = (!empty($data['introducer_code'])) ? $data['introducer_code'] : null;
+        $this->nominee_name     = (!empty($data['nominee_name'])) ? $data['nominee_name'] : null;
+        $this->nominee_relation = (!empty($data['nominee_relation'])) ? $data['nominee_relation'] : null;
+        $this->nominee_address  = (!empty($data['nominee_address'])) ? $data['nominee_address'] : null;
         $this->company_id       = (!empty($data['company_id'])) ? $data['company_id'] : null;
         $this->branch_id        = (!empty($data['branch_id'])) ? $data['branch_id'] : null;
         $this->role_id          = (!empty($data['role_id'])) ? $data['role_id'] : null;
