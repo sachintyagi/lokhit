@@ -32,7 +32,7 @@
 		<div class="installmentdate"><?php echo ucfirst($this->certificate->installment_date)?></div>
 		<div class="lastinstallmentdate"><?php echo date('M d, Y',strtotime($this->certificate->last_installment_date))?></div>
 		<div class="final"><?php echo number_format($this->certificate->final_ammount, 2)?>/- &nbsp;&nbsp;(Rupees <?php echo ucwords(\Application\Service\NumberToWords::toWords($this->certificate->final_ammount))?> Only)</div>
-		<div class="prentedby"><?php echo $user->first_name?> <?php echo $user->last_name?>
+		<div class="prentedby"><?php echo $user->employee_name?>
                     <?php if(isset($user->employee_code)) :?>
                         (<?php echo $user->employee_code?>)
                     <?php endif;?>

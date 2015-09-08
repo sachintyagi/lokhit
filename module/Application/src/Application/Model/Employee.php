@@ -6,16 +6,14 @@ class Employee
     public $id;
     public $user_id;
     public $password;
-    public $first_name;
-    public $last_name;
+    public $employee_name;
     public $employee_code;    
     public $blood_group;
-    public $phone_no;
     public $mobile_no;
     public $father_name;
     public $mother_name;
     public $email;
-    public $spouse_name;
+    public $introducer_name;
     public $company_id;
     public $branch_id;
     public $role_id;
@@ -31,7 +29,6 @@ class Employee
     public $per_state_id;
     public $per_country_id;
     public $per_pincode;    
-    public $per_phone_no;
     public $per_mobile_no;
 	
     public $status;
@@ -47,16 +44,14 @@ class Employee
         $this->id               = (!empty($data['id'])) ? $data['id'] : 0;
         $this->user_id          = (!empty($data['user_id'])) ? $data['user_id'] : 0;
         $this->password         = (!empty($data['password'])) ? $data['password'] : null;
-        $this->first_name       = (!empty($data['first_name'])) ? $data['first_name'] : null;
-        $this->last_name        = (!empty($data['last_name'])) ? $data['last_name'] : null;
+        $this->employee_name    = (!empty($data['employee_name'])) ? $data['employee_name'] : null;
         $this->employee_code    = (!empty($data['employee_code'])) ? $data['employee_code'] : null;
         $this->blood_group      = (!empty($data['blood_group'])) ? $data['blood_group'] : null;
-        $this->phone_no         = (!empty($data['phone_no'])) ? $data['phone_no'] : null;
         $this->mobile_no        = (!empty($data['mobile_no'])) ? $data['mobile_no'] : null;
         $this->father_name      = (!empty($data['father_name'])) ? $data['father_name'] : null;
         $this->mother_name      = (!empty($data['mother_name'])) ? $data['mother_name'] : null;
         $this->email            = (!empty($data['email'])) ? $data['email'] : null;
-        $this->spouse_name      = (!empty($data['spouse_name'])) ? $data['spouse_name'] : null;
+        $this->introducer_name  = (!empty($data['introducer_name'])) ? $data['introducer_name'] : null;
         $this->company_id       = (!empty($data['company_id'])) ? $data['company_id'] : null;
         $this->branch_id        = (!empty($data['branch_id'])) ? $data['branch_id'] : null;
         $this->role_id          = (!empty($data['role_id'])) ? $data['role_id'] : null;
@@ -70,7 +65,6 @@ class Employee
         $this->per_state_id     = (!empty($data['per_state_id'])) ? $data['per_state_id'] : 0;
         $this->per_country_id   = (!empty($data['per_country_id'])) ? $data['per_country_id'] : 0;
         $this->per_pincode      = (!empty($data['per_pincode'])) ? $data['per_pincode'] : null;
-        $this->per_phone_no     = (!empty($data['per_phone_no'])) ? $data['per_phone_no'] : null;
         $this->per_mobile_no    = (!empty($data['per_mobile_no'])) ? $data['per_mobile_no'] : null;
         $this->status           = (!empty($data['status'])) ? $data['status'] : 0;
         $this->created_by       = (!empty($data['created_by'])) ? $data['created_by'] : 0;

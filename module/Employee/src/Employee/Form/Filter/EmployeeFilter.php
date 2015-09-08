@@ -67,7 +67,7 @@ class EmployeeFilter extends InputFilter {
         ));
 		
 		$this->add(array(
-            'name' => 'first_name',
+            'name' => 'employee_name',
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -78,50 +78,13 @@ class EmployeeFilter extends InputFilter {
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'First Name can not be empty.',
+                            $isEmpty => 'Employee name can not be empty.',
                         )
                     )
                 ),
             ),
         ));
 		
-		$this->add(array(
-            'name' => 'last_name',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Last can not be empty.',
-                        )
-                    )
-                ),
-            ),
-        ));
-		
-		$this->add(array(
-            'name' => 'phone_no',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Phone Number can not be empty.',
-                        )
-                    )
-                ),
-            ),
-        ));
 		
 		$this->add(array(
             'name' => 'mobile_no',
@@ -200,7 +163,7 @@ class EmployeeFilter extends InputFilter {
         ));
 		
 		$this->add(array(
-            'name' => 'spouse_name',
+            'name' => 'introducer_name',
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -211,7 +174,7 @@ class EmployeeFilter extends InputFilter {
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'Spouse Name can not be empty.',
+                            $isEmpty => 'Introducer name can not be empty.',
                         )
                     )
                 ),
@@ -466,24 +429,6 @@ class EmployeeFilter extends InputFilter {
             ),
         ));
 		
-		$this->add(array(
-            'name' => 'per_phone_no',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Permanent Phone Number can not be empty.',
-                        )
-                    )
-                ),
-            ),
-        ));
 		
 		$this->add(array(
             'name' => 'per_mobile_no',

@@ -41,7 +41,7 @@ class EmployeeTable
             $select->where('role_id != 1');
         });
         foreach($resultSet as $employee) {
-            $employees[$employee->employee_code] = $employee->first_name.' '.$employee->last_name.' ('.$employee->employee_code.')';
+            $employees[$employee->employee_code] = $employee->employee_name.' ('.$employee->employee_code.')';
         }
         return $employees;
     }
@@ -62,16 +62,14 @@ class EmployeeTable
         $newdata = array(
             'user_id'       => $data['user_id'],
             'password'      => md5($data['password']),
-            'first_name'    => ucfirst($data['first_name']),
-            'last_name'     => ucfirst($data['last_name']),
+            'employee_name' => ucfirst($data['employee_name']),
             'blood_group'   => $data['blood_group'],
-            'phone_no'      => $data['phone_no'],
             'mobile_no'     => $data['mobile_no'],
-            'employee_code'   => $data['employee_code'],
+            'employee_code' => $data['employee_code'],
             'father_name'   => $data['father_name'],
             'mother_name'   => $data['mother_name'],
             'email'         => $data['email'],
-            'spouse_name'   => $data['spouse_name'],
+            'introducer_name'=> $data['introducer_name'],
             'company_id'    => $data['company_id'],
             'branch_id'     => $data['branch_id'],
             'role_id'       => $data['role_id'],
@@ -85,7 +83,6 @@ class EmployeeTable
             'per_state_id'  => $data['per_state_id'],
             'per_country_id'=> $data['per_country_id'],
             'per_pincode'   => $data['per_pincode'],
-            'per_phone_no'  => $data['per_phone_no'],
             'per_mobile_no' => $data['per_mobile_no'],		
             'updated_by'    => $data['updated_by'],	
             'status'        => $data['status']

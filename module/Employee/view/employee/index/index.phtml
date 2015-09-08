@@ -32,7 +32,7 @@
 						<tr>
 							<td style="width: 4%;"><strong>#</strong></td>
 							<td style="width: 6%;"><strong>EMP Code</strong></td>
-                                                        <td style="width: 13%;"><strong>Full Name</strong></td>
+                                                        <td style="width: 13%;"><strong>Name</strong></td>
 							<td style="width: 16%;"><strong>Email ID</strong></td>
 							<td style="width: 6%;"><strong>User ID</strong></td>							
 							<td style="width: 10%;"><strong>Mobile Number</strong></td>
@@ -44,7 +44,7 @@
                                             <tr>
                                                 <td><?php echo $count; ?></td>
                                                 <td><?php echo $employee->employee_code; ?></td>
-                                                <td><?php echo ucwords($employee->first_name.' '.$employee->last_name); ?></td>
+                                                <td><?php echo ucwords($employee->employee_name); ?></td>
 
                                                 <td><?php echo $employee->email; ?></td>
                                                 <td><?php echo $employee->user_id; ?></td>

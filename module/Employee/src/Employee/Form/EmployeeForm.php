@@ -61,7 +61,7 @@ class EmployeeForm extends Form {
         ));
 		
 		$this->add(array(
-            'name' => 'first_name',
+            'name' => 'employee_name',
             'type' => 'text',
             'options' => array(
                 'label' => 'First Name',
@@ -72,29 +72,7 @@ class EmployeeForm extends Form {
             ),
         ));
 		
-		$this->add(array(
-            'name' => 'last_name',
-            'type' => 'text',
-            'options' => array(
-                'label' => 'Last Name',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'last_name'
-            ),
-        ));
 		
-		$this->add(array(
-            'name' => 'phone_no',
-            'type' => 'text',
-            'options' => array(
-                'label' => 'Phone Number',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'phone_no'
-            ),
-        ));
 		
 		$this->add(array(
             'name' => 'mobile_no',
@@ -145,10 +123,10 @@ class EmployeeForm extends Form {
         ));
 		
 		$this->add(array(
-            'name' => 'spouse_name',
+            'name' => 'introducer_name',
             'type' => 'text',
             'options' => array(
-                'label' => 'Spouse Name',
+                'label' => 'Introducer Name',
             ),
             'attributes' => array(
                 'class' => 'form-control',
@@ -360,17 +338,6 @@ class EmployeeForm extends Form {
             ),
 		));
 		
-		$this->add(array(
-            'name' => 'per_phone_no',
-            'type' => 'text',
-            'options' => array(
-                'label' => 'Phone Number',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'per_phone_no'
-            ),
-		));
 		
 		$this->add(array(
             'name' => 'per_mobile_no',
@@ -391,8 +358,8 @@ class EmployeeForm extends Form {
                 'label' => 'Active',
                 'value_options' => array(
 					'' => 'Choose one',
-					'1' => 'Yes',
-					'0' => 'No'
+					'1' => 'Active',
+					'0' => 'Inactive'
 				),
 				'disable_inarray_validator' => true,
             ),			
@@ -504,19 +471,10 @@ class EmployeeForm extends Form {
                 'type' => 'submit',          
                 'class' => 'btn btn-success',
                 'value' => 'Save',
-				'id'	=> 'save-branch'
+                'id'	=> 'save-branch'
             ),
         ));
 		
-		$this->add(array(
-            'name' => 'reset',
-            'attributes' => array(
-                'type' => 'reset',          
-                'class' => 'btn btn-default',
-                'value' => 'Reset',
-				'id'	=> 'reset'
-            ),
-        ));
     }
 	
 }
