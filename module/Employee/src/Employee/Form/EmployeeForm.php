@@ -159,6 +159,18 @@ class EmployeeForm extends Form {
                 'rows' => '4'
             ),
         ));
+        
+        $this->add(array(
+            'name' => 'pan_number',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Pan Number',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'pan_number'
+            ),
+        ));
 		
         $this->add(array(
             'name' => 'introducer_code',

@@ -83,6 +83,7 @@ class IndexController extends AbstractActionController {
 			$employeeForm->get('employee_name')->setValue($employee->employee_name);
 			$employeeForm->get('blood_group')->setValue($employee->blood_group);
 			$employeeForm->get('mobile_no')->setValue($employee->mobile_no);
+			$employeeForm->get('pan_number')->setValue($employee->pan_number);
 			$employeeForm->get('email')->setValue($employee->email);
 			$employeeForm->get('father_name')->setValue($employee->father_name);
 			$employeeForm->get('mother_name')->setValue($employee->mother_name);

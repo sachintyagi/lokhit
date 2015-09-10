@@ -13,6 +13,7 @@ class Employee
     public $father_name;
     public $mother_name;
     public $email;
+    public $pan_number;
     public $introducer_code;
     public $nominee_name;
     public $nominee_relation;
@@ -54,6 +55,7 @@ class Employee
         $this->father_name      = (!empty($data['father_name'])) ? $data['father_name'] : null;
         $this->mother_name      = (!empty($data['mother_name'])) ? $data['mother_name'] : null;
         $this->email            = (!empty($data['email'])) ? $data['email'] : null;
+        $this->pan_number       = (!empty($data['pan_number'])) ? $data['pan_number'] : null;
         $this->introducer_code  = (!empty($data['introducer_code'])) ? $data['introducer_code'] : null;
         $this->nominee_name     = (!empty($data['nominee_name'])) ? $data['nominee_name'] : null;
         $this->nominee_relation = (!empty($data['nominee_relation'])) ? $data['nominee_relation'] : null;

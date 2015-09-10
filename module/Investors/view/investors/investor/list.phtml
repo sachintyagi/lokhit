@@ -5,16 +5,6 @@
 				<a href="<?php echo $this->url('new-investors')?>" class="btn btn-primary">New Investor</a>
 			</span>
 		</h3>
-		<?php 
-			if(!empty($this->flashMessages[0])) {
-				foreach($this->flashMessages[0] as $class => $message) {
-					echo '<div class="'.$class.'">'.$message.'</div>';	
-				}
-			}
-			if ($this->error) {
-				echo '<div class="error">'.$this->error.'</div>';	
-			}
-		?>
 	</div>
 	<!-- /.col-lg-12 -->
 </div>
@@ -33,9 +23,10 @@
                                             <tr>
                                                 <td style="width: 5%;"><strong>#</strong></td>
                                                 <td style="width: 22%;"><strong>CF Number</strong></td>
-                                                <td style="width: 21%;"><strong>Full Name</strong></td>
-                                                <td style="width: 18%;"><strong>Member ID</strong></td>
-                                                <td style="width: 12%;"><strong>Amount</strong></td>
+                                                <td style="width: 13%;"><strong>Agent Code</strong></td>
+                                                <td style="width: 20%;"><strong>Full Name</strong></td>
+                                                <td style="width: 19%;"><strong>Member ID</strong></td>                                               
+                                                <!--<td style="width: 12%;"><strong>Amount</strong></td>-->
                                                 <td style="width: 12%;"><strong>Deposite Amount</strong></td>
                                                 <td style="width: 12%;"><strong>Maturity Amount</strong></td>
                                                 <td style="width: 15%;"><strong>Start Date</strong></td>
@@ -48,9 +39,10 @@
 						<tr>
 							<td><?php echo $count; ?></td>
                                                         <td><?php echo $invest->cf_number; ?></td>
+                                                        <td><?php echo $invest->employee_code; ?></td>
 							<td><?php echo ucwords($invest->firstname.' '.$invest->lastname); ?></td>
-							<td><?php echo $invest->member_id; ?></td>							
-							<td><?php echo $invest->start_ammount; ?></td>
+							<td><?php echo $invest->member_id; ?></td>		
+							<!--<td><?php //echo $invest->start_ammount; ?></td>-->
 							<td><?php echo $invest->start_ammount; ?></td>
 							<td><?php echo $invest->final_ammount; ?></td>
 							<td><?php echo date('d M, Y',strtotime($invest->start_date)); ?></td>

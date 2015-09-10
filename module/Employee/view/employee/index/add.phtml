@@ -60,7 +60,7 @@
                                 <?php endif;?>
                             </div>
                             <div class="form-group">
-                                <label>Nominee Address<span class="mandatory">*</span></label>
+                                <label>Nominee Address</label>
                                 <?php echo $this->formElement($form->get('nominee_address')); ?>
                                 <?php if($this->formElementErrors($form->get('nominee_address'))) :?>
                                 <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('nominee_address')))?></div>
@@ -75,6 +75,13 @@
                                 <?php echo $this->formElement($form->get('email')); ?>
                                 <?php if($this->formElementErrors($form->get('email'))) :?>
                                 <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('email')))?></div>
+                                <?php endif;?>
+                            </div>
+                            <div class="form-group">
+                                <label>Pan Number</label>
+                                <?php echo $this->formElement($form->get('pan_number')); ?>
+                                <?php if($this->formElementErrors($form->get('pan_number'))) :?>
+                                <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('pan_number')))?></div>
                                 <?php endif;?>
                             </div>
                             <div class="form-group">
@@ -120,7 +127,7 @@
                                 <?php endif;?>
                             </div>						
                             <div class="form-group">
-                                <label>Photo<span class="mandatory">*</span></label>
+                                <label>Photo</label>
                                 <?php echo $this->formElement($form->get('photo')); ?>
                                 <?php if($this->formElementErrors($form->get('photo'))) :?>
                                 <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('photo')))?></div>
