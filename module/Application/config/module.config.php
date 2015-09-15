@@ -20,7 +20,7 @@ return array(
                     ),
                 ),
             ),
-			'apis-members' => array(
+            'apis-members' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
                     //'route'    => '/city[/:stateId][/:cityId][/]',
@@ -31,7 +31,7 @@ return array(
                     ),
                 ),
             ),
-			'apis-plans-details' => array(
+            'apis-plans-details' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
                     //'route'    => '/city[/:stateId][/:cityId][/]',
@@ -42,7 +42,7 @@ return array(
                     ),
                 ),
             ),
-			'apis-plans-durations' => array(
+            'apis-plans-durations' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
                     'route'    => '/apis/plan-durations',
@@ -52,7 +52,7 @@ return array(
                     ),
                 ),
             ),
-			'apis-plans-installments' => array(
+            'apis-plans-installments' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
                     'route'    => '/apis/plan-installments',
@@ -62,7 +62,7 @@ return array(
                     ),
                 ),
             ),
-			'apis-plans-ammounts' => array(
+            'apis-plans-ammounts' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
                     'route'    => '/apis/plan-ammounts',
@@ -72,7 +72,7 @@ return array(
                     ),
                 ),
             ),
-			'apis-plans-ammounts-details' => array(
+            'apis-plans-ammounts-details' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
                     'route'    => '/apis/plan-ammounts-details',
@@ -82,7 +82,7 @@ return array(
                     ),
                 ),
             ),
-			'apis-paln-calculation' => array(
+            'apis-paln-calculation' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
                     'route'    => '/apis/paln-calculation',
@@ -92,7 +92,7 @@ return array(
                     ),
                 ),
             ),
-			'apis-investment-details' => array(
+            'apis-investment-details' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
                     'route'    => '/apis/investment-details',
@@ -102,7 +102,7 @@ return array(
                     ),
                 ),
             ),
-			'city' => array(
+            'city' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
                     //'route'    => '/city[/:stateId][/:cityId][/]',
@@ -113,7 +113,7 @@ return array(
                     ),
                 ),
             ),
-			'state' => array(
+            'state' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
                     'route'    => '/state',
@@ -133,7 +133,7 @@ return array(
                     ),
                 ),
             ),
-			'branch' => array(
+            'branch' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
                     'route' => '/branch[/]',
@@ -217,7 +217,7 @@ return array(
         'template_path_stack' => array(
             __DIR__ . '/../view',
         ),
-		'strategies' => array(
+        'strategies' => array(
             'ViewJsonStrategy',
         ),
     ),

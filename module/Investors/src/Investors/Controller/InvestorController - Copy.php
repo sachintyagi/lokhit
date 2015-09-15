@@ -4,99 +4,31 @@ namespace Investors\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
 
 use Investors\Form\InvestorForm;
 use Investors\Form\Filter\InvestorFilter;
 
 class InvestorController extends AbstractActionController
 {
-    protected $memberTable;
-    protected $plansTable;
-    protected $employeeTable;
-    protected $plansDetailsTable;	
-    protected $memberInvestmentsTable;
-    protected $memberInstallmentsTable;
+	protected $memberTable;
+	protected $plansTable;
+	protected $employeeTable;
+	protected $plansDetailsTable;	
+	protected $memberInvestmentsTable;
+	protected $memberInstallmentsTable;
 		
     public function listAction()
     {		
-        if($this->getRequest()->isXmlHttpRequest()) {
-            $draw = $this->getRequest()->getQuery('draw', 1);
-            $length = $this->getRequest()->getQuery('length', 10);            
-            $offset = $this->getRequest()->getQuery('start', 0);
-            $search = $this->getRequest()->getQuery('search', null);
-            $order = $this->getRequest()->getQuery('order', null);            
-            $conditions = array(
-                'fields'=> array(
-                    'id',
-                    'start_ammount',
-                    'final_ammount',
-                    'start_date',				
-                    'end_date',	
-                    'cf_number',
-                    'period',	
-                    'interest_rate',	
-                    'repayable_to',	
-                    'installment_type',
-                    'installment_no',
-                    'installment_date',
-                    'last_installment_date',
-                    'employee_code',
-                    'total_installment',
-                ),
-                'filters'=> array(),
-                'joins' => array(
-                    array(
-                        'table'     => 'members',
-                        'mapping'   => 'member_investments.member_id = members.member_id',
-                        'fields'    =>  array('firstname', 'lastname', 'member_id', 'emailid', 'gardian_name','address','nominee_name','nominee_relation','dob')
-                    )
-                ),
-                'limit' => (int)$length,
-                'offset' => (int)$offset,
-                'search' => array()                
-            );
-            if(!empty($search['value'])) {
-                $conditions['search'] =  array(
-                    'term' => $search['value'],
-                    'fields' => array('cf_number', 'employee_code','firstname','lastname','member_investments.member_id','final_ammount')
-                );
-            }
             $auth = $this->getServiceLocator()->get('AuthService');
             $authData = $auth->getIdentity();
-            $roleId = $authData->role_id;
-            if($roleId == 1 || $roleId == 2) {
-                
+            if($authData->role_id == 1 || $authData->role_id == 2) {
+                $investments = $this->getTable($this->memberInvestmentsTable,'Application\Model\MemberInvestmentsTable')->findInvestors(null, null);
             } else {
-                $conditions['filters'][] = array('member_investments.branch_id' => $authData->branch->id);
+                $investments = $this->getTable($this->memberInvestmentsTable,'Application\Model\MemberInvestmentsTable')->findInvestors(null, $authData->branch->id);
             }
-            $investments = $this->getTable($this->memberInvestmentsTable,'Application\Model\MemberInvestmentsTable')->fetchAll($conditions);
-            $investmentsTotal = $this->getTable($this->memberInvestmentsTable,'Application\Model\MemberInvestmentsTable')->fetchTotal($conditions);
-            $data = array();
-            foreach($investments as $investment) {
-                $data[] = array(
-                    $investment->id,
-                    $investment->cf_number,
-                    $investment->employee_code,
-                    $investment->firstname.' '.$investment->lastname,
-                    $investment->member_id,
-                    $investment->final_ammount,
-                    date('d M, y', strtotime($investment->end_date)),
-                    '&nbsp;&nbsp;&nbsp;<a title="Print Certificate" href="/reports/certificate/'.$investment->id.'"><i class="glyphicon glyphicon-print"></i></a>
-                    &nbsp;| <a title="Renew" href="/investors/new-installment/'.$investment->id.'"><i class="glyphicon glyphicon-repeat"></i></a>',
-                );
-            }
-            return new JsonModel(
-                array(
-                    "draw"=> (int)$draw,
-                    "recordsTotal"=> (int)$investmentsTotal->count(),
-                    "recordsFiltered"=> (int)$investmentsTotal->count(),
-                    "data"=> $data,                
-                )
-            );
-        } 
-        return new ViewModel(array()); 
-          
+            return new ViewModel(array(
+                'investments' => $investments
+            ));
     }
 	
     public function newAction()

@@ -12,24 +12,73 @@ class MemberInvestmentsTable
     {
         $this->tableGateway = $tableGateway;
     }
-
-    public function fetchAll()
+    
+    public function fetchTotal($conditions = array()) 
     {
-        $resultSet = $this->tableGateway->select();
+        $resultSet = $this->tableGateway->select(function(Select $select) use ($conditions){
+            if(!empty($conditions['fields']) && count($conditions['fields'])) {
+                $select->columns($conditions['fields']);
+            }
+            if(!empty($conditions['joins']) && count($conditions['joins'])) {
+                foreach($conditions['joins'] as $join) {
+                    $select->join($join['table'], $join['mapping'], $join['fields']);
+                }
+            }
+            if(!empty($conditions['filters']) && count($conditions['filters'])) {
+                foreach($conditions['filters'] as $filter) {
+                    $select->where($filter);
+                }
+            }
+            if(!empty($conditions['search']) && count($conditions['search'])) {
+                foreach($conditions['search']['fields'] as $field) {
+                    $select->where->OR->like($field, '%'.$conditions['search']['term'].'%');
+                }
+            }
+            //echo $select->getSqlString(); exit;
+        });
         return $resultSet;
     }
 
-	public function fetchAllAsArray($status = false)
+    public function fetchAll($conditions = array())
     {
-		$customers = array();
+        $resultSet = $this->tableGateway->select(function(Select $select) use ($conditions){
+            if(!empty($conditions['fields']) && count($conditions['fields'])) {
+                $select->columns($conditions['fields']);
+            }
+            if(!empty($conditions['joins']) && count($conditions['joins'])) {
+                foreach($conditions['joins'] as $join) {
+                    $select->join($join['table'], $join['mapping'], $join['fields']);
+                }
+            }
+            if(!empty($conditions['filters']) && count($conditions['filters'])) {
+                foreach($conditions['filters'] as $filter) {
+                    $select->where($filter);
+                }
+            }
+            if(!empty($conditions['search']) && count($conditions['search'])) {
+                foreach($conditions['search']['fields'] as $field) {
+                    $select->where->OR->like($field, '%'.$conditions['search']['term'].'%');
+                }
+            }
+            $select->limit($conditions['limit']);
+            $select->offset($conditions['offset']);
+            //echo $select->getSqlString(); exit;
+        });
+        //print_r($resultSet); exit;
+        return $resultSet;
+    }
+
+    public function fetchAllAsArray($status = false)
+    {
+        $customers = array();
         $resultSet = $this->tableGateway->select(function(Select $select) use ($status){
             if($status) {
                 $select->where(array('status'=>'1'));
             }
         });
-		foreach($resultSet as $customer) {
-			$customers[$customer->id] = $customer->firstname.' '.$customer->lastname.' ('.$customer->mobile_number.')';
-		}
+        foreach($resultSet as $customer) {
+                $customers[$customer->id] = $customer->firstname.' '.$customer->lastname.' ('.$customer->mobile_number.')';
+        }
         return $customers;
     }
 	
