@@ -13,18 +13,58 @@ class EmployeeTable
         $this->tableGateway = $tableGateway;
     }
 
-    public function fetchAll($status = false, $branch=null)
+    public function fetchTotal($conditions = array()) 
     {
-        $resultSet = $this->tableGateway->select(function(Select $select) use ($status, $branch){
-            if($status) {
-                $select->where(array('status'=>'1'));
+        $resultSet = $this->tableGateway->select(function(Select $select) use ($conditions){
+            if(!empty($conditions['fields']) && count($conditions['fields'])) {
+                $select->columns($conditions['fields']);
             }
-            if($branch) {
-                $select->where(array('branch_id'=>$branch));
+            if(!empty($conditions['joins']) && count($conditions['joins'])) {
+                foreach($conditions['joins'] as $join) {
+                    $select->join($join['table'], $join['mapping'], $join['fields']);
+                }
             }
-            $select->where('role_id != 1');
-            $select->order('employee_code asc');
+            if(!empty($conditions['filters']) && count($conditions['filters'])) {
+                foreach($conditions['filters'] as $filter) {
+                    $select->where($filter);
+                }
+            }
+            if(!empty($conditions['search']) && count($conditions['search'])) {
+                foreach($conditions['search']['fields'] as $field) {
+                    $select->where->OR->like($field, '%'.$conditions['search']['term'].'%');
+                }
+            }
+            //echo $select->getSqlString(); exit;
         });
+        return $resultSet;
+    }
+
+    public function fetchAll($conditions = array())
+    {
+        $resultSet = $this->tableGateway->select(function(Select $select) use ($conditions){
+            if(!empty($conditions['fields']) && count($conditions['fields'])) {
+                $select->columns($conditions['fields']);
+            }
+            if(!empty($conditions['joins']) && count($conditions['joins'])) {
+                foreach($conditions['joins'] as $join) {
+                    $select->join($join['table'], $join['mapping'], $join['fields']);
+                }
+            }
+            if(!empty($conditions['filters']) && count($conditions['filters'])) {
+                foreach($conditions['filters'] as $filter) {
+                    $select->where($filter);
+                }
+            }
+            if(!empty($conditions['search']) && count($conditions['search'])) {
+                foreach($conditions['search']['fields'] as $field) {
+                    $select->where->OR->like($field, '%'.$conditions['search']['term'].'%');
+                }
+            }
+            $select->limit($conditions['limit']);
+            $select->offset($conditions['offset']);
+            //echo $select->getSqlString(); exit;
+        });
+        //print_r($resultSet); exit;
         return $resultSet;
     }
 
