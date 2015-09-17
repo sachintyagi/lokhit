@@ -1,28 +1,86 @@
-<?php 
+<?php
+
 namespace Employee\Form;
- 
+
 use Zend\Form\Element;
 use Zend\Form\Form;
 
 class EmployeeForm extends Form {
- 
-	public function __construct() {
-        
-        parent::__construct('Employee');
+
+    protected $states;
+
+    public function __construct($sm) {
+
+        parent::__construct('Member');
         $this->setAttribute('method', 'post');
-        $this->setAttribute('class', 'form-employee');
- 
+        $this->setAttribute('class', 'form-member');
+
         $this->add(array(
-            'name' => 'user_id',
-            'type' => 'text',
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'branch_id',
             'options' => array(
-                'label' => 'Userid',
+                'label' => 'Branch',
+                'empty_option' => '-Choose Branch-',
+                'value_options' => array(
+                ),
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'id' => 'user_id'
+                'id' => 'branch_id',
             ),
         ));
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'role_id',
+            'options' => array(
+                'label' => 'Role',
+                'empty_option' => '-Choose Role-',
+                'value_options' => array(
+                ),
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'role_id',
+            ),
+        ));
+        
+        $this->add(array(
+            'name' => 'company_id',
+            'type' => 'hidden',
+            'options' => array(
+                'label' => 'Company Id',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'company_id',
+                'maxlength' => 100,
+            ),
+        ));
+        $this->add(array(
+            'name' => 'userid',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Login Id',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'userid',
+                'maxlength' => 100,
+            ),
+        ));
+        $this->add(array(
+            'name' => 'password',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Password',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'password',
+                'maxlength' => 20,
+            ),
+        ));
+
         $this->add(array(
             'name' => 'employee_code',
             'type' => 'text',
@@ -32,10 +90,94 @@ class EmployeeForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'employee_code',
+                'maxlength' => 100,
+                'readonly' => true
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'introducer_code',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Introducer Code',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'introducer_code',
+                'maxlength' => 100,
+            ),
+        ));
+        
+        $this->add(array(
+            'name' => 'firstname',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'First Name',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'firstname',
+                'maxlength' => 100,
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'lastname',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Last Name',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'lastname',
+                'maxlength' => 100,
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'emailid',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Email Id',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'emailid',
+                'maxlength' => 255,
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'dob',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Date Of Birth',
+            ),
+            'attributes' => array(
+                'class' => 'form-control datepicker',
+                'id' => 'dob',
                 'readonly' => true,
             ),
         ));
-		
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'gender',
+            'options' => array(
+                'label' => 'Gender',
+                'empty_option' => '-Choose Gender-',
+                'value_options' => array(
+                    'Male' => 'Male',
+                    'Female' => 'Female',
+                    'Others' => 'Others',
+                ),
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'gender',
+            ),
+        ));
+
         $this->add(array(
             'name' => 'password',
             'type' => 'text',
@@ -44,489 +186,154 @@ class EmployeeForm extends Form {
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'id' => 'password'
+                'id' => 'password',
+                'maxlength' => 20,
             ),
         ));
-		
-		$this->add(array(
-            'name' => 'cpassword',
-            'type' => 'text',
-            'options' => array(
-                'label' => 'Confirm Password',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'cpassword'
-            ),
-        ));
-		
-		$this->add(array(
-            'name' => 'employee_name',
-            'type' => 'text',
-            'options' => array(
-                'label' => 'First Name',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'first_name'
-            ),
-        ));
-		
-		
-		
+
         $this->add(array(
-            'name' => 'mobile_no',
             'type' => 'text',
+            'name' => 'gardian_name',
             'options' => array(
-                'label' => 'Mobile Number',
+                'label' => 'Gardian Name'
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'id' => 'mobile_no'
+                'id' => 'gardian_name',
+                'maxlength' => 200,
             ),
         ));
-		
+
         $this->add(array(
-            'name' => 'email',
             'type' => 'text',
+            'name' => 'mobile_number',
             'options' => array(
-                'label' => 'Email',
+                'label' => 'Mobile Number'
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'id' => 'email'
+                'id' => 'mobile_number',
+                'maxlength' => 10,
             ),
         ));
-		
+
         $this->add(array(
-            'name' => 'father_name',
             'type' => 'text',
-            'options' => array(
-                'label' => 'Father Name',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'father_name'
-            ),
-        ));
-		
-        $this->add(array(
-            'name' => 'mother_name',
-            'type' => 'text',
-            'options' => array(
-                'label' => 'Mother Name',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'mother_name'
-            ),
-        ));
-        
-        $this->add(array(
             'name' => 'nominee_name',
-            'type' => 'text',
             'options' => array(
-                'label' => 'Nominee Name',
+                'label' => 'Nominee Name'
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'id' => 'nominee_name'
+                'id' => 'nominee_name',
+                'maxlength' => 200,
             ),
         ));
-        
+
         $this->add(array(
+            'type' => 'text',
             'name' => 'nominee_relation',
-            'type' => 'text',
             'options' => array(
-                'label' => 'Nominee Relation',
+                'label' => 'Nominee Relation'
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'id' => 'naminee_relation'
+                'id' => 'nominee_relation',
+                'maxlength' => 50,
             ),
         ));
-        
+
         $this->add(array(
-            'name' => 'nominee_address',
             'type' => 'Zend\Form\Element\Textarea',
+            'name' => 'nominee_address',
             'options' => array(
-                'label' => 'Nominee Address',				
+                'label' => 'Nominee Address'
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'id' => 'per_address',
+                'id' => 'nominee_address',
                 'cols' => '50',
-                'rows' => '4'
+                'rows' => '4',
+                'maxlength' => 200,
             ),
         ));
-        
+
         $this->add(array(
-            'name' => 'pan_number',
+            'name' => 'member_id',
             'type' => 'text',
             'options' => array(
-                'label' => 'Pan Number',
+                'label' => 'Customer ID',
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'id' => 'pan_number'
+                'id' => 'customer_id',
+                //'readonly' => true,
             ),
         ));
-		
-        $this->add(array(
-            'name' => 'introducer_code',
-            'type' => 'Zend\Form\Element\Select',
-            'options' => array(
-                'label' => 'Introducer Code',
-                'empty_option' => 'Choose one',
-                'value_options' => array(),
-                'disable_inarray_validator' => true,
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'introducer_code',
-            ),
-        ));
-		
-        $this->add(array(
-            'name' => 'blood_group',
-            'type' => 'text',
-            'options' => array(
-                'label' => 'Blood Group',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'blood_group'
-            ),
-        ));
-		
-        $this->add(array(
-            'name' => 'photo',
-            'type' => 'file',
-            'options' => array(
-                'label' => 'Photo',
-            ),
-            'attributes' => array(
-                'id' => 'photo'
-            ),
-        ));
-		
-        $this->add(array(
-            'name' => 'company_id',
-            'type' => 'Zend\Form\Element\Select',
-            'options' => array(
-                'label' => 'Company',
-				'empty_option' => 'Choose one',
-                'value_options' => array(),
-				'disable_inarray_validator' => true,
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'company_id',
-            ),
-		));
-		
-        $this->add(array(
-            'name' => 'role_id',
-            'type' => 'Zend\Form\Element\Select',
-            'options' => array(
-                'label' => 'Role',
-				'empty_option' => 'Choose one',
-                'value_options' => array(),
-				'disable_inarray_validator' => true,
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'role_id',
-            ),
-		));
-		
-        $this->add(array(
-            'name' => 'branch_id',
-            'type' => 'Zend\Form\Element\Select',
-            'options' => array(
-                'label' => 'Branch',
-				'empty_option' => 'Choose one',
-                'value_options' => array(),
-				'disable_inarray_validator' => true,
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'branch_id',
-            ),
-		));
-		
+
         $this->add(array(
             'name' => 'address',
             'type' => 'Zend\Form\Element\Textarea',
             'options' => array(
-                'label' => 'Address',				
+                'label' => 'Address',
             ),
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'address',
-				'cols' => '50',
-				'rows' => '4'
+                'cols' => '50',
+                'rows' => '4',
+                'maxlength' => 300,
             ),
         ));
-		
+
         $this->add(array(
-            'name' => 'city',
-            'type' => 'text',
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'country_id',
             'options' => array(
-                'label' => 'City',
+                'label' => 'State',
+                'value_options' => array('95' => 'India')
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'id' => 'city'
-            ),
+                'id' => 'country_id'
+            )
         ));
- 
+
         $this->add(array(
-            'name' => 'state_id',
             'type' => 'Zend\Form\Element\Select',
+            'name' => 'state_id',
             'options' => array(
                 'label' => 'State',
-				'empty_option' => 'Choose one',
-                'value_options' => array(),
-				'disable_inarray_validator' => true,
+                'empty_option' => '-Choose State-',
+                'value_options' => $sm->get('Application\Model\StateTable')->fetchAllAsArray()
             ),
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'state_id',
             ),
         ));
-   
+
         $this->add(array(
-            'name' => 'country_id',
-            'type' => 'Zend\Form\Element\Select',
-            'options' => array(
-                'label' => 'Country',
-				'empty_option' => 'Choose one',
-                'value_options' => array(),
-				'disable_inarray_validator' => true,
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'country_id',
-            ),
-		));
-		
-		$this->add(array(
-            'name' => 'pincode',
             'type' => 'text',
-            'options' => array(
-                'label' => 'Pincode',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'pincode'
-            ),
-        ));
-		
-        $this->add(array(
-            'name' => 'per_address',
-            'type' => 'Zend\Form\Element\Textarea',
-            'options' => array(
-                'label' => 'Address',				
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'per_address',
-				'cols' => '50',
-				'rows' => '4'
-            ),
-        ));
-		
-        $this->add(array(
-            'name' => 'per_city',
-            'type' => 'text',
+            'name' => 'city_id',
             'options' => array(
                 'label' => 'City',
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'id' => 'per_city'
-            ),
-        ));
- 
-        $this->add(array(
-            'name' => 'per_state_id',
-            'type' => 'Zend\Form\Element\Select',
-            'options' => array(
-                'label' => 'State',
-				'empty_option' => 'Choose one',
-                'value_options' => array(),
-				'disable_inarray_validator' => true,
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'per_state_id',
-            ),
-        ));
-	   
-        $this->add(array(
-            'name' => 'per_country_id',
-            'type' => 'Zend\Form\Element\Select',
-            'options' => array(
-                'label' => 'Country',
-				'empty_option' => 'Choose one',
-                'value_options' => array(),
-				'disable_inarray_validator' => true,
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'per_country_id',
-            ),
-        ));
-		
-        $this->add(array(
-            'name' => 'per_pincode',
-            'type' => 'text',
-            'options' => array(
-                'label' => 'Pincode',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'per_pincode'
-            ),
-        ));
-		
-		
-        $this->add(array(
-            'name' => 'per_mobile_no',
-            'type' => 'text',
-            'options' => array(
-                'label' => 'Mobile Number',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'per_mobile_no'
-            ),
-        ));
-	   
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
-            'name' => 'status',
-            'options' => array(
-                'label' => 'Active',
-                'value_options' => array(
-					'' => 'Choose one',
-					'1' => 'Active',
-					'0' => 'Inactive'
-				),
-				'disable_inarray_validator' => true,
-            ),			
-			'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'status',
-            ),
-        ));
-		
-        $this->add(array(
-            'name' => 'certificate',
-            'type' => 'text',
-            'options' => array(
-                'label' => 'Certificate',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'certificate'
-            ),
-        ));
-		
-        $this->add(array(
-            'name' => 'university',
-            'type' => 'text',
-            'options' => array(
-                'label' => 'University',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'university'
-            ),
-		));
-		
-		$this->add(array(
-            'name' => 'year',
-            'type' => 'text',
-            'options' => array(
-                'label' => 'Year',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'year'
-            ),
-        ));
-		
-        $this->add(array(
-            'name' => 'percentage',
-            'type' => 'text',
-            'options' => array(
-                'label' => 'Percentage',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'percentage'
-            ),
-		));
-		
-		$this->add(array(
-            'name' => 'previous_employer',
-            'type' => 'text',
-            'options' => array(
-                'label' => 'Previous Employer',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'previous_employer'
+                'id' => 'city_id',
             ),
         ));
 
         $this->add(array(
-            'name' => 'designation',
-            'type' => 'text',
-            'options' => array(
-                'label' => 'Designation',
-            ),
+            'name' => 'save',
             'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'designation'
-            ),
-        ));
-
-        $this->add(array(
-            'name' => 'employee_from',
-            'type' => 'text',
-            'options' => array(
-                'label' => 'From',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'employee_from'
-            ),
-        ));
-
-        $this->add(array(
-            'name' => 'employee_to',
-            'type' => 'text',
-            'options' => array(
-                'label' => 'To',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'id' => 'employee_to'
-            ),
-		));
-		
-        $this->add(array(
-            'name' => 'save-employee',
-            'attributes' => array(
-                'type' => 'submit',          
+                'type' => 'submit',
                 'class' => 'btn btn-success',
                 'value' => 'Save',
-                'id'	=> 'save-branch'
+                'id' => 'save-member'
             ),
-        ));	
+        ));
     }
-	
+
 }

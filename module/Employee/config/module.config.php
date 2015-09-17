@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework (http://framework.zend.com/)
  *
@@ -6,31 +7,30 @@
  * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
-
 return array(
     'router' => array(
         'routes' => array(
-            'employee-list' => array(
+            'employees' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route' => '/employee-list[/]',
+                    'route' => '/employees[/]',
                     'defaults' => array(
                         'controller' => 'Employee\Controller\Index',
                         'action' => 'index',
                     ),
                 ),
             ),
-			'new-employee' => array(
+            'new-employee' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route' => '/new-employee[/:id][/]',
+                    'route' => '/employee/new[/:id][/]',
                     'defaults' => array(
                         'controller' => 'Employee\Controller\Index',
-                        'action' => 'add',
+                        'action' => 'new',
                     ),
                 ),
             ),
-			'roles' => array(
+            'roles' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
                     'route' => '/employee/roles[/]',
@@ -40,7 +40,7 @@ return array(
                     ),
                 ),
             ),
-			'new-role' => array(
+            'new-role' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
                     'route' => '/employee/new-role[/]',
@@ -52,14 +52,13 @@ return array(
             ),
         ),
     ),
-	
     'controllers' => array(
         'invokables' => array(
-            'Employee\Controller\Index' 	=> 'Employee\Controller\IndexController',
-            'Employee\Controller\Role' 		=> 'Employee\Controller\RoleController',
+            'Employee\Controller\Index' => 'Employee\Controller\IndexController',
+            'Employee\Controller\Role' => 'Employee\Controller\RoleController',
         ),
     ),
-	'view_manager' => array(
+    'view_manager' => array(
         'template_map' => array(
             'employee/index/index' => __DIR__ . '/../view/employee/index/index.phtml',
         ),

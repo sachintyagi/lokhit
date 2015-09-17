@@ -6,6 +6,7 @@ class Employee
     public $id;
     public $company_id;
     public $branch_id;
+    public $introducer_code;
     public $role_id;
     public $firstname;
     public $lastname;
@@ -40,6 +41,7 @@ class Employee
         $this->company_id       = (!empty($data['company_id'])) ? $data['company_id'] : 0;
         $this->branch_id        = (!empty($data['branch_id'])) ? $data['branch_id'] : 0;
         $this->role_id          = (!empty($data['role_id'])) ? $data['role_id'] : 0;
+        $this->introducer_code  = (!empty($data['introducer_code'])) ? $data['introducer_code'] : null;
         $this->firstname        = (!empty($data['firstname'])) ? $data['firstname'] : null;
         $this->lastname         = (!empty($data['lastname'])) ? $data['lastname'] : null;
         $this->employee_code    = (!empty($data['employee_code'])) ? $data['employee_code'] : null;

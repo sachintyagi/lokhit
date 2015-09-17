@@ -55,7 +55,7 @@
             <li>
                 <a href="#"><i class="fa fa-users fa-fw"></i> <?php echo $this->translate('Employees') ?><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="<?php echo $this->url('employee-list') ?>"><i class="fa  fa-th-list fa-fw"></i> <?php echo $this->translate('All Employee') ?></a></li>
+                    <li><a href="<?php echo $this->url('employees') ?>"><i class="fa  fa-th-list fa-fw"></i> <?php echo $this->translate('All Employee') ?></a></li>
                     <li><a href="<?php echo $this->url('new-employee') ?>"><i class="fa  fa-th-list fa-fw"></i> <?php echo $this->translate('Add New Employee') ?></a></li>                                
                     <?php if (!empty($user) && ($user->role_id == 1 || $user->role_id == 2)) : ?>
                         <li><a href="<?php echo $this->url('roles') ?>"><i class="fa  fa-th-list fa-fw"></i> <?php echo $this->translate('Roles') ?></a></li>

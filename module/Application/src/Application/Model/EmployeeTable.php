@@ -97,50 +97,19 @@ class EmployeeTable
         return $row;
     }
 	
-    public function save($data,$employeeid=null)
+    public function save($data)
     {
-        $newdata = array(
-            'user_id'           => $data['user_id'],
-            'password'          => md5($data['password']),
-            'employee_name'     => ucfirst($data['employee_name']),
-            'blood_group'       => $data['blood_group'],
-            'mobile_no'         => $data['mobile_no'],
-            'employee_code'     => $data['employee_code'],
-            'father_name'       => $data['father_name'],
-            'mother_name'       => $data['mother_name'],
-            'email'             => $data['email'],
-            'introducer_code'   => $data['introducer_code'],
-            'nominee_name'      => ucfirst($data['nominee_name']),
-            'nominee_relation'  => ucfirst($data['nominee_relation']),
-            'nominee_address'   => $data['nominee_address'],
-            'company_id'        => $data['company_id'],
-            'branch_id'         => $data['branch_id'],
-            'role_id'           => $data['role_id'],
-            'address'           => $data['address'],
-            'city'              => ucfirst($data['city']),
-            'state_id'          => $data['state_id'],
-            'country_id'        => $data['country_id'],
-            'pincode'           => $data['pincode'],
-            'per_address'       => $data['per_address'],
-            'per_city'          => ucfirst($data['per_city']),
-            'per_state_id'      => $data['per_state_id'],
-            'per_country_id'    => $data['per_country_id'],
-            'per_pincode'       => $data['per_pincode'],
-            'per_mobile_no'     => $data['per_mobile_no'],		
-            'updated_by'        => $data['updated_by'],	
-            'status'            => $data['status']
-        );
-        $id = ($employeeid)?$employeeid:0;		
-        if($id == 0) {
-            $newdata['created_at'] = $data['created_at'];
-            $newdata['created_by'] = $data['created_by'];
-            $this->tableGateway->insert($newdata);
-            return $this->tableGateway->lastInsertValue; 
+        if (isset($data['save'])) {
+            unset($data['save']);
+        }
+        $id = (isset($data['id'])) ? (int) $data['id'] : 0;
+        if ($id == 0) {
+            $this->tableGateway->insert($data);
+            return $this->tableGateway->lastInsertValue;
         } else {
-            if($this->find($id)) {
-                unset($newdata['user_id']);
-                unset($newdata['password']);
-                $this->tableGateway->update($newdata, array('id' => $id));
+            if ($this->find($id)) {
+                unset($data['id']);
+                $this->tableGateway->update($data, array('id' => $id));
                 return $id;
             } else {
                 throw new \Exception('Employee does not exist');

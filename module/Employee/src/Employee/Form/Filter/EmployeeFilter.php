@@ -1,73 +1,17 @@
-<?php 
+<?php
+
 namespace Employee\Form\Filter;
- 
+
 use Zend\InputFilter\InputFilter;
- 
+
 class EmployeeFilter extends InputFilter {
- 
-    public function __construct(){
-        
+
+    public function __construct($sm) {
         $isEmpty = \Zend\Validator\NotEmpty::IS_EMPTY;
-        
+        $invalidEmail = \Zend\Validator\EmailAddress::INVALID_FORMAT;
+        $recordExists = \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND;
         $this->add(array(
-            'name' => 'user_id',
-            'required' => false,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'User Id can not be empty.',
-                        )
-                    )
-                ),
-            ),
-        ));
-		
-        $this->add(array(
-            'name' => 'password',
-            'required' => false,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Password can not be empty.',
-                        )
-                    )
-                ),
-            ),
-        ));
-		
-        $this->add(array(
-            'name' => 'cpassword',
-            'required' => false,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Confirm Password can not be empty.',
-                        )
-                    )
-                ),
-            ),
-        ));
-		
-        $this->add(array(
-            'name' => 'employee_name',
+            'name' => 'branch_id',
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -78,15 +22,15 @@ class EmployeeFilter extends InputFilter {
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'Employee name can not be empty.',
+                            $isEmpty => 'Please select branch.'
                         )
                     )
-                ),
-            ),
+                )
+            )
         ));
-		
+
         $this->add(array(
-            'name' => 'mobile_no',
+            'name' => 'firstname',
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -97,34 +41,86 @@ class EmployeeFilter extends InputFilter {
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'Mobile Number can not be empty.',
+                            $isEmpty => 'First Name can not be empty.',
                         )
                     )
                 ),
             ),
         ));
-		
+
         $this->add(array(
-            'name' => 'email',
+            'name' => 'lastname',
+            'required' => false,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'gardian_name',
+            'required' => true,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'NotEmpty',
+                    'options' => array(
+                        'messages' => array(
+                            $isEmpty => 'S/o, D/o, W/o Name can not be empty.'
+                        )
+                    )
+                )
+            )
+        ));
+
+        $this->add(array(
+            'name' => 'emailid',
             'required' => false,
             'filters' => array(
                 array('name' => 'StripTags'),
                 array('name' => 'StringTrim'),
             ),
             'validators' => array(
+                /* array(
+                  'name' => 'NotEmpty',
+                  'options' => array(
+                  'messages' => array(
+                  $isEmpty => 'Email Id can not be empty.'
+                  )
+                  )
+                  ), */
                 array(
-                    'name' => 'NotEmpty',
+                    'name' => 'EmailAddress',
                     'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Email Id can not be empty.',
-                        )
-                    )
+                        'domain' => 'true',
+                        'hostname' => 'true',
+                        'mx' => 'true',
+                        'deep' => 'true',
+                        'message' => array(
+                            $invalidEmail => 'Invalid email address.',
+                        //$isEmpty => 'Email Id can not be empty.'
+                        ),
+                    ),
                 ),
-            ),
+                array(
+                    'name' => 'Db\NoRecordExists',
+                    'options' => array(
+                        'table' => 'members',
+                        'field' => 'emailid',
+                        'adapter' => $sm->get('Zend\Db\Adapter\Adapter'),
+                        'message' => array(
+                            $recordExists => 'Email address already register with us.',
+                        ),
+                    ),
+                ),
+            )
         ));
-		
+
         $this->add(array(
-            'name' => 'father_name',
+            'name' => 'dob',
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -135,15 +131,15 @@ class EmployeeFilter extends InputFilter {
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'Father name can not be empty.',
+                            $isEmpty => 'Date of Birth can not be empty.'
                         )
                     )
-                ),
-            ),
+                )
+            )
         ));
-		
+
         $this->add(array(
-            'name' => 'mother_name',
+            'name' => 'gender',
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -154,12 +150,61 @@ class EmployeeFilter extends InputFilter {
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'Mother name can not be empty.',
+                            $isEmpty => 'Gender can not be empty.',
                         )
                     )
-                ),
+                )
+            )
+        ));
+
+        $this->add(array(
+            'name' => 'state_id',
+            'required' => true,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'NotEmpty',
+                    'options' => array(
+                        'messages' => array(
+                            $isEmpty => 'Please select state.'
+                        )
+                    )
+                )
+            )
+        ));
+
+        $this->add(array(
+            'name' => 'city_id',
+            'required' => false,
+            'disable_inarray_validator' => true,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
             ),
         ));
+
+        $this->add(array(
+            'name' => 'mobile_number',
+            'required' => true,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'NotEmpty',
+                    'options' => array(
+                        'messages' => array(
+                            $isEmpty => 'Mobile Number can not be empty.'
+                        )
+                    )
+                )
+            )
+        ));
+
         $this->add(array(
             'name' => 'nominee_name',
             'required' => true,
@@ -172,12 +217,13 @@ class EmployeeFilter extends InputFilter {
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'Mominee name can not be empty.',
+                            $isEmpty => 'Nominee Name can not be empty.'
                         )
                     )
-                ),
-            ),
+                )
+            )
         ));
+
         $this->add(array(
             'name' => 'nominee_relation',
             'required' => true,
@@ -190,300 +236,12 @@ class EmployeeFilter extends InputFilter {
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            $isEmpty => 'Nominee relation can not be empty.',
+                            $isEmpty => 'Nominee Relation can not be empty.'
                         )
                     )
                 ),
-            ),
+            )
         ));
-		
-        $this->add(array(
-            'name' => 'introducer_code',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Introducer can not be empty.',
-                        )
-                    )
-                ),
-            ),
-        ));
-		
-        $this->add(array(
-            'name' => 'address',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Address can not be empty.',
-                        )
-                    )
-                ),
-            ),
-        ));
-		
-        $this->add(array(
-            'name' => 'city',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'City can not be empty.',
-                        )
-                    )
-                ),
-            ),
-        ));
-		
-		/*$this->add(array(
-            'name' => 'state_id',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'State can not be empty.',
-                        )
-                    )
-                ),
-            ),
-        ));
-		
-		$this->add(array(
-            'name' => 'country_id',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Country can not be empty.',
-                        )
-                    )
-                ),
-            ),
-        ));
-		
-		$this->add(array(
-            'name' => 'company_id',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Company can not be empty.',
-                        )
-                    )
-                ),
-            ),
-        ));
-		
-		$this->add(array(
-            'name' => 'branch_id',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Branch can not be empty.',
-                        )
-                    )
-                ),
-            ),
-        ));
-		
-		$this->add(array(
-            'name' => 'role_id',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Role can not be empty.',
-                        )
-                    )
-                ),
-            ),
-        ));
-		*/
-		
-        $this->add(array(
-            'name' => 'pincode',
-            'required' => false,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Pincode can not be empty.',
-                        )
-                    )
-                ),
-            ),
-        ));
-		
-        $this->add(array(
-            'name' => 'per_address',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Permanent Address can not be empty.',
-                        )
-                    )
-                ),
-            ),
-        ));
-		
-        $this->add(array(
-            'name' => 'per_city',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Permanent City can not be empty.',
-                        )
-                    )
-                ),
-            ),
-        ));
-		
-		/*$this->add(array(
-            'name' => 'per_state_id',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Permanent State can not be empty.',
-                        )
-                    )
-                ),
-            ),
-        ));
-		
-		$this->add(array(
-            'name' => 'per_country_id',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Permanent Country can not be empty.',
-                        )
-                    )
-                ),
-            ),
-        ));*/
-		
-        $this->add(array(
-            'name' => 'per_pincode',
-            'required' => false,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Permanent Pincode can not be empty.',
-                        )
-                    )
-                ),
-            ),
-        ));
-		
-		
-        $this->add(array(
-            'name' => 'per_mobile_no',
-            'required' => false,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            $isEmpty => 'Permanent Mobile Number can not be empty.',
-                        )
-                    )
-                ),
-            ),
-        ));
-		
-
     }
+
 }

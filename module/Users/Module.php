@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework (http://framework.zend.com/)
  *
@@ -11,30 +12,25 @@ namespace Users;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
-
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
-
 use Zend\Authentication\Storage;
 use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
 
-class Module
-{
-    public function onBootstrap(MvcEvent $e)
-    {
-        $eventManager        = $e->getApplication()->getEventManager();
+class Module {
+
+    public function onBootstrap(MvcEvent $e) {
+        $eventManager = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
     }
 
-    public function getConfig()
-    {
+    public function getConfig() {
         return include __DIR__ . '/config/module.config.php';
     }
 
-    public function getAutoloaderConfig()
-    {
+    public function getAutoloaderConfig() {
         return array(
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
@@ -43,24 +39,25 @@ class Module
             ),
         );
     }
-	
-	public function getServiceConfig() {
+
+    public function getServiceConfig() {
         return array(
             'factories' => array(
-				 'Application\Model\MyAuthStorage' => function($sm){
-                    return new \Users\Service\MyAuthStorage();  
-                },         
+                'Application\Model\MyAuthStorage' => function($sm) {
+                    return new \Users\Service\MyAuthStorage();
+                },
                 'AuthService' => function($sm) {
-                    $dbAdapter           = $sm->get('Zend\Db\Adapter\Adapter');
-                    $dbTableAuthAdapter  = new DbTableAuthAdapter($dbAdapter, 'employees','user_id','password');
-             
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $dbTableAuthAdapter = new DbTableAuthAdapter($dbAdapter, 'employees', 'userid', 'password');
+
                     $authService = new AuthenticationService();
                     $authService->setAdapter($dbTableAuthAdapter);
                     $authService->setStorage($sm->get('Application\Model\MyAuthStorage'));
-              
+
                     return $authService;
                 },
-			)
-		);
-	}
+            )
+        );
+    }
+
 }
