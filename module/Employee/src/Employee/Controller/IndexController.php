@@ -95,6 +95,7 @@ class IndexController extends AbstractActionController {
 
         if ($employeeId) {
             $employee = $this->getTable($this->employeeTable, 'Application\Model\EmployeeTable')->find($employeeId);
+            $employeeForm->get('member_id')->setValue($employee->member_id);
             $employeeForm->get('firstname')->setValue($employee->firstname);
             $employeeForm->get('lastname')->setValue($employee->lastname);
             $employeeForm->get('emailid')->setValue($employee->emailid);
@@ -109,6 +110,7 @@ class IndexController extends AbstractActionController {
             $employeeForm->get('state_id')->setValue($employee->state_id);
             $employeeForm->get('city_id')->setValue($employee->city_id);
             $employeeForm->get('address')->setValue($employee->address);
+            $employeeForm->get('pan_number')->setValue($employee->pan_number);
             $employeeForm->get('gardian_name')->setValue($employee->gardian_name);
             $employeeForm->get('nominee_relation')->setValue($employee->nominee_relation);
             $employeeForm->get('nominee_address')->setValue($employee->nominee_address);
@@ -123,34 +125,46 @@ class IndexController extends AbstractActionController {
             $data = $request->getPost();
             $employeeForm->setData($data);
             if ($employeeForm->isValid()) {
-                if ($employeeId) {
-                    $data->id = $employeeId;
-                }
                 if (empty($data['employee_code'])) {
                     $branch = $this->getTable($this->branchTable, 'Application\Model\BranchsTable')->find($data['branch_id']);
-                    $maxIdData = $this->getTable($this->employeeTable, 'Application\Model\EmployeeTable')->findMaxId();
+                    $maxIdData = $this->getTable($this->employeeTable, 'Application\Model\EmployeeTable')->findMaxId($data['branch_id']);
                     $maxId = $maxIdData->max_id;
                     $maxId = $maxId + 1;
-                    $code = $branch->code . sprintf('%04d', $maxId);
+                    $code = $branch->code . sprintf('%08d', $maxId);
                     $data['employee_code'] = $code;
                 }
                 if (empty($data['userid'])) {
                     $data['userid'] = $data['employee_code'];
                 }
                 if (empty($data['password'])) {
-                    $data['password'] = $data['password'];
+                    $data['password'] = md5($data['employee_code']);
                 }
-
+                if(empty($data['company_id'])) {
+                    $data['company_id'] = $authData->company_id; 
+                }
                 $data['created_by'] = $authData->id;
                 $data['created_at'] = date('Y-m-d H:i:s');
                 $data['updated_by'] = $authData->id;
-                $data = $data->toArray();
-                $employeeId = $this->getTable($this->employeeTable, 'Application\Model\EmployeeTable')->save($data);
                 if ($employeeId) {
-                    $this->flashMessenger()->addMessage('Agent created successfully!', 'success');
-                    $this->redirect()->toRoute('employees');
-                } else {
+                    $data->id = $employeeId;
+                    unset($data['member_id']);
+                    unset($data['employee_code']);
+                    unset($data['created_by']);
+                    unset($data['created_at']);
+                }
+                $data = $data->toArray();
+                try{
+                    $employeeId = $this->getTable($this->employeeTable, 'Application\Model\EmployeeTable')->save($data);
+                    if ($employeeId) {
+                        $this->flashMessenger()->addMessage('Agent created successfully!', 'success');
+                        $this->redirect()->toRoute('employees');
+                    } else {
+                        $this->flashMessenger()->addMessage('Oops! there are some error with this process. Please try after some time!', 'error');
+                    }
+                } catch(\Exception $e){
                     $this->flashMessenger()->addMessage('Oops! there are some error with this process. Please try after some time!', 'error');
+                    //$this->flashMessenger()->addMessage($e->getMessage(), 'error');
+                    $this->redirect()->toRoute('employees');
                 }
             }
         }

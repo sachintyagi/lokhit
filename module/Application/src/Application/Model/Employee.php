@@ -17,6 +17,7 @@ class Employee
     public $userid;
     public $password;
     public $gardian_name;
+    public $pan_number;
     public $mobile_number;
     public $nominee_name;
     public $nominee_relation;
@@ -51,6 +52,7 @@ class Employee
         $this->userid           = (!empty($data['userid'])) ? $data['userid'] : null;
         $this->password         = (!empty($data['password'])) ? $data['password'] : null;
         $this->gardian_name     = (!empty($data['gardian_name'])) ? $data['gardian_name'] : null;
+        $this->pan_number       = (!empty($data['pan_number'])) ? $data['pan_number'] : null;
         $this->mobile_number    = (!empty($data['mobile_number'])) ? $data['mobile_number'] : null;
         $this->nominee_name     = (!empty($data['nominee_name'])) ? $data['nominee_name'] : null;
         $this->nominee_relation = (!empty($data['nominee_relation'])) ? $data['nominee_relation'] : null;

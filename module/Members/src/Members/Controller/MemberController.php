@@ -38,7 +38,7 @@ class MemberController extends AbstractActionController {
             }
             $auth = $this->getServiceLocator()->get('AuthService');
             $authData = $auth->getIdentity();
-            //$conditions['filters'][] = array('branch_id' => $authData->branch->id);
+            $conditions['filters'][] = array('branch_id' => $authData->branch->id);
            
             $members = $this->getTable($this->memberTable, 'Application\Model\MemberTable')->fetchAll($conditions);    
             $membersTotal = $this->getTable($this->memberTable, 'Application\Model\MemberTable')->fetchTotal($conditions);    

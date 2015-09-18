@@ -81,7 +81,7 @@ class EmployeeTable
             $select->where('role_id != 1');
         });
         foreach($resultSet as $employee) {
-            $employees[$employee->employee_code] = $employee->employee_name.' ('.$employee->employee_code.')';
+            $employees[$employee->employee_code] = $employee->firstname.' '.$employee->lastname.' ('.$employee->employee_code.')';
         }
         return $employees;
     }
@@ -117,11 +117,12 @@ class EmployeeTable
         }
     }
 
-    public function findMaxId() {
+    public function findMaxId($branch) {
         $select = $this->tableGateway->getSql()->select();
         $select->columns(array(
-            'max_id' => new \Zend\Db\Sql\Expression('MAX(id)')
+            'max_id' => new \Zend\Db\Sql\Expression('count(*)')
         ));
+        $select->where(array('branch_id'=>$branch));
         $rowset = $this->tableGateway->selectWith($select);
         $row = $rowset->current();
         //print_r($row); exit;

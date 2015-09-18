@@ -58,7 +58,7 @@ class EmployeeForm extends Form {
         ));
         $this->add(array(
             'name' => 'userid',
-            'type' => 'text',
+            'type' => 'hidden',
             'options' => array(
                 'label' => 'Login Id',
             ),
@@ -70,7 +70,7 @@ class EmployeeForm extends Form {
         ));
         $this->add(array(
             'name' => 'password',
-            'type' => 'text',
+            'type' => 'hidden',
             'options' => array(
                 'label' => 'Password',
             ),
@@ -177,20 +177,20 @@ class EmployeeForm extends Form {
                 'id' => 'gender',
             ),
         ));
-
+        
         $this->add(array(
-            'name' => 'password',
             'type' => 'text',
+            'name' => 'pan_number',
             'options' => array(
-                'label' => 'Password',
+                'label' => 'Pan Number'
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'id' => 'password',
+                'id' => 'pan_number',
                 'maxlength' => 20,
             ),
         ));
-
+        
         $this->add(array(
             'type' => 'text',
             'name' => 'gardian_name',
@@ -203,7 +203,25 @@ class EmployeeForm extends Form {
                 'maxlength' => 200,
             ),
         ));
-
+            
+        /*$this->add(array(
+            'type' => 'Zend\Form\Element\Radio',
+            'name' => 'gardian_relation',
+            'options' => array(
+                'label' => 'S/o, D/o, W/o',
+                'value_options' => array(
+                    '1' => 'S/o',
+                    '2' => 'D/o',
+                    '3' => 'W/o',
+                ),
+            ),
+            'attributes' => array(
+                'value' => '1', //set checked to '1'
+                'class' => 'form-control',
+                'id' => 'gardian_relation',
+            )
+        ));*/
+        
         $this->add(array(
             'type' => 'text',
             'name' => 'mobile_number',
@@ -266,7 +284,7 @@ class EmployeeForm extends Form {
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'id' => 'customer_id',
+                'id' => 'member_id',
                 //'readonly' => true,
             ),
         ));

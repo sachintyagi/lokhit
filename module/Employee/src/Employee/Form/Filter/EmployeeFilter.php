@@ -76,7 +76,7 @@ class EmployeeFilter extends InputFilter {
             )
         ));
 
-        $this->add(array(
+        /*$this->add(array(
             'name' => 'emailid',
             'required' => false,
             'filters' => array(
@@ -92,7 +92,7 @@ class EmployeeFilter extends InputFilter {
                   )
                   )
                   ), */
-                array(
+                /*array(
                     'name' => 'EmailAddress',
                     'options' => array(
                         'domain' => 'true',
@@ -105,7 +105,7 @@ class EmployeeFilter extends InputFilter {
                         ),
                     ),
                 ),
-                array(
+                /*array(
                     'name' => 'Db\NoRecordExists',
                     'options' => array(
                         'table' => 'members',
@@ -115,7 +115,26 @@ class EmployeeFilter extends InputFilter {
                             $recordExists => 'Email address already register with us.',
                         ),
                     ),
-                ),
+                ),*/
+          /*  )
+        ));*/
+        
+        $this->add(array(
+            'name' => 'member_id',
+            'required' => true,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'NotEmpty',
+                    'options' => array(
+                        'messages' => array(
+                            $isEmpty => 'Member Id can not be empty.'
+                        )
+                    )
+                )
             )
         ));
 

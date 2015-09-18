@@ -14,11 +14,18 @@
                 $form = $this->employeeForm;
                 $form->prepare();
                 echo $this->form()->openTag($form);
+                /*foreach ($form as $element) {
+                    echo $this->formElement($element);
+                    echo $this->formElementErrors($element);
+                }*/
                 ?>
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label>Member Code</label>
                         <?php echo $this->formElement($form->get('member_id')); ?>
+                        <?php if ($this->formElementErrors($form->get('member_id'))) : ?>
+                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('member_id'))) ?></div>
+                        <?php endif; ?>	
                     </div>
                     <div class="form-group">
                         <label>Branch <span class="mandatory">*</span></label>
@@ -46,6 +53,13 @@
                             <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('gardian_name'))) ?></div>
                         <?php endif; ?>
                     </div>
+                    <!--<div class="form-group">
+                        <label>Guardian Relation<span class="mandatory">*</span></label>
+                    <?php //echo $this->formElement($form->get('gardian_relation')); ?>
+                    <?php //if ($this->formElementErrors($form->get('gardian_relation'))) : ?>
+                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php //echo strip_tags($this->formElementErrors($form->get('gardian_relation')))  ?></div>
+                    <?php //endif; ?>
+                    </div>-->
                     <div class="form-group">
                         <label>Email ID</label>
                         <?php echo $this->formElement($form->get('emailid')); ?>
@@ -118,6 +132,13 @@
                         <?php echo $this->formElement($form->get('nominee_address')); ?>
                     </div>
                     <div class="form-group">
+                        <label>Pan Number</label>
+                        <?php echo $this->formElement($form->get('pan_number')); ?>
+                        <?php if ($this->formElementErrors($form->get('pan_number'))) : ?>
+                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('pan_number'))) ?></div>
+                        <?php endif; ?>
+                    </div>
+                    <div class="form-group">
                         <label>Employee Code</label>
                         <?php echo $this->formElement($form->get('employee_code')); ?>
                         <?php if ($this->formElementErrors($form->get('employee_code'))) : ?>
@@ -125,18 +146,21 @@
                         <?php endif; ?>
                     </div>
                     <div class="form-group">
-                        <label>Role Id<span class="mandatory">*</span></label>
+                        <label>Rank<span class="mandatory">*</span></label>
                         <?php echo $this->formElement($form->get('role_id')); ?>
                         <?php if ($this->formElementErrors($form->get('role_id'))) : ?>
                             <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('role_id'))) ?></div>
                         <?php endif; ?>
                     </div>
                     <div class="form-group">
-                        <label>Introducer Code<span class="mandatory">*</span></label>
+                        <label>Introducer Code</label>
                         <?php echo $this->formElement($form->get('introducer_code')); ?>
                         <?php if ($this->formElementErrors($form->get('introducer_code'))) : ?>
                             <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('introducer_code'))) ?></div>
                         <?php endif; ?>
+                        <?php echo $this->formElement($form->get('userid')); ?>
+                        <?php echo $this->formElement($form->get('password')); ?>
+
                     </div>
                 </div>
                 <!-- /.col-lg-6 (nested) -->
@@ -161,6 +185,11 @@
             stateId = $(this).val();
             getCities(stateId, '');
         });
+        
+        $('#member_id').keyup(function () {
+            member = $(this).val();
+            memberDetsils(member);
+        });
         setTimeout(function () {
             getCities($('#state_id').val(), $('#city_id').val());
         }, 200);
@@ -172,7 +201,73 @@
             yearRange: "-80:+0"
 
         });
-    })
+
+
+    });
+    
+    function memberDetsils(member) {
+        if (member) {
+            $.ajax({
+                url: '<?php echo $this->basePath('apis/member') ?>',
+                type: 'post',
+                data: {code: member},
+                success: function (returns) {
+                    if (returns.status) {
+                        $('#firstname').val(returns.response.data.firstname);
+                        $('#lastname').val(returns.response.data.lastname);
+                        $('#gardian_name').val(returns.response.data.gardian_name);
+                        $('#emailid').val(returns.response.data.emailid);
+                        $('#gender').val(returns.response.data.gender);
+                        $('#dob').val(returns.response.data.dob);
+                        $('#address').val(returns.response.data.address);
+                        $('#mobile_number').val(returns.response.data.mobile_number);
+                        $('#nominee_name').val(returns.response.data.nominee_name);
+                        $('#nominee_relation').val(returns.response.data.nominee_relation);
+                        $('#nominee_address').val(returns.response.data.nominee_address);
+                        $('#branch_id').val(returns.response.data.branch_id);
+                        $('#company_id').val(returns.response.data.company_i);
+                        $('#country_id').val(returns.response.data.country_id);
+                        $('#state_id').val(returns.response.data.state_id);
+                        $('#city_id').val(returns.response.data.city_id);
+                    } else {
+                        $('#firstname').val('');
+                        $('#lastname').val('');
+                        $('#gardian_name').val('');
+                        $('#emailid').val('');
+                        $('#gender').val('');
+                        $('#dob').val('');
+                        $('#address').val('');
+                        $('#mobile_number').val('');
+                        $('#nominee_name').val('');
+                        $('#nominee_relation').val('');
+                        $('#nominee_address').val('');
+                        $('#branch_id').val('');
+                        $('#company_id').val('');
+                        $('#country_id').val('');
+                        $('#state_id').val('');
+                        $('#city_id').val('');
+                    }
+                }
+            });
+        } else {
+            $('#firstname').val('');
+            $('#lastname').val('');
+            $('#gardian_name').val('');
+            $('#emailid').val('');
+            $('#gender').val('');
+            $('#dob').val('');
+            $('#address').val('');
+            $('#mobile_number').val('');
+            $('#nominee_name').val('');
+            $('#nominee_relation').val('');
+            $('#nominee_address').val('');
+            $('#branch_id').val('');
+            $('#company_id').val('');
+            $('#country_id').val('');
+            $('#state_id').val('');
+            $('#city_id').val('');
+        }
+    }
     function getCities(stateid, cityid) {
         $.ajax({
             type: "POST",
