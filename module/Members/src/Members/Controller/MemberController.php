@@ -102,8 +102,6 @@ class MemberController extends AbstractActionController {
         if ($request->isPost()) {
             $data = $request->getPost();
             $memberForm->setData($data);
-            $cities = $this->getTable($this->cities, 'Application\Model\CityTable')->fetchAllAsArray($memberForm->get('state_id')->getValue());
-            $memberForm->get('city_id')->setValueOptions($cities);
             if ($memberForm->isValid()) {
                 if ($memberId) {
                     $data->id = $memberId;
@@ -115,7 +113,7 @@ class MemberController extends AbstractActionController {
                     } else {
                         throw new \Exception('Please provide brach code');
                     }
-                    $maxIdData = $this->getTable($this->memberTable, 'Application\Model\MemberTable')->findMaxId();
+                    $maxIdData = $this->getTable($this->memberTable, 'Application\Model\MemberTable')->findMaxId($branch->id);
                     if ($maxIdData) {
                         $maxId = $maxIdData->max_id;
                     }

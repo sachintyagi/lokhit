@@ -18,9 +18,13 @@ class RoleTable {
         return $resultSet;
     }
 
-    public function fetchAllAsArray() {
+    public function fetchAllAsArray($status = true) {
         $roles = array();
-        $resultSet = $this->tableGateway->select();
+        $resultSet = $this->tableGateway->select(function($select) use($status) {
+            if($status) {
+                $select->where('status=1');
+            }
+        });
         foreach ($resultSet as $role) {
             $roles[$role->id] = $role->name;
         }

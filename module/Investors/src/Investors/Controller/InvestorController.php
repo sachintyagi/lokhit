@@ -64,6 +64,7 @@ class InvestorController extends AbstractActionController {
             $authData = $auth->getIdentity();
             $roleId = $authData->role_id;
             $conditions['filters'][] = array('member_investments.branch_id' => $authData->branch->id);
+            $conditions['filters'][] = array('member_investments.is_deleted' => 0);
 
             $investments = $this->getTable($this->memberInvestmentsTable, 'Application\Model\MemberInvestmentsTable')->fetchAll($conditions);
             $investmentsTotal = $this->getTable($this->memberInvestmentsTable, 'Application\Model\MemberInvestmentsTable')->fetchTotal($conditions);
@@ -77,8 +78,8 @@ class InvestorController extends AbstractActionController {
                     $investment->member_id,
                     $investment->final_ammount,
                     date('d M, y', strtotime($investment->end_date)),
-                    '&nbsp;&nbsp;&nbsp;<a title="Print Certificate" href="'.$this->getServiceLocator()->get('Request')->getBasePath().'/reports/certificate/' . $investment->id . '"><i class="glyphicon glyphicon-print"></i></a>
-                    &nbsp;| <a title="Renew" href="'.$this->getServiceLocator()->get('Request')->getBasePath().'/investors/new-installment/' . $investment->id . '"><i class="glyphicon glyphicon-repeat"></i></a>',
+                    '&nbsp;&nbsp;&nbsp;<a title="Print Certificate" href="' . $this->getServiceLocator()->get('Request')->getBasePath() . '/reports/certificate/' . $investment->id . '"><i class="glyphicon glyphicon-print"></i></a>
+                    &nbsp;| <a title="Renew" href="' . $this->getServiceLocator()->get('Request')->getBasePath() . '/investors/new-installment/' . $investment->id . '"><i class="glyphicon glyphicon-repeat"></i></a>',
                 );
             }
             return new JsonModel(
@@ -100,13 +101,6 @@ class InvestorController extends AbstractActionController {
         $investorForm = new InvestorForm();
         $investorForm->setInputFilter(new InvestorFilter());
         $request = $this->getRequest();
-        if ($authData->role_id == 1 || $authData->role_id == 2) {
-            $employees = $this->getTable($this->employeeTable, 'Application\Model\EmployeeTable')->fetchAllAsArray($authData->branch->company_id);
-        } else {
-            $employees = $this->getTable($this->employeeTable, 'Application\Model\EmployeeTable')->fetchAllAsArray($authData->branch->company_id, $authData->branch->id);
-        }
-        $investorForm->get('employee_code')->setValueOptions($employees);
-
         if ($request->isPost()) {
             $posts = $request->getPost();
             $investorForm->setData($posts);
@@ -114,7 +108,7 @@ class InvestorController extends AbstractActionController {
             $investorForm->get('duration')->setDisableInArrayValidator(true);
             $investorForm->get('installment_type')->setDisableInArrayValidator(true);
             $investorForm->get('start_ammount')->setDisableInArrayValidator(true);
-            $investorForm->get('employee_code')->setDisableInArrayValidator(true);
+            //$investorForm->get('employee_code')->setDisableInArrayValidator(true);
             if ($investorForm->isValid()) {
                 try {
                     $this->getAdapter()->getDriver()->getConnection()->beginTransaction();
@@ -131,6 +125,9 @@ class InvestorController extends AbstractActionController {
                     } else if ($palnDetails->installment_type == 'Per Day') {
                         $totalInstallmant = 365;
                         $lastInstallmentDate = $posts->end_date;
+                    } else if ($palnDetails->installment_type == 'Per Day (180)') {
+                        $totalInstallmant = 180;
+                        $lastInstallmentDate = $posts->end_date;
                     } else if ($palnDetails->installment_type == 'Monthly') {
                         $totalInstallmant = $palnDetails->duration;
                         $lastInstallmentDate = date('Y-m-d', strtotime('-1 month', strtotime($posts->end_date)));
@@ -146,7 +143,7 @@ class InvestorController extends AbstractActionController {
                     }
 
                     $investmentData = array(
-                        'branch_id' => $authData->branch_id,
+                        'branch_id' => $authData->branch->id,
                         'member_id' => $posts->member_id,
                         'plan_id' => $palnDetails->plan_id,
                         'plan_details_id' => $palnDetails->plan_details_id,
@@ -170,9 +167,14 @@ class InvestorController extends AbstractActionController {
                         'updated_by' => $authData->id,
                     );
                     $investmentId = $investmentTable->save($investmentData);
+                    $maxIdData = $installmentTable->findMaxId($authData->branch->id);
+                    $maxId = $maxIdData->max_id;
+                    $maxId = $maxId + 1;
                     $installment = array(
                         'investment_id' => $investmentId,
                         'ammount' => $palnDetails->amount,
+                        'receipt_number' => $authData->branch->code.$investmentId.date('dmY').$maxId,
+                        'installment_number'=> 1,
                         'status' => 1,
                         'created_at' => date('Y-m-d H:i:s')
                     );
@@ -182,12 +184,15 @@ class InvestorController extends AbstractActionController {
                     return $this->redirect()->toRoute('certificate', array('id' => $investmentId));
                 } catch (\Exception $e) {
                     $this->getAdapter()->getDriver()->getConnection()->rollback();
+                    //throw new \Exception($e->getMessage());
                     $this->flashMessenger()->addMessage('Oops! there are some error (' . $e->getMessage() . ') with this process. Please try after some time', 'error');
                     return $this->redirect()->toRoute('new-investors');
                 }
             }
         }
-
+        $basePath = $this->getServiceLocator()->get('Request')->getBasePath();
+        $this->getServiceLocator()->get('viewhelpermanager')->get('headLink')->appendStylesheet($basePath . '/css/jquery-ui.css');
+        $this->getServiceLocator()->get('viewhelpermanager')->get('headScript')->appendFile($basePath . '/js/jquery-ui.js');
         return new ViewModel(array(
             'investorForm' => $investorForm,
                 )

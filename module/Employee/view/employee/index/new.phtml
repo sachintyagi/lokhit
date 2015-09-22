@@ -14,10 +14,10 @@
                 $form = $this->employeeForm;
                 $form->prepare();
                 echo $this->form()->openTag($form);
-                /*foreach ($form as $element) {
-                    echo $this->formElement($element);
-                    echo $this->formElementErrors($element);
-                }*/
+                /* foreach ($form as $element) {
+                  echo $this->formElement($element);
+                  echo $this->formElementErrors($element);
+                  } */
                 ?>
                 <div class="col-lg-6">
                     <div class="form-group">
@@ -57,7 +57,7 @@
                         <label>Guardian Relation<span class="mandatory">*</span></label>
                     <?php //echo $this->formElement($form->get('gardian_relation')); ?>
                     <?php //if ($this->formElementErrors($form->get('gardian_relation'))) : ?>
-                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php //echo strip_tags($this->formElementErrors($form->get('gardian_relation')))  ?></div>
+                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php //echo strip_tags($this->formElementErrors($form->get('gardian_relation')))   ?></div>
                     <?php //endif; ?>
                     </div>-->
                     <div class="form-group">
@@ -132,6 +132,15 @@
                         <?php echo $this->formElement($form->get('nominee_address')); ?>
                     </div>
                     <div class="form-group">
+                        <label>Introducer Code</label>
+                        <?php echo $this->formElement($form->get('introducer_code')); ?>
+                        <?php if ($this->formElementErrors($form->get('introducer_code'))) : ?>
+                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('introducer_code'))) ?></div>
+                        <?php endif; ?>
+                        <?php echo $this->formElement($form->get('userid')); ?>
+                        <?php echo $this->formElement($form->get('password')); ?>
+                    </div>
+                    <div class="form-group">
                         <label>Pan Number</label>
                         <?php echo $this->formElement($form->get('pan_number')); ?>
                         <?php if ($this->formElementErrors($form->get('pan_number'))) : ?>
@@ -151,17 +160,7 @@
                         <?php if ($this->formElementErrors($form->get('role_id'))) : ?>
                             <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('role_id'))) ?></div>
                         <?php endif; ?>
-                    </div>
-                    <div class="form-group">
-                        <label>Introducer Code</label>
-                        <?php echo $this->formElement($form->get('introducer_code')); ?>
-                        <?php if ($this->formElementErrors($form->get('introducer_code'))) : ?>
-                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('introducer_code'))) ?></div>
-                        <?php endif; ?>
-                        <?php echo $this->formElement($form->get('userid')); ?>
-                        <?php echo $this->formElement($form->get('password')); ?>
-
-                    </div>
+                    </div>                    
                 </div>
                 <!-- /.col-lg-6 (nested) -->
                 <div class="clear"></div>
@@ -181,18 +180,6 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#state_id').change(function () {
-            stateId = $(this).val();
-            getCities(stateId, '');
-        });
-        
-        $('#member_id').keyup(function () {
-            member = $(this).val();
-            memberDetsils(member);
-        });
-        setTimeout(function () {
-            getCities($('#state_id').val(), $('#city_id').val());
-        }, 200);
         $("#dob").datepicker({
             changeMonth: true,
             changeYear: true,
@@ -201,10 +188,60 @@
             yearRange: "-80:+0"
 
         });
+        $("#introducer_code").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "<?php echo $this->basePath('apis/introducers') ?>",
+                    data: {
+                        q: request.term
+                    },
+                    success: function (data) {
+                        response(data);
+                    }
+                });
+            },
+            minLength: 4,
+            select: function (event, ui) {
+                console.log(ui.item ?
+                        "Selected: " + ui.item.label :
+                        "Nothing selected, input was " + this.value);
+            },
+            open: function () {
+                $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+            },
+            close: function () {
+                $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+            }
+        });
+
+        $("#member_id").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "<?php echo $this->basePath('apis/members') ?>",
+                    data: {
+                        q: request.term
+                    },
+                    success: function (data) {
+                        response(data);
+                    }
+                });
+            },
+            minLength: 4,
+            select: function (event, ui) {
+                memberDetsils(ui.item.value);
+            },
+            open: function () {
+                $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+                clearMember();
+            },
+            close: function () {
+                $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+            }
+        });
 
 
     });
-    
+
     function memberDetsils(member) {
         if (member) {
             $.ajax({
@@ -230,63 +267,30 @@
                         $('#state_id').val(returns.response.data.state_id);
                         $('#city_id').val(returns.response.data.city_id);
                     } else {
-                        $('#firstname').val('');
-                        $('#lastname').val('');
-                        $('#gardian_name').val('');
-                        $('#emailid').val('');
-                        $('#gender').val('');
-                        $('#dob').val('');
-                        $('#address').val('');
-                        $('#mobile_number').val('');
-                        $('#nominee_name').val('');
-                        $('#nominee_relation').val('');
-                        $('#nominee_address').val('');
-                        $('#branch_id').val('');
-                        $('#company_id').val('');
-                        $('#country_id').val('');
-                        $('#state_id').val('');
-                        $('#city_id').val('');
+                        clearMember();
                     }
                 }
             });
         } else {
-            $('#firstname').val('');
-            $('#lastname').val('');
-            $('#gardian_name').val('');
-            $('#emailid').val('');
-            $('#gender').val('');
-            $('#dob').val('');
-            $('#address').val('');
-            $('#mobile_number').val('');
-            $('#nominee_name').val('');
-            $('#nominee_relation').val('');
-            $('#nominee_address').val('');
-            $('#branch_id').val('');
-            $('#company_id').val('');
-            $('#country_id').val('');
-            $('#state_id').val('');
-            $('#city_id').val('');
+            clearMember();
         }
     }
-    function getCities(stateid, cityid) {
-        $.ajax({
-            type: "POST",
-            async: false,
-            url: '<?php echo $this->basepath(); ?>/city',
-            data: {'stateid': stateid, 'cityid': cityid},
-            success: function (result) {
-                var html = '<option value="">-Choose City-</option>';
-                if (result.status) {
-                    for (x in result.response.data) {
-                        if (result.response.data[x].selected) {
-                            html += '<option selected value="' + result.response.data[x].id + '">' + result.response.data[x].name + '</option>';
-                        } else {
-                            html += '<option value="' + result.response.data[x].id + '">' + result.response.data[x].name + '</option>';
-                        }
-                    }
-                }
-                $('#city_id').html(html);
-            }
-        });
+    function clearMember() {
+        $('#firstname').val('');
+        $('#lastname').val('');
+        $('#gardian_name').val('');
+        $('#emailid').val('');
+        $('#gender').val('');
+        $('#dob').val('');
+        $('#address').val('');
+        $('#mobile_number').val('');
+        $('#nominee_name').val('');
+        $('#nominee_relation').val('');
+        $('#nominee_address').val('');
+        $('#branch_id').val('');
+        $('#company_id').val('');
+        $('#country_id').val('');
+        $('#state_id').val('');
+        $('#city_id').val('');
     }
 </script>

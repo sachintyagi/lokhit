@@ -1,31 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.1.12
--- http://www.phpmyadmin.net
---
--- Host: 127.0.0.1
--- Generation Time: Sep 18, 2015 at 03:56 AM
--- Server version: 5.5.36
--- PHP Version: 5.4.27
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
---
--- Database: `lokhitnidhi`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `employees`
---
-
 CREATE TABLE IF NOT EXISTS `employees` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `company_id` int(11) NOT NULL,
@@ -65,15 +37,14 @@ CREATE TABLE IF NOT EXISTS `employees` (
   UNIQUE KEY `Unique_Member_Id` (`member_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
---
--- Dumping data for table `employees`
---
 
 INSERT INTO `employees` (`id`, `company_id`, `branch_id`, `role_id`, `introducer_code`, `pan_number`, `firstname`, `lastname`, `employee_code`, `emailid`, `dob`, `gender`, `userid`, `password`, `gardian_name`, `gardian_relation`, `mobile_number`, `nominee_name`, `nominee_relation`, `nominee_address`, `country_id`, `state_id`, `city_id`, `address`, `member_id`, `status`, `created_at`, `created_by`, `updated_at`, `updated_by`, `is_deleted`) VALUES
 (1, 1, 1, 3, NULL, NULL, 'Shiv Kumar', 'Tyagi', '100100000001', 'sktyagi12345@gmail.com', NULL, 'Male', 'sktyagi', '827ccb0eea8a706c4c34a16891f84e7b', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 1, '2015-09-17 23:52:15', 0, '2015-09-17 18:22:29', 0, 0),
 (2, 1, 1, 3, NULL, NULL, 'Amit', 'Verma', '100100000002', 'amitv@jmdlr.com', NULL, 'Male', 'amitv', '827ccb0eea8a706c4c34a16891f84e7b', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 1, '2015-09-17 23:52:15', 0, '2015-09-17 18:26:00', 0, 0),
 (3, 1, 2, 3, NULL, NULL, 'Satyendra', 'Vashnov', '100200000001', 'satyendrav@jmdlr.com', NULL, 'Male', 'satyendrav', '827ccb0eea8a706c4c34a16891f84e7b', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 0, '2015-09-17 23:52:15', 0, '2015-09-17 18:26:01', 0, 0);
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+ALTER TABLE `members` CHANGE `city_id` `city_id` VARCHAR(100) NOT NULL;
+
+ALTER TABLE `members` ADD `gender_relation` VARCHAR(10) NOT NULL AFTER `gender`;

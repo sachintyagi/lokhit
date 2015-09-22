@@ -20,7 +20,7 @@ return array(
                     ),
                 ),
             ),
-            'apis-members' => array(
+            'apis-member' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
                     //'route'    => '/city[/:stateId][/:cityId][/]',
@@ -140,6 +140,26 @@ return array(
                     'defaults' => array(
                         'controller' => 'Application\Controller\Ajax',
                         'action' => 'branch',
+                    ),
+                ),
+            ),
+			'apis-introducers' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/apis/introducers[/]',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Ajax',
+                        'action' => 'introducers',
+                    ),
+                ),
+            ),
+			'apis-members' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/apis/members[/]',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Ajax',
+                        'action' => 'members',
                     ),
                 ),
             ),

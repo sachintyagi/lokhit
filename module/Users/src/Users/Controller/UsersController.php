@@ -51,12 +51,14 @@ class UsersController extends AbstractActionController {
                             $errors[] = 'Sorry! your account is disable.';
                         }
                     } else {
-                        foreach ($result->getMessages() as $message) {
-                            $errors[] = 'Invalid login details';
-                        }
+                        $session = new Container('User');
+                        $session->getManager()->destroy();
+                        $this->getAuthService()->clearIdentity();
+                        $errors[] = 'Sorry! your account is disable.';
+                        
                     }
                 } else {
-                    $errors = $loginForm->getMessages();
+                    $errors[] = 'Invalid login details.';
                 }
             }
         }

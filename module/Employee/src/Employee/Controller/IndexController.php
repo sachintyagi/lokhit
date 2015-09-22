@@ -51,6 +51,7 @@ class IndexController extends AbstractActionController {
                 
             } else {
                 $conditions['filters'][] = array('employees.branch_id' => $authData->branch->id);
+                $conditions['filters'][] = array('employees.is_deleted' => 0);
             }
             $employees = $this->getTable($this->employeeTable, 'Application\Model\EmployeeTable')->fetchAll($conditions);
             $employeesTotal = $this->getTable($this->employeeTable, 'Application\Model\EmployeeTable')->fetchTotal($conditions);
@@ -95,7 +96,7 @@ class IndexController extends AbstractActionController {
 
         if ($employeeId) {
             $employee = $this->getTable($this->employeeTable, 'Application\Model\EmployeeTable')->find($employeeId);
-            $employeeForm->get('member_id')->setValue($employee->member_id);
+            $employeeForm->get('member_id')->setValue($employee->member_id)->setAttribute('readonly', 'readonly');
             $employeeForm->get('firstname')->setValue($employee->firstname);
             $employeeForm->get('lastname')->setValue($employee->lastname);
             $employeeForm->get('emailid')->setValue($employee->emailid);
@@ -162,6 +163,7 @@ class IndexController extends AbstractActionController {
                         $this->flashMessenger()->addMessage('Oops! there are some error with this process. Please try after some time!', 'error');
                     }
                 } catch(\Exception $e){
+                    //print_r($e->getMessage()); exit;	
                     $this->flashMessenger()->addMessage('Oops! there are some error with this process. Please try after some time!', 'error');
                     //$this->flashMessenger()->addMessage($e->getMessage(), 'error');
                     $this->redirect()->toRoute('employees');

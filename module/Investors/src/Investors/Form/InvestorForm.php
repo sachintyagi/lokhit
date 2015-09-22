@@ -37,15 +37,12 @@ class InvestorForm extends Form {
         
         $this->add(array(
             'name' => 'employee_code',
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'text',
             'options' => array(
-                'label' => 'Agent',
-                'empty_option' => '-Choose Agent-',
-                'value_options' => array(),	
+                'label' => 'Employee Code',
             ),
             'attributes' => array(
                 'class' => 'form-control',
-                'value' => '1',
                 'id' => 'employee_code'
             )
         ));
@@ -269,10 +266,11 @@ class InvestorForm extends Form {
         ));
 		
 		$this->add(array(
-			 'type' => 'Zend\Form\Element\Hidden',
+			 'type' => 'Zend\Form\Element\Text',
 			 'name' => 'start_date',
 			 'attributes' => array(
-				 'value' => date('Y-m-d H:i:s'),
+				'class' => 'form-control',
+				 'value' => date('Y-m-d'),
 				 'id' => 'start_date'
 			 )
 		));

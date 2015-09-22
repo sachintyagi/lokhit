@@ -31,7 +31,11 @@ class MemberTable {
             }
             if(!empty($conditions['search']) && count($conditions['search'])) {
                 foreach($conditions['search']['fields'] as $field) {
-                    $select->where->OR->like($field, '%'.$conditions['search']['term'].'%');
+                    if($conditions['search']['type'] = 'AND'){	
+                    	$select->where->AND->like($field, $conditions['search']['term'].'%');
+                    } else {
+                    	$select->where->OR->like($field, $conditions['search']['term'].'%');
+                    }
                 }
             }
             //echo $select->getSqlString(); exit;
@@ -57,7 +61,11 @@ class MemberTable {
             }
             if(!empty($conditions['search']) && count($conditions['search'])) {
                 foreach($conditions['search']['fields'] as $field) {
-                    $select->where->OR->like($field, '%'.$conditions['search']['term'].'%');
+                    if($conditions['search']['type'] = 'AND'){	
+                    	$select->where->AND->like($field, $conditions['search']['term'].'%');
+                    } else {
+                    	$select->where->OR->like($field, $conditions['search']['term'].'%');
+                    }
                 }
             }
             $select->limit($conditions['limit']);
@@ -102,13 +110,15 @@ class MemberTable {
         return $row;
     }
 
-    public function findMaxId() {
+    public function findMaxId($branch) {
         $select = $this->tableGateway->getSql()->select();
         $select->columns(array(
-            'max_id' => new \Zend\Db\Sql\Expression('MAX(id)')
+            'max_id' => new \Zend\Db\Sql\Expression('count(*)')
         ));
+        $select->where(array('branch_id' => $branch));
         $rowset = $this->tableGateway->selectWith($select);
         $row = $rowset->current();
+        //print_r($row); exit;
         return $row;
     }
 

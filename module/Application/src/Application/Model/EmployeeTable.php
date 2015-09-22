@@ -1,37 +1,40 @@
 <?php
+
 namespace Application\Model;
 
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Select;
 
-class EmployeeTable
-{
+class EmployeeTable {
+
     protected $tableGateway;
 
-    public function __construct(TableGateway $tableGateway)
-    {
+    public function __construct(TableGateway $tableGateway) {
         $this->tableGateway = $tableGateway;
     }
 
-    public function fetchTotal($conditions = array()) 
-    {
-        $resultSet = $this->tableGateway->select(function(Select $select) use ($conditions){
-            if(!empty($conditions['fields']) && count($conditions['fields'])) {
+    public function fetchTotal($conditions = array()) {
+        $resultSet = $this->tableGateway->select(function(Select $select) use ($conditions) {
+            if (!empty($conditions['fields']) && count($conditions['fields'])) {
                 $select->columns($conditions['fields']);
             }
-            if(!empty($conditions['joins']) && count($conditions['joins'])) {
-                foreach($conditions['joins'] as $join) {
+            if (!empty($conditions['joins']) && count($conditions['joins'])) {
+                foreach ($conditions['joins'] as $join) {
                     $select->join($join['table'], $join['mapping'], $join['fields']);
                 }
             }
-            if(!empty($conditions['filters']) && count($conditions['filters'])) {
-                foreach($conditions['filters'] as $filter) {
+            if (!empty($conditions['filters']) && count($conditions['filters'])) {
+                foreach ($conditions['filters'] as $filter) {
                     $select->where($filter);
                 }
             }
-            if(!empty($conditions['search']) && count($conditions['search'])) {
-                foreach($conditions['search']['fields'] as $field) {
-                    $select->where->OR->like($field, '%'.$conditions['search']['term'].'%');
+            if (!empty($conditions['search']) && count($conditions['search'])) {
+                foreach ($conditions['search']['fields'] as $field) {
+                   if($conditions['search']['type'] = 'AND'){	
+                    	$select->where->AND->like($field, $conditions['search']['term'].'%');
+                   } else {
+                    	$select->where->OR->like($field, $conditions['search']['term'].'%');
+                   }
                 }
             }
             //echo $select->getSqlString(); exit;
@@ -39,25 +42,28 @@ class EmployeeTable
         return $resultSet;
     }
 
-    public function fetchAll($conditions = array())
-    {
-        $resultSet = $this->tableGateway->select(function(Select $select) use ($conditions){
-            if(!empty($conditions['fields']) && count($conditions['fields'])) {
+    public function fetchAll($conditions = array()) {
+        $resultSet = $this->tableGateway->select(function(Select $select) use ($conditions) {
+            if (!empty($conditions['fields']) && count($conditions['fields'])) {
                 $select->columns($conditions['fields']);
             }
-            if(!empty($conditions['joins']) && count($conditions['joins'])) {
-                foreach($conditions['joins'] as $join) {
+            if (!empty($conditions['joins']) && count($conditions['joins'])) {
+                foreach ($conditions['joins'] as $join) {
                     $select->join($join['table'], $join['mapping'], $join['fields']);
                 }
             }
-            if(!empty($conditions['filters']) && count($conditions['filters'])) {
-                foreach($conditions['filters'] as $filter) {
+            if (!empty($conditions['filters']) && count($conditions['filters'])) {
+                foreach ($conditions['filters'] as $filter) {
                     $select->where($filter);
                 }
             }
-            if(!empty($conditions['search']) && count($conditions['search'])) {
-                foreach($conditions['search']['fields'] as $field) {
-                    $select->where->OR->like($field, '%'.$conditions['search']['term'].'%');
+            if (!empty($conditions['search']) && count($conditions['search'])) {
+                foreach ($conditions['search']['fields'] as $field) {
+                    if($conditions['search']['type'] = 'AND'){	
+                    	$select->where->AND->like($field, $conditions['search']['term'].'%');
+                    } else {
+                    	$select->where->OR->like($field, $conditions['search']['term'].'%');
+                    }                    
                 }
             }
             $select->limit($conditions['limit']);
@@ -68,27 +74,25 @@ class EmployeeTable
         return $resultSet;
     }
 
-    public function fetchAllAsArray($status = false, $branch=null)
-    {
+    public function fetchAllAsArray($status = false, $branch = null) {
         $employees = array();
-        $resultSet = $this->tableGateway->select(function(Select $select) use ($status, $branch){
-            if($status) {
-                $select->where(array('status'=>'1'));
+        $resultSet = $this->tableGateway->select(function(Select $select) use ($status, $branch) {
+            if ($status) {
+                $select->where(array('status' => '1'));
             }
-            if($branch) {
-                $select->where(array('branch_id'=>$branch));
+            if ($branch) {
+                $select->where(array('branch_id' => $branch));
             }
             $select->where('role_id != 1');
         });
-        foreach($resultSet as $employee) {
-            $employees[$employee->employee_code] = $employee->firstname.' '.$employee->lastname.' ('.$employee->employee_code.')';
+        foreach ($resultSet as $employee) {
+            $employees[$employee->employee_code] = $employee->firstname . ' ' . $employee->lastname . ' (' . $employee->employee_code . ')';
         }
         return $employees;
     }
-    
-    public function find($id)
-    {
-        $id  = (int) $id;
+
+    public function find($id) {
+        $id = (int) $id;
         $rowset = $this->tableGateway->select(array('id' => $id));
         $row = $rowset->current();
         if (!$row) {
@@ -96,9 +100,8 @@ class EmployeeTable
         }
         return $row;
     }
-	
-    public function save($data)
-    {
+
+    public function save($data) {
         if (isset($data['save'])) {
             unset($data['save']);
         }
@@ -122,15 +125,15 @@ class EmployeeTable
         $select->columns(array(
             'max_id' => new \Zend\Db\Sql\Expression('count(*)')
         ));
-        $select->where(array('branch_id'=>$branch));
+        $select->where(array('branch_id' => $branch));
         $rowset = $this->tableGateway->selectWith($select);
         $row = $rowset->current();
         //print_r($row); exit;
         return $row;
     }
-    
-    public function delete($id)
-    {
+
+    public function delete($id) {
         return $this->tableGateway->delete(array('id' => (int) $id));
     }
+
 }
