@@ -110,7 +110,7 @@ class InvestorFilter extends InputFilter {
 		
         $this->add(array(
             'name' => 'start_ammount',
-            'required' => true,
+            'required' => false,
 			'disable_inarray_validator' => true,
             'filters' => array(
                 array('name' => 'StripTags'),

@@ -82,6 +82,16 @@ return array(
                     ),
                 ),
             ),
+            'apis-fd-calculation' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route'    => '/apis/fd-calculation',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Ajax',
+                        'action'     => 'fdCalculation',
+                    ),
+                ),
+            ),
             'apis-paln-calculation' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(

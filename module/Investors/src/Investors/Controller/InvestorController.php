@@ -114,7 +114,16 @@ class InvestorController extends AbstractActionController {
                     $this->getAdapter()->getDriver()->getConnection()->beginTransaction();
                     $investmentTable = $this->getTable($this->memberInvestmentsTable, 'Application\Model\MemberInvestmentsTable');
                     $installmentTable = $this->getTable($this->memberInvestmentsTable, 'Application\Model\MemberInstallmentsTable');
-                    $palnDetails = $this->getTable($this->plansDetailsTable, 'Application\Model\PlanFormulaTestTable')->planAmmountById($posts->formula_id);
+                    if(isset($posts->custom_ammount) && $posts->custom_ammount) {
+                        $palnDetails = $this->getTable($this->plansDetailsTable, 'Application\Model\PlansDetailsTable')->planInstallmentByPlanId($posts->plan_id, $posts->duration);
+                        $palnDetails = $palnDetails->current();
+                        $palnDetails->plan_details_id = $palnDetails->id;
+                        $palnDetails->maturity_ammount = $posts->final_ammount;
+                        $palnDetails->amount = $posts->custom_ammount;
+                        $palnDetails->deposit_amount = $posts->custom_ammount;
+                    } else {
+                        $palnDetails = $this->getTable($this->plansDetailsTable, 'Application\Model\PlanFormulaTestTable')->planAmmountById($posts->formula_id);
+                    }
                     $paln = $this->getTable($this->plansTable, 'Application\Model\PlansTable')->find($palnDetails->plan_id);
                     $maxData = $investmentTable->findMaxId();
                     $totalInstallmant = 1;

@@ -78,7 +78,7 @@ class AjaxController extends AbstractActionController {
                 $palnDetails = $this->getTable($this->plansDetailsTable, 'Application\Model\PlansDetailsTable')->find($posts->duration);
                 $installmentDetails = $this->getTable($this->plansInstallmentTable, 'Application\Model\PlanInstallmentsTable')->find($posts->installment_type_id);
                 if ($palnDetails && trim($posts->ammount)) {
-                    if ($palnDetails->duration_type == 'M') { //print_r($installmentDetails); exit;	
+                    if ($palnDetails->duration_type == 'M') {	
                         $A = 0;
                         $P = trim($posts->ammount);
                         $year = $palnDetails->duration / 12;
@@ -112,6 +112,39 @@ class AjaxController extends AbstractActionController {
         return new JsonModel(array(
             'response' => array(
                 'data' => $calculation
+            ),
+            'status' => $status
+        ));
+    }
+    
+    public function fdCalculationAction() {
+        $calculation = array();
+        $status = false;
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $posts = $request->getPost();
+            $palnDetails = $this->getTable($this->plansDetailsTable, 'Application\Model\PlansDetailsTable')->planInstallmentByPlanId($posts->plan, $posts->duration);
+            $palnDetails = $palnDetails->current();            
+            $A = 0;
+            $P = trim($posts->amount);
+            $year = $posts->duration / 12;
+            $rate = $palnDetails->interest_rate;
+            $n = 1;
+            $A = $this->fDInterest($P, $year, $rate, $n);            
+            $maturitydate = date('Y-m-d H:i:s', strtotime('+' . $posts->duration . ' Month'));                
+            $installmentdate = 'One Time';
+                
+        }
+        return new JsonModel(array(
+            'response' => array(
+                'data' => array(
+                    'id',
+                    'amount' => $P,
+                    'interest_rate' => $rate,
+                    'maturity_ammount' => round($A),
+                ),
+                'installment_date' => 'One Time',
+                'end_date' => $maturitydate,
             ),
             'status' => $status
         ));

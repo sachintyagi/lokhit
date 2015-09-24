@@ -85,10 +85,18 @@
                         <?php endif; ?>
                     </div>						
                     <div class="form-group">
-                        <label>Deposite Amount</label>
+                        <label>Deposit Amount</label>
                         <?php echo $this->formElement($form->get('start_ammount')); ?>
                         <?php if ($this->formElementErrors($form->get('start_ammount'))) : ?>
                             <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('start_ammount'))) ?></div>
+                        <?php endif; ?>
+                    </div>
+                    <div class="form-group" id="custom_ammount_div" style="display: none;">
+                        <span style="font-weight: bold;margin: 0 49%">OR</span><br>
+                        <label>Custom Amount</label>
+                        <?php echo $this->formElement($form->get('custom_ammount')); ?>
+                        <?php if ($this->formElementErrors($form->get('custom_ammount'))) : ?>
+                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('custom_ammount'))) ?></div>
                         <?php endif; ?>
                     </div>
                     <div class="form-group">
@@ -119,7 +127,7 @@
                             <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('final_ammount'))) ?></div>
                         <?php endif; ?>
                     </div>	
-					<div class="form-group">
+                    <div class="form-group">
                         <label>Start Date</label>
                         <?php echo $this->formElement($form->get('start_date')); ?>
                         <?php if ($this->formElementErrors($form->get('start_date'))) : ?>
@@ -153,65 +161,65 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-		$( "#start_date" ).datepicker({
-			changeMonth: true,
-			changeYear: true,
-			dateFormat: 'yy-mm-dd',
-			minDate : '-6m',
-			maxDate : new Date(),
-			yearRange: "-80:+0"
-			
-		});
-        $("#employee_code" ).autocomplete({
-		  source: function( request, response ) {
-			$.ajax({
-			  url: "<?php echo $this->basePath('apis/introducers')?>",
-			  data: {
-				q: request.term
-			  },
-			  success: function( data ) {
-				response( data );
-			  }
-			});
-		  },
-		  minLength: 4,
-		  select: function( event, ui ) {			
-            //memberDetsils(ui.item.value);
-		  },
-		  open: function() {
-			$( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-			//clearMember();
-		  },
-		  close: function() {
-			$( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-		  }
-		});
-		$("#member_id" ).autocomplete({
-		  source: function( request, response ) {
-			$.ajax({
-			  url: "<?php echo $this->basePath('apis/members')?>",
-			  data: {
-				q: request.term
-			  },
-			  success: function( data ) {
-				response( data );
-			  }
-			});
-		  },
-		  minLength: 4,
-		  select: function( event, ui ) {			
-            memberDetsils(ui.item.value);
-		  },
-		  open: function() {
-			$( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-			clearMember();
-		  },
-		  close: function() {
-			$( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-		  }
-		});
+        $("#start_date").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'yy-mm-dd',
+            minDate: '-6m',
+            maxDate: new Date(),
+            yearRange: "-80:+0"
+
+        });
+        $("#employee_code").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "<?php echo $this->basePath('apis/introducers') ?>",
+                    data: {
+                        q: request.term
+                    },
+                    success: function (data) {
+                        response(data);
+                    }
+                });
+            },
+            minLength: 4,
+            select: function (event, ui) {
+                //memberDetsils(ui.item.value);
+            },
+            open: function () {
+                $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+                //clearMember();
+            },
+            close: function () {
+                $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+            }
+        });
+        $("#member_id").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "<?php echo $this->basePath('apis/members') ?>",
+                    data: {
+                        q: request.term
+                    },
+                    success: function (data) {
+                        response(data);
+                    }
+                });
+            },
+            minLength: 4,
+            select: function (event, ui) {
+                memberDetsils(ui.item.value);
+            },
+            open: function () {
+                $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+                clearMember();
+            },
+            close: function () {
+                $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+            }
+        });
         $('#plan_id').change(function () {
-            paln = $(this).val();
+            paln = $(this).val();            
             if (paln) {
                 clearPlan();
                 $.ajax({
@@ -232,7 +240,7 @@
                             $('#duration').html(html);
                         } else {
                             $('#duration').html('<option value="">-Choose Plan Maturity Time-</option>');
-                        }
+                        }                        
                     }
                 });
             } else {
@@ -255,17 +263,30 @@
                                 html += '<option value="' + returns.response.data[x].id + '">' + returns.response.data[x].installment_type + '</option>';
                             }
                             $('#installment_type').html(html);
+                            $('#interest_rate').val('');
+                            $('#custom_ammount').val('');
+                            $('#final_ammount').val('');
+                            $('#installment_ammount').val('');
+                            $('#installment_date').val('');
+                            $('#end_date').val('');
+                            $('#interest_rate').val('');
                         }
                     }
                 });
             } else {
                 $('#installment_type').html('<option value="">-Choose Installment Type-</option>');
                 $('#interest_rate').val('');
+                $('#custom_ammount').val('');
+                $('#final_ammount').val('');
+                $('#installment_ammount').val('');
+                $('#installment_date').val('');
+                $('#end_date').val('');
+                $('#interest_rate').val('');
             }
         });
 
         $('#installment_type').change(function () {
-            installment = $(this).val();
+            installment = $(this).val();           
             if (installment) {
                 $.ajax({
                     url: '<?php echo $this->basePath('apis/plan-ammounts') ?>',
@@ -280,9 +301,24 @@
                             $('#start_ammount').html(html);
                         } else {
                             $('#start_ammount').val('<option value="">-Choose Amount-</option>');
+                            $('#custom_ammount_div').hide();
+                        }
+                        if($('#plan_id').val() == '1'){
+                            $('#custom_ammount_div').show();
+                        } else {
+                            $('#custom_ammount_div').hide();
                         }
                     }
                 });
+            } else {
+                $('#custom_ammount_div').hide();
+                $('#interest_rate').val('');
+                $('#custom_ammount').val('');
+                $('#final_ammount').val('');
+                $('#installment_ammount').val('');
+                $('#installment_date').val('');
+                $('#end_date').val('');
+                $('#interest_rate').val('');
             }
         });
 
@@ -300,13 +336,39 @@
                         $('#final_ammount').val(returns.response.data.maturity_ammount);
                         $('#installment_date').val(returns.response.installment_date);
                         $('#end_date').val(returns.response.end_date);
+                        $('#custom_ammount').val('');
+                    }
+                });
+            } else {
+                $('#final_ammount').val('');
+                $('#installment_ammount').val('');
+                $('#installment_date').val('');
+                $('#end_date').val('');
+                $('#interest_rate').val('');
+            }
+        });
+        
+        $('#custom_ammount').keyup(function () {
+            amount = $(this).val();
+            if (amount) {
+                $('#start_ammount').val('');
+                $.ajax({
+                    url: '<?php echo $this->basePath('apis/fd-calculation') ?>',
+                    type: 'post',
+                    data: {amount: amount, plan:$('#plan_id').val(),duration:$('#duration').val()},
+                    success: function (returns) {
+                        $('#interest_rate').val(returns.response.data.interest_rate);
+                        $('#formula_id').val(returns.response.data.id);
+                        $('#installment_ammount').val(returns.response.data.amount);
+                        $('#final_ammount').val(returns.response.data.maturity_ammount);
+                        $('#installment_date').val(returns.response.installment_date);
+                        $('#end_date').val(returns.response.end_date);
                     }
                 });
             } else {
 
             }
         });
-
 
         function clearPlan() {
             $('#start_ammount').html('<option value="">-Choose Deposite Amount-</option>')
@@ -315,6 +377,7 @@
             $('#installment_date').val('');
             $('#end_date').val('');
             $('#interest_rate').val('');
+            $('#custom_ammount_div').hide();
         }
 
         function memberDetsils(member) {
@@ -341,14 +404,14 @@
                 clearMember();
             }
         }
-		function clearMember(){
-			$('#name').val('');
-			$('#gardian_name').val('');
-			$('#emailid').val('');
-			$('#mobile_number').val('');
-			$('#address').val('');
-			$('#nominee_name').val('');
-			$('#nominee_relation').val('');
-		}
+        function clearMember() {
+            $('#name').val('');
+            $('#gardian_name').val('');
+            $('#emailid').val('');
+            $('#mobile_number').val('');
+            $('#address').val('');
+            $('#nominee_name').val('');
+            $('#nominee_relation').val('');
+        }
     })
 </script>
