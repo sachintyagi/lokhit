@@ -26,6 +26,74 @@ class InstallmentForm extends Form {
         ));
 		
 		$this->add(array(
+            'name' => 'firstname',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'First Name',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'firstname',
+				'readonly'=>true,	
+            ),
+        ));
+		
+		$this->add(array(
+            'name' => 'lastname',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Last Name',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'lastname',
+				'readonly'=>true,	
+            ),
+        ));
+		
+		$this->add(array(
+            'type' => 'Zend\Form\Element\Textarea',
+            'name' => 'address',
+            'options' => array(
+                'label' => 'Address'
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'address',
+                'cols' => '50',
+                'rows' => '4',
+                'maxlength' => 200,
+				'readonly'  => true
+            ),
+        ));
+		
+		$this->add(array(
+            'name' => 'employee_code',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Employee Code',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'employee_code',
+				'readonly'=>true,	
+            ),
+        ));		
+		
+		$this->add(array(
+            'name' => 'introducer_code',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Introducer Code',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'introducer_code',
+				'readonly'=>true,	
+            ),
+        ));
+		
+		$this->add(array(
             'name' => 'investment_id',
             'type' => 'Zend\Form\Element\Hidden',
             'options' => array(
@@ -111,6 +179,18 @@ class InstallmentForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'total_installment',
+				'readonly'=>true,	
+            ),
+        ));		
+		$this->add(array(
+            'name' => 'remaning_installment',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Remaning Installment',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'remaning_installment',
 				'readonly'=>true,	
             ),
         ));

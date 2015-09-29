@@ -39,6 +39,7 @@ class MemberInvestments {
     public $nominee_relation;
     public $dob;
     public $receipt_number;
+    public $introducer_code;
 
     public function exchangeArray($data) {
         $this->id = (!empty($data['id'])) ? $data['id'] : 0;
@@ -62,6 +63,7 @@ class MemberInvestments {
         $this->start_date = (!empty($data['start_date'])) ? $data['start_date'] : null;
         $this->end_date = (!empty($data['end_date'])) ? $data['end_date'] : null;
         $this->employee_code = (!empty($data['employee_code'])) ? $data['employee_code'] : null;
+        $this->introducer_code = (!empty($data['introducer_code'])) ? $data['introducer_code'] : null;
         $this->created_at = (!empty($data['created_at'])) ? $data['created_at'] : 0;
         $this->created_by = (!empty($data['created_by'])) ? $data['created_by'] : 0;
         $this->updated_at = (!empty($data['updated_at'])) ? $data['updated_at'] : 0;

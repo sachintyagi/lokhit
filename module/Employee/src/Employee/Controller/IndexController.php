@@ -33,7 +33,13 @@ class IndexController extends AbstractActionController {
             $conditions = array(
                 'fields' => array('*'),
                 'filters' => array(),
-                'joins' => array(),
+                'joins' => array(
+                    array(
+                        'table' => 'roles',
+                        'mapping' => 'employees.role_id = roles.id',
+                        'fields' => array('role_name' => 'name')
+                    )
+                ),
                 'limit' => (int) $length,
                 'offset' => (int) $offset,
                 'search' => array()
@@ -41,7 +47,7 @@ class IndexController extends AbstractActionController {
             if (!empty($search['value'])) {
                 $conditions['search'] = array(
                     'term' => $search['value'],
-                    'fields' => array('employee_code', 'firstname', 'lastname', 'emailid', 'userid','mobile_number','gender')
+                    'fields' => array('employee_code', 'firstname', 'lastname', 'introducer_code', 'role_name','mobile_number','gender')
                 );
             }
             $auth = $this->getServiceLocator()->get('AuthService');
@@ -62,8 +68,8 @@ class IndexController extends AbstractActionController {
                     $employee->id,
                     $employee->employee_code,
                     $employee->firstname . ' ' . $employee->lastname,
-                    $employee->emailid,                    
-                    $employee->userid,
+                    $employee->introducer_code,                    
+                    ($employee->role_name == 'LMS')?'':$employee->role_name,
                     $employee->mobile_number,
                     $employee->gender,
                     '<a title="Edit" href="'.$this->getServiceLocator()->get('Request')->getBasePath().'/employee/new/'.$employee->id.'"><i class="glyphicon glyphicon-edit"></i></a> | <a title="Delete" onclick="deleteEmployee('.$employee->id.')" href="javascript:void(0);"><i class="glyphicon glyphicon-remove-sign"></i></a>',

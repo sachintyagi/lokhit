@@ -33,6 +33,8 @@ class Employee
     public $updated_at;
     public $updated_by;
     public $is_deleted;
+	
+    public $role_name;
     
     public $max_id;
     
@@ -70,5 +72,6 @@ class Employee
         $this->is_deleted       = (!empty($data['is_deleted'])) ? $data['is_deleted'] : 0;
         
         $this->max_id           = (!empty($data['max_id'])) ? $data['max_id'] : 0;    
+        $this->role_name        = (!empty($data['role_name'])) ? $data['role_name'] : null;    
     }
 }

@@ -28,6 +28,44 @@
                         <?php echo $this->formElement($form->get('investment_id')); ?>
                     </div>
                     <div class="form-group">
+                        <label>First Name</label>
+                        <?php echo $this->formElement($form->get('firstname')); ?>
+                        <?php if ($this->formElementErrors($form->get('firstname'))) : ?>
+                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('firstname'))) ?></div>
+                        <?php endif; ?>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <?php echo $this->formElement($form->get('lastname')); ?>
+                        <?php if ($this->formElementErrors($form->get('lastname'))) : ?>
+                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('lastname'))) ?></div>
+                        <?php endif; ?>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <?php echo $this->formElement($form->get('address')); ?>
+                        <?php if ($this->formElementErrors($form->get('address'))) : ?>
+                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('address'))) ?></div>
+                        <?php endif; ?>
+                    </div>
+                    <div class="form-group">
+                        <label>Agent Name</label>
+                        <?php echo $this->formElement($form->get('employee_code')); ?>
+                        <?php if ($this->formElementErrors($form->get('employee_code'))) : ?>
+                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('employee_code'))) ?></div>
+                        <?php endif; ?>
+                    </div>
+                    <div class="form-group">
+                        <label>Introducer Code</label>
+                        <?php echo $this->formElement($form->get('introducer_code')); ?>
+                        <?php if ($this->formElementErrors($form->get('introducer_code'))) : ?>
+                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('introducer_code'))) ?></div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <!-- /.col-lg-6 (nested) -->
+                <div class="col-lg-6">	
+                    <div class="form-group">
                         <label>Period</label>
                         <?php echo $this->formElement($form->get('period')); ?>
                         <?php if ($this->formElementErrors($form->get('period'))) : ?>
@@ -40,10 +78,7 @@
                         <?php if ($this->formElementErrors($form->get('interest_rate'))) : ?>
                             <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('interest_rate'))) ?></div>
                         <?php endif; ?>
-                    </div>																										
-                </div>
-                <!-- /.col-lg-6 (nested) -->
-                <div class="col-lg-6">	
+                    </div>
                     <div class="form-group">
                         <label>Amount</label>
                         <?php echo $this->formElement($form->get('amount')); ?>
@@ -60,6 +95,13 @@
                     </div>	
                     <div class="form-group">
                         <label>Remaining Installment</label>
+                        <?php echo $this->formElement($form->get('remaning_installment')); ?>
+                        <?php if ($this->formElementErrors($form->get('remaning_installment'))) : ?>
+                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('remaning_installment'))) ?></div>
+                        <?php endif; ?>
+                    </div>	
+                    <div class="form-group">
+                        <label>Total Installment</label>
                         <?php echo $this->formElement($form->get('total_installment')); ?>
                         <?php if ($this->formElementErrors($form->get('total_installment'))) : ?>
                             <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('total_installment'))) ?></div>
@@ -99,8 +141,14 @@
                     data: {cf_number: cf_number},
                     success: function (returns) {
                         if (returns.status) {
+                            $('#firstname').val(returns.response.data.firstname);
+                            $('#lastname').val(returns.response.data.lastname);
+                            $('#address').val(returns.response.data.address);
+                            $('#employee_code').val(returns.response.data.employee_code);
+                            $('#introducer_code').val(returns.response.data.introducer_code);
                             $('#investment_id').val(returns.response.data.investment_id);
                             $('#installment_no').val(returns.response.data.installment_no);
+                            $('#remaning_installment').val(returns.response.data.remaning_installment);
                             $('#total_installment').val(returns.response.data.total_installment);
                             $('#interest_rate').val(returns.response.data.interest_rate);
                             $('#period').val(returns.response.data.period);
@@ -116,8 +164,12 @@
         }
 
         function clearForm() {
+            $('#firstname').val('');
+            $('#lastname').val('');
+            $('#employee_code').val('');
             $('#investment_id').val('');
             $('#installment_no').val('');
+            $('#remaning_installment').val('');
             $('#total_installment').val('');
             $('#interest_rate').val('');
             $('#period').val('');

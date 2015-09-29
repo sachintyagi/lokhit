@@ -128,6 +128,8 @@ class MemberInvestmentsTable {
         $rowset = $this->tableGateway->select(function($select) use($number) {
             if ($number) {
                 $select->where(array('cf_number' => $number));
+                $select->join('members', 'member_investments.member_id = members.member_id', array('firstname', 'lastname', 'member_id', 'emailid', 'gardian_name', 'address', 'nominee_name', 'nominee_relation', 'dob'));
+                $select->join('employees', 'member_investments.employee_code = employees.employee_code', array('introducer_code'));
                 //echo $select->getSqlString();
             }
         });

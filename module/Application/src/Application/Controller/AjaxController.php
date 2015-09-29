@@ -178,6 +178,8 @@ class AjaxController extends AbstractActionController {
         if ($request->isPost()) {
             $posts = $request->getPost();
             $memberInvestments = $this->getTable($this->memberInvestmentTable, 'Application\Model\MemberInvestmentsTable')->findByCFNumber(trim($posts->cf_number));
+            
+            //print_r($memberInvestments); exit;
             if (!$memberInvestments) {
                 $investment = array();
             } else {
@@ -186,14 +188,22 @@ class AjaxController extends AbstractActionController {
                     'plan_id' => $memberInvestments->plan_id,
                     'period' => $memberInvestments->period,
                     'interest_rate' => $memberInvestments->interest_rate . ' %',
-                    'installment_no' => $memberInvestments->installment_no + 1,
+                    'installment_type' => $memberInvestments->installment_type,
+                    'installment_no' => (int)$memberInvestments->installment_no + 1,
                     'installment_date' => $memberInvestments->installment_date,
-                    'total_installment' => $memberInvestments->total_installment,
+                    'remaning_installment' => (int)$memberInvestments->total_installment-($memberInvestments->installment_no + 2),
+                    'total_installment' => (int)$memberInvestments->total_installment,
                     'ammount' => $memberInvestments->start_ammount,
+                    'firstname' => $memberInvestments->firstname,
+                    'lastname' => $memberInvestments->lastname,
+                    'address' => $memberInvestments->address,
+                    'employee_code' => $memberInvestments->employee_code,
+                    'introducer_code' => $memberInvestments->introducer_code,
                 );
                 $status = true;
             }
         }
+        
         return new JsonModel(array(
             'response' => array(
                 'data' => $investment
