@@ -1,83 +1,58 @@
 <div class="row">
-	<div class="col-lg-12">
-		<h3 class="page-header">Investors List
-			<span class="job-btn pull-right">
-				<a href="<?php echo $this->url('nae-investors')?>" class="btn btn-primary">New Investor</a>
-			</span>
-		</h3>
-		<?php 
-			if(!empty($this->flashMessages[0])) {
-				foreach($this->flashMessages[0] as $class => $message) {
-					echo '<div class="'.$class.'">'.$message.'</div>';	
-				}
-			}
-			if ($this->error) {
-				echo '<div class="error">'.$this->error.'</div>';	
-			}
-		?>
-	</div>
-	<!-- /.col-lg-12 -->
+    <div class="col-lg-12">
+        <h3 class="page-header">Installments List
+            <span class="job-btn pull-right">
+                <a href="<?php echo $this->url('new-installment')?>" class="btn btn-primary">New Installment</a>
+            </span>
+        </h3>
+    </div>
 </div>
-<!-- /.row -->
 
 <div class="row">
-	<?php echo $this->render('partials/flash-messages')?>
-	<div class="col-lg-12">
-		<div class="panel panel-default">
-			<div class="panel-heading"><i class="fa fa-table fa-fw"></i> Investors Table</div>
-			<!-- /.panel-heading -->
-			<div class="panel-body table-responsive">
-				<?php if(count($this->investments) > 0): ?>
-				<table class="table table-striped" style="word-wrap:break-word; table-layout:fixed;width:100%;">
-					<thead>
-						<tr>
-							<td style="width: 4%;"><strong>#</strong></td>
-							<td style="width: 15%;"><strong>Full Name</strong></td>
-							<td style="width: 15%;"><strong>Member ID</strong></td>
-							<td style="width: 20%;"><strong>CF Number</strong></td>
-							<td style="width: 16%;"><strong>Amount</strong></td>
-							<td style="width: 16%;"><strong>Total Amount</strong></td>
-							<td style="width: 16%;"><strong>Start Date</strong></td>
-							<td style="width: 16%;"><strong>Maturety Date</strong></td>
-							<td style="width: 15%;" class="text-center"><strong>Action</strong></td>
-						</tr>
-					</thead>
-					<tbody>
-					<?php $count = 1; foreach($this->investments as $invest): ?>
-						<tr>
-							<td><?php echo $count; ?></td>
-							<td><?php echo ucwords($invest->firstname.' '.$invest->lastname); ?></td>
-							<td><?php echo $invest->member_id; ?></td>
-							<td><?php echo $invest->cf_number; ?></td>
-							<td><?php echo $invest->start_ammount; ?></td>
-							<td><?php echo $invest->final_ammount; ?></td>
-							<td><?php echo date('d M, Y',strtotime($invest->start_date)); ?></td>
-							<td><?php echo date('d M, Y',strtotime($invest->end_date)); ?></td>
-							<td class="text-center">
-								<!--<a title="Edit" href="<?php echo $this->basepath(); ?>/add/<?php echo $invest->id; ?>" >Edit</a> | 
-								<a title="Delete" onclick="deleteMember('<?php echo $invest->id; ?>')" href="javascript:void(0);">Delete</a> | -->									
-								<a title="Print Certificate" href="<?php echo $this->basePath('reports/print-certificate/'.$invest->id)?>"><i class="glyphicon glyphicon-print"></i></a>
-								<?php if(1) :?>
-								&nbsp;| <a title="Renew" href="<?php echo $this->basePath('investors/new-installment/'.$invest->id)?>"><i class="glyphicon glyphicon-repeat"></i></a>
-								<?php  endif;?>
-							</td>
-						</tr>
-					<?php $count++; endforeach; ?>
-					</tbody>
-				</table>
-				<?php else:?>
-					<div class="text-center">No investments found</div>
-				<?php endif; ?>					
-			</div>
-			<!-- /.panel-body -->
-		</div>
-		<!-- /.panel -->			
-	</div>
-	<!-- /.col-lg-12 -->		
+    <?php echo $this->render('partials/flash-messages')?>
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-table fa-fw"></i> Installments Table</div>
+            <!-- /.panel-heading -->
+            <div class="panel-body table-responsive">
+                <table id="investor-table" class="table table-striped" style="word-wrap:break-word; table-layout:fixed;width:100%;">
+                    <thead style="background: none repeat scroll 0 0 #313131;color: #fff;">
+                        <tr>
+                            <th style="width: 5%;"><strong>#</strong></th>
+                            <th style="width: 18%;"><strong>Receipt No</strong></th>
+                            <th style="width: 18%;"><strong>CF Number</strong></th>
+                            <th style="width: 15%;"><strong>Full Name</strong></th>
+                            <th style="width: 15%;"><strong>Member ID</strong></th>                                               
+                            <th style="width: 10%;"><strong>Inst. No.</strong></th>                                               
+                            <th style="width: 8%;"><strong>Amt</strong></th>
+                            <th style="width: 10%;"><strong>L. Fee</strong></th>
+                            <th style="width: 8%;"><strong>Total</strong></th>
+                            <th style="width: 10%;"><strong>Date</strong></th>
+                            <th style="width: 5%;" class="text-center"><strong></strong></th>
+                        </tr>
+                    </thead>
+                    <tbody style="border-bottom: 3px solid #313131;">
+                        <tr style="background: #fff;border: none;">
+                            <td colspan="10" style="width: 100%;" class="text-center">&nbsp;</td>
+                        </tr>
+                        <tr style="background: #fff;border: none;">
+                            <td colspan="10" style="width: 100%;" class="text-center">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
-	<!-- /.row -->
-<!-- /#page-wrapper -->
 <script type="text/javascript">
+        $(document).ready(function() {
+            $('#investor-table').DataTable( {
+                "processing": true,
+                "serverSide": true,
+                "ajax": '<?php echo $this->url('installments')?>',
+                "bSort" : false
+            } );
+        } );
 	function deleteMember(memberId) {
 		if(confirm('Are you sure for perform this action')) {
 			window.location.href = '<?php echo $this->basepath(); ?>/delete/'+memberId;

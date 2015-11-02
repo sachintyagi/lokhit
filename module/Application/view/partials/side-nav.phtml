@@ -30,8 +30,9 @@
                 </ul>
             </li>
             <li>
-                <a href="#"><i class="fa fa-umbrella fa-fw"></i> <?php echo $this->translate('Installments') ?><span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-rupee fa-fw"></i> <?php echo $this->translate('Installments') ?><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
+                    <li><a href="<?php echo $this->url('installments') ?>"><i class="fa fa-th-list fa-fw"></i> <?php echo $this->translate('All Installments') ?></a></li>
                     <li><a href="<?php echo $this->url('new-installment') ?>"><i class="fa fa-th-list fa-fw"></i> <?php echo $this->translate('Add New Installment') ?></a></li>
                 </ul>
             </li>

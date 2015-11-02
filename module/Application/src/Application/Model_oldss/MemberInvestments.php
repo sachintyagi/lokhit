@@ -23,7 +23,6 @@ class MemberInvestments {
     public $deposit_amount;
     public $start_date;
     public $end_date;
-    public $next_due_date;
     public $created_at;
     public $created_by;
     public $updated_at;
@@ -63,7 +62,6 @@ class MemberInvestments {
         $this->deposit_amount = (!empty($data['deposit_amount'])) ? $data['deposit_amount'] : '0.00';
         $this->start_date = (!empty($data['start_date'])) ? $data['start_date'] : null;
         $this->end_date = (!empty($data['end_date'])) ? $data['end_date'] : null;
-        $this->next_due_date = (!empty($data['next_due_date'])) ? $data['next_due_date'] : null;
         $this->employee_code = (!empty($data['employee_code'])) ? $data['employee_code'] : null;
         $this->introducer_code = (!empty($data['introducer_code'])) ? $data['introducer_code'] : null;
         $this->created_at = (!empty($data['created_at'])) ? $data['created_at'] : 0;

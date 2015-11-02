@@ -284,7 +284,8 @@ class InvestorForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'value' => date('Y-m-d'),
-                'id' => 'start_date'
+                'id' => 'start_date',
+				'readonly' => true,
             )
         ));
 

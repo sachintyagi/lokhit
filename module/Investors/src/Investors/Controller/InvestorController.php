@@ -69,9 +69,10 @@ class InvestorController extends AbstractActionController {
             $investments = $this->getTable($this->memberInvestmentsTable, 'Application\Model\MemberInvestmentsTable')->fetchAll($conditions);
             $investmentsTotal = $this->getTable($this->memberInvestmentsTable, 'Application\Model\MemberInvestmentsTable')->fetchTotal($conditions);
             $data = array();
+			$i = $offset+1;
             foreach ($investments as $investment) {
                 $data[] = array(
-                    $investment->id,
+                    $i++,
                     $investment->cf_number,
                     $investment->employee_code,
                     $investment->firstname . ' ' . $investment->lastname,
@@ -128,27 +129,34 @@ class InvestorController extends AbstractActionController {
                     $maxData = $investmentTable->findMaxId();
                     $totalInstallmant = 1;
                     $lastInstallmentDate = null;
+                    $nextduedate = date('Y-m-d H:i:s');
                     if ($palnDetails->installment_type == 'One Time') {
                         $totalInstallmant = 1;
-                        $lastInstallmentDate = date('Y-m-d');
+                        $lastInstallmentDate = date('Y-m-d');                        
                     } else if ($palnDetails->installment_type == 'Per Day') {
                         $totalInstallmant = 365;
                         $lastInstallmentDate = $posts->end_date;
+                        $nextduedate = date('Y-m-d H:i:s', strtotime('+1 day'));
                     } else if ($palnDetails->installment_type == 'Per Day (180)') {
                         $totalInstallmant = 180;
                         $lastInstallmentDate = $posts->end_date;
+                        $nextduedate = date('Y-m-d H:i:s', strtotime('+1 day'));
                     } else if ($palnDetails->installment_type == 'Monthly') {
                         $totalInstallmant = $palnDetails->duration;
                         $lastInstallmentDate = date('Y-m-d', strtotime('-1 month', strtotime($posts->end_date)));
+                        $nextduedate = date('Y-m-d H:i:s', strtotime('+1 month'));
                     } else if ($palnDetails->installment_type == 'Quaterly') {
                         $totalInstallmant = $palnDetails->duration / 3;
                         $lastInstallmentDate = date('Y-m-d', strtotime('-3 month', strtotime($posts->end_date)));
+                        $nextduedate = date('Y-m-d H:i:s', strtotime('+3 month'));
                     } else if ($palnDetails->installment_type == 'Half Yearly') {
                         $totalInstallmant = $palnDetails->duration / 6;
                         $lastInstallmentDate = date('Y-m-d', strtotime('-6 month', strtotime($posts->end_date)));
+                        $nextduedate = date('Y-m-d H:i:s', strtotime('+6 month'));
                     } else if ($palnDetails->installment_type == 'Yearly') {
                         $totalInstallmant = $palnDetails->duration / 12;
                         $lastInstallmentDate = date('Y-m-d', strtotime('-12 month', strtotime($posts->end_date)));
+                        $nextduedate = date('Y-m-d H:i:s', strtotime('+12 month'));
                     }
 
                     $investmentData = array(
@@ -171,6 +179,7 @@ class InvestorController extends AbstractActionController {
                         'start_date' => $posts->start_date,
                         'employee_code' => $posts->employee_code,
                         'end_date' => $posts->end_date,
+                        'next_due_date' => $nextduedate,
                         'created_by' => $authData->id,
                         'created_at' => date('Y-m-d H:i:s'),
                         'updated_by' => $authData->id,
@@ -182,6 +191,7 @@ class InvestorController extends AbstractActionController {
                     $installment = array(
                         'investment_id' => $investmentId,
                         'ammount' => $palnDetails->amount,
+                        'due_date' => date('Y-m-d H:i:s'),
                         'receipt_number' => $authData->branch->code.$investmentId.date('dmY').$maxId,
                         'installment_number'=> 1,
                         'status' => 1,

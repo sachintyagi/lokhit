@@ -1,0 +1,214 @@
+<?php $user = $this->identity(); ?>
+<div id="print">
+    <div style="font-size: 18px;">
+        <div class="company">
+            <div style="color: blue;font-size: 30px;font-weight: bold;">LOKHIT NIDHI LIMITADE</div>
+            <div style="font-size: 18px;">(Under Section 406 Companies Act 2013)</div>
+            <div style="color: blue;font-weight: bold;">Civil Line-II, Opp. P.W.D. Guest House, Bijnor-246701 (U.P.)</div>
+            <div style="color: blue;font-size: 18px;">Email : info.lokhitnidhi@gmail.com</div>
+            <div style="font-size: 18px;font-weight: bold;">Renewal Receipt</div>
+        </div>
+        <div class="logo">
+            <img src="<?php echo $this->basePath('img/logo.png') ?>"/>
+        </div>
+        <div class="cfnumber">
+            <label style="font-weight: bold;">CF Number :</label> <?php echo $this->receipt->cf_number ?>
+        </div>
+        <div class="name">
+            <label style="font-weight: bold;">Name :</label> <?php echo $this->receipt->firstname . ' ' . $this->receipt->lastname ?>
+        </div>
+        <div class="sodowo">
+            <label style="font-weight: bold;">S/o, D/o, W/o :</label> <?php echo $this->receipt->gardian_name ?>
+        </div>
+        <div class="address">
+            <label style="font-weight: bold;">Add. :</label> <?php echo $this->receipt->address ?>
+        </div>
+        <div class="prentedby">
+            <label style="font-weight: bold;">Printed By :</label> 
+            <?php echo $user->firstname ?> <?php echo $user->lastname ?>
+            <?php if (isset($user->branch->code)) : ?>
+                (<?php echo $user->branch->code ?>)
+            <?php endif; ?>
+        </div>
+        <div class="branchcode">
+            <label style="font-weight: bold;">Branch Code :</label> <?php echo $this->receipt->code ?>
+        </div>
+        <div class="totalinst">
+            <label style="font-weight: bold;">Total Installment :</label> <?php echo $this->receipt->total_installment ?>
+        </div>
+        <div class="instno">
+            <label style="font-weight: bold;">Installment No.:</label> <?php echo $this->receipt->installment_number ?>
+        </div>
+        <div class="employee">
+            <?php echo $this->receipt->employee_code ?>
+        </div>
+        <div class="mode">
+            <label style="font-weight: bold;">Mode :</label> <?php echo $this->receipt->installment_type ?>
+        </div>
+        <div class="receipt">
+            <label style="font-weight: bold;">Rec No. :</label> <?php echo $this->receipt->receipt_number ?>
+        </div>
+        <div class="receiptdate">
+            <label style="font-weight: bold;">Rec Date. :</label> <?php echo date('d M, y') ?>
+        </div>
+        <div class="duedate">
+            <label>Due Date. :</label> <?php if($this->receipt->due_date):echo date('d M, y', strtotime($this->receipt->due_date));else:echo '-';endif;?>
+        </div>
+        <div class="nduedate">
+            <label>Next Due Date. :</label> <?php if($this->receipt->due_date):echo date('d M, y', strtotime($this->receipt->next_due_date));else:echo '-';endif;?>
+        </div>
+        <div class="mdate">
+            <label style="font-weight: bold;">Maturity Date. :</label> <?php echo date('d M, y', strtotime($this->receipt->end_date)) ?>
+        </div>			
+        <div class="yearofsub">
+            <label style="font-weight: bold;">Year of Sub. :</label> 1st Year
+        </div>
+        <div class="amount">
+            <label style="font-weight: bold;">Amount :</label> Rs.<?php echo $this->receipt->ammount ?>/-
+        </div>
+        <div class="lfee">
+            <label style="font-weight: bold;">Late Fee :</label> Rs.0/-
+        </div>
+        <div class="total">
+            <label style="font-weight: bold;">Total Amount :</label> Rs.<?php echo $this->receipt->ammount ?>/-
+        </div>
+        <div class="totalinword">
+            Installment Amount (In Words) : <label style="font-weight: bold;"> Rs. <?php echo ucwords(\Application\Service\NumberToWords::toWords($this->receipt->ammount)) ?> Only</label>
+        </div>
+    </div>
+    <style type="text/css">
+        body{
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+        @page{
+            size: auto A4 landscape;
+            margin: 3mm;
+        }
+        .company{
+            text-align: center;
+        }
+        .logo{
+            margin: -84px 100px 25px;
+        }
+        .cfnumber{
+            margin: 66px 34px 0px;	
+        }
+        .name{
+            margin: 0px 34px 0px;	
+        }
+        .sodowo{
+            margin: 0px 34px 0px;	
+        }
+        .address{
+            margin: 0px 34px 0px;	
+        }
+        .prentedby{
+            margin: 9px 34px 0;
+        }
+        .branchcode{
+            margin: -151px 530px;
+            width: 250px;
+        }
+        .totalinst{
+            margin: 151px 530px;
+            width: 250px;
+        }
+        .instno{
+            margin: -151px 530px;
+            width: 250px;
+        }
+        .employee{
+            margin: 151px 560px;
+            width: 250px;
+        }
+        .mode{
+            margin: -151px 530px;
+            width: 250px;
+        }
+        .receipt{
+            margin: 45px 846px;
+            width:250px;
+        }
+        .receiptdate{
+            margin: -45px 846px;
+            width:250px;
+        }
+        .duedate{
+            margin: 45px 846px;
+            width:250px;
+        }
+        .nduedate{
+            margin: -45px 846px;
+            width:250px;
+        }
+        .mdate{
+            margin: 45px 846px;
+            width:250px;
+        }
+        .yearofsub{
+            margin: -45px 846px;
+            width:250px;
+        }
+        .amount{
+            margin: 68px 540px;
+            width:250px;
+        }
+        .lfee{
+            margin: -68px 540px;
+            width:250px;
+        }
+        .total{
+            margin: 68px 540px;
+            width:250px;
+        }
+        .totalinword{
+            margin-top: -50px;
+            text-align: center;
+            width: 100%;
+        }
+        .clear{
+            margin: 47px 262px;
+        }
+        #print{
+            width:100%;
+        }
+        .btn {
+            -moz-user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857;
+            margin-bottom: 0;
+            padding: 6px 12px;
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+            text-decoration:none;
+        }
+        .btn-primary {
+            background-color: #337ab7;
+            border-color: #2e6da4;
+            color: #fff;
+        }
+        .btn-success {
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+            color: #fff;
+        }
+    </style>
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function (e) {
+        var printContents = document.getElementById('print').innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+        //window.close();
+    });
+</script>

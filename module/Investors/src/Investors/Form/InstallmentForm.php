@@ -1,18 +1,19 @@
-<?php 
+<?php
+
 namespace Investors\Form;
- 
+
 use Zend\Form\Element;
 use Zend\Form\Form;
 
 class InstallmentForm extends Form {
-	
-	public function __construct() {
-        
-		parent::__construct('Installment');
+
+    public function __construct() {
+
+        parent::__construct('Installment');
         $this->setAttribute('method', 'post');
         $this->setAttribute('class', 'form-member');
-		
-		$this->add(array(
+
+        $this->add(array(
             'name' => 'cf_number',
             'type' => 'text',
             'options' => array(
@@ -21,11 +22,11 @@ class InstallmentForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'cf_number',
-				'autocomplete'=>'off',
+                'autocomplete' => 'off',
             ),
         ));
-		
-		$this->add(array(
+
+        $this->add(array(
             'name' => 'firstname',
             'type' => 'text',
             'options' => array(
@@ -34,11 +35,11 @@ class InstallmentForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'firstname',
-				'readonly'=>true,	
+                'readonly' => true,
             ),
         ));
-		
-		$this->add(array(
+
+        $this->add(array(
             'name' => 'lastname',
             'type' => 'text',
             'options' => array(
@@ -47,11 +48,11 @@ class InstallmentForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'lastname',
-				'readonly'=>true,	
+                'readonly' => true,
             ),
         ));
-		
-		$this->add(array(
+
+        $this->add(array(
             'type' => 'Zend\Form\Element\Textarea',
             'name' => 'address',
             'options' => array(
@@ -63,11 +64,11 @@ class InstallmentForm extends Form {
                 'cols' => '50',
                 'rows' => '4',
                 'maxlength' => 200,
-				'readonly'  => true
+                'readonly' => true
             ),
         ));
-		
-		$this->add(array(
+
+        $this->add(array(
             'name' => 'employee_code',
             'type' => 'text',
             'options' => array(
@@ -76,11 +77,11 @@ class InstallmentForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'employee_code',
-				'readonly'=>true,	
+                'readonly' => true,
             ),
-        ));		
-		
-		$this->add(array(
+        ));
+
+        $this->add(array(
             'name' => 'introducer_code',
             'type' => 'text',
             'options' => array(
@@ -89,11 +90,11 @@ class InstallmentForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'introducer_code',
-				'readonly'=>true,	
+                'readonly' => true,
             ),
         ));
-		
-		$this->add(array(
+
+        $this->add(array(
             'name' => 'investment_id',
             'type' => 'Zend\Form\Element\Hidden',
             'options' => array(
@@ -103,9 +104,9 @@ class InstallmentForm extends Form {
                 'class' => 'form-control',
                 'id' => 'investment_id',
             ),
-        ));	
-		
-		$this->add(array(
+        ));
+
+        $this->add(array(
             'name' => 'member_id',
             'type' => 'text',
             'options' => array(
@@ -114,11 +115,11 @@ class InstallmentForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'member_id',
-				'disabled' => true,	
+                'disabled' => true,
             ),
         ));
-		
-		$this->add(array(
+
+        $this->add(array(
             'name' => 'period',
             'type' => 'text',
             'options' => array(
@@ -127,11 +128,11 @@ class InstallmentForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'period',
-				'readonly'=>true,	
+                'readonly' => true,
             ),
         ));
-		
-		$this->add(array(
+
+        $this->add(array(
             'name' => 'interest_rate',
             'type' => 'text',
             'options' => array(
@@ -140,11 +141,11 @@ class InstallmentForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'interest_rate',
-				'readonly'=>true,	
+                'readonly' => true,
             ),
         ));
-		
-		$this->add(array(
+
+        $this->add(array(
             'name' => 'amount',
             'type' => 'text',
             'options' => array(
@@ -153,11 +154,11 @@ class InstallmentForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'amount',
-				'readonly'=>true,	
+                'readonly' => true,
             ),
         ));
-		
-		$this->add(array(
+
+        $this->add(array(
             'name' => 'installment_no',
             'type' => 'text',
             'options' => array(
@@ -166,11 +167,11 @@ class InstallmentForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'installment_no',
-				'readonly'=>true,	
+                'readonly' => true,
             ),
         ));
-		
-		$this->add(array(
+
+        $this->add(array(
             'name' => 'total_installment',
             'type' => 'text',
             'options' => array(
@@ -179,10 +180,10 @@ class InstallmentForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'total_installment',
-				'readonly'=>true,	
+                'readonly' => true,
             ),
-        ));		
-		$this->add(array(
+        ));
+        $this->add(array(
             'name' => 'remaning_installment',
             'type' => 'text',
             'options' => array(
@@ -191,19 +192,55 @@ class InstallmentForm extends Form {
             'attributes' => array(
                 'class' => 'form-control',
                 'id' => 'remaning_installment',
-				'readonly'=>true,	
+                'readonly' => true,
             ),
         ));
-		
+        $this->add(array(
+            'name' => 'due_date',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Due Date',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'due_date',
+                'readonly' => true,
+            ),
+        ));
+        $this->add(array(
+            'name' => 'next_due_date',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Next Due Date',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'next_due_date',
+                'readonly' => true,
+            ),
+        ));
+        $this->add(array(
+            'name' => 'late_fee',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Late Fee',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'late_fee',
+                'readonly' => true,
+            ),
+        ));
+
         $this->add(array(
             'name' => 'save',
             'attributes' => array(
-                'type' => 'submit',          
+                'type' => 'submit',
                 'class' => 'btn btn-success',
                 'value' => 'Save',
-				'id'	=> 'save-member'
+                'id' => 'save-member'
             ),
         ));
-		
-    }	
+    }
+
 }

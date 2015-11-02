@@ -183,6 +183,21 @@ class AjaxController extends AbstractActionController {
             if (!$memberInvestments) {
                 $investment = array();
             } else {
+                if ($memberInvestments->installment_type == 'One Time') {
+                    $lastInstallmentDate = date('Y-m-d');                        
+                } else if ($memberInvestments->installment_type == 'Per Day') {
+                    $nextduedate = date('Y-m-d', strtotime('+1 day', strtotime($memberInvestments->next_due_date)));
+                } else if ($memberInvestments->installment_type == 'Per Day (180)') {
+                    $nextduedate = date('Y-m-d', strtotime('+1 day', strtotime($memberInvestments->next_due_date)));
+                } else if ($memberInvestments->installment_type == 'Monthly') {
+                    $nextduedate = date('Y-m-d', strtotime('+1 month', strtotime($memberInvestments->next_due_date)));
+                } else if ($memberInvestments->installment_type == 'Quaterly') {
+                    $nextduedate = date('Y-m-d', strtotime('+3 month', strtotime($memberInvestments->next_due_date)));
+                } else if ($memberInvestments->installment_type == 'Half Yearly') {
+                    $nextduedate = date('Y-m-d', strtotime('+6 month', strtotime($memberInvestments->next_due_date)));
+                } else if ($memberInvestments->installment_type == 'Yearly') {
+                    $nextduedate = date('Y-m-d', strtotime('+12 month', strtotime($memberInvestments->next_due_date)));
+                }
                 $investment = array(
                     'investment_id' => $memberInvestments->id,
                     'plan_id' => $memberInvestments->plan_id,
@@ -191,7 +206,7 @@ class AjaxController extends AbstractActionController {
                     'installment_type' => $memberInvestments->installment_type,
                     'installment_no' => (int)$memberInvestments->installment_no + 1,
                     'installment_date' => $memberInvestments->installment_date,
-                    'remaning_installment' => (int)$memberInvestments->total_installment-($memberInvestments->installment_no + 2),
+                    'remaning_installment' => (int)$memberInvestments->total_installment-($memberInvestments->installment_no + 1),
                     'total_installment' => (int)$memberInvestments->total_installment,
                     'ammount' => $memberInvestments->start_ammount,
                     'firstname' => $memberInvestments->firstname,
@@ -199,11 +214,20 @@ class AjaxController extends AbstractActionController {
                     'address' => $memberInvestments->address,
                     'employee_code' => $memberInvestments->employee_code,
                     'introducer_code' => $memberInvestments->introducer_code,
-                );
+                    'due_date' => date('Y-m-d', strtotime($memberInvestments->next_due_date)),
+                    'next_due_date' => $nextduedate,
+                    'late_fee' => '0.00',
+                );                
                 $status = true;
             }
         }
         
+        //print_r($investment); exit;
+        
+        if($investment['installment_no'] > $investment['total_installment']) {
+                $investment = array();
+        }
+		
         return new JsonModel(array(
             'response' => array(
                 'data' => $investment

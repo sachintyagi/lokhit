@@ -47,7 +47,8 @@ class IndexController extends AbstractActionController {
             if (!empty($search['value'])) {
                 $conditions['search'] = array(
                     'term' => $search['value'],
-                    'fields' => array('employee_code', 'firstname', 'lastname', 'introducer_code', 'role_name','mobile_number','gender')
+					'type'=> 'OR',
+                    'fields' => array('employee_code', 'firstname', 'lastname', 'introducer_code', 'roles.name','mobile_number','gender')
                 );
             }
             $auth = $this->getServiceLocator()->get('AuthService');
@@ -62,10 +63,11 @@ class IndexController extends AbstractActionController {
             $employees = $this->getTable($this->employeeTable, 'Application\Model\EmployeeTable')->fetchAll($conditions);
             $employeesTotal = $this->getTable($this->employeeTable, 'Application\Model\EmployeeTable')->fetchTotal($conditions);
             $data = array();
+			$i = $offset+1;
             $basePath = $this->getServiceLocator()->get('Request')->getBasePath();
             foreach ($employees as $employee) {
                 $data[] = array(
-                    $employee->id,
+                    $i++,
                     $employee->employee_code,
                     $employee->firstname . ' ' . $employee->lastname,
                     $employee->introducer_code,                    

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework (http://framework.zend.com/)
  *
@@ -6,40 +7,49 @@
  * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
-
 return array(
     'router' => array(
         'routes' => array(
             'investors' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route'    => '/investors[/]',
+                    'route' => '/investors[/]',
                     'defaults' => array(
                         'controller' => 'Investors\Controller\Investor',
-                        'action'     => 'list',
+                        'action' => 'list',
                     ),
                 ),
             ),
-			'new-investors' => array(
+            'new-investors' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route'    => '/investors/new[/:id][/]',
+                    'route' => '/investors/new[/:id][/]',
                     'defaults' => array(
                         'controller' => 'Investors\Controller\Investor',
-                        'action'     => 'new',
+                        'action' => 'new',
                     ),
                 ),
             ),
-			'new-installment' => array(
+            'installments' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route'    => '/investors/new-installment[/:id][/]',
+                    'route' => '/investors/installments[/:id][/]',
                     'defaults' => array(
                         'controller' => 'Investors\Controller\Installment',
-                        'action'     => 'new',
+                        'action' => 'list',
                     ),
                 ),
-            ),			
+            ),
+            'new-installment' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/investors/new-installment[/:id][/]',
+                    'defaults' => array(
+                        'controller' => 'Investors\Controller\Installment',
+                        'action' => 'new',
+                    ),
+                ),
+            ),
         ),
     ),
     'service_manager' => array(
@@ -55,9 +65,9 @@ return array(
         'locale' => 'en_US',
         'translation_file_patterns' => array(
             array(
-                'type'     => 'gettext',
+                'type' => 'gettext',
                 'base_dir' => __DIR__ . '/../language',
-                'pattern'  => '%s.mo',
+                'pattern' => '%s.mo',
             ),
         ),
     ),

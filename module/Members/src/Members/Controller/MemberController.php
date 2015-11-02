@@ -43,9 +43,10 @@ class MemberController extends AbstractActionController {
             $members = $this->getTable($this->memberTable, 'Application\Model\MemberTable')->fetchAll($conditions);    
             $membersTotal = $this->getTable($this->memberTable, 'Application\Model\MemberTable')->fetchTotal($conditions);    
             $data = array();
+			$i = $offset+1;
             foreach($members as $member) {
                 $data[] = array(
-                    $member->id,
+                    $i++,
                     $member->member_id,                    
                     $member->firstname.' '.$member->lastname,
                     $member->gardian_name,

@@ -30,6 +30,26 @@ return array(
                     ),
                 ),
             ),
+			'receipt' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/reports/receipt[/:id][/]',
+                    'defaults' => array(
+                        'controller' => 'Report\Controller\Print',
+                        'action' => 'receipt',
+                    ),
+                ),
+            ),
+			'print-receipt' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/reports/print-receipt[/:id][/]',
+                    'defaults' => array(
+                        'controller' => 'Report\Controller\Print',
+                        'action' => 'printReceipt',
+                    ),
+                ),
+            ),
         ),
     ),
 	

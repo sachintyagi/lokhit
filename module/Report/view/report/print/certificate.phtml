@@ -1,6 +1,6 @@
 <?php $user = $this->identity();?>
 <div id="print">
-	<div style="position:absolute;font-size: 21px;">
+	<div style="position:absolute;font-size: 18px;">
 		<div class="name">
                     <?php echo $this->certificate->firstname.' '.$this->certificate->lastname?>
                     <?php if($this->certificate->dob) :?>
@@ -10,7 +10,7 @@
                         <?php endif;?>
                     <?php endif;?>
                     <?php if($this->certificate->receipt_number) :?>    
-                    <span style="float: right;margin-right: 250px;font-size: 23px;"><b>Rec No.: </b><?php echo $this->certificate->receipt_number?></span>  
+                    <span style="float: right;margin-right: 316px;font-size: 18px;"><b>Rec No.: </b><?php echo $this->certificate->receipt_number?></span>  
                     <?php endif;?>
                 </div>
 		<div class="soname"><?php echo $this->certificate->gardian_name?></div>
@@ -54,96 +54,99 @@
 		}
 		#print{
 			background-image : url('<?php echo $this->basePath('img/certificate.jpg')?>');
-			background-position: center center;
 			background-repeat: no-repeat;
-			/*background-attachment: fixed;*/
-			background-size: cover;			
+			/*
+                        background-position: center center;    
+                        background-attachment: fixed;*/
+			background-size: contain;			
 			width:100%;
-			height:948px;			
+			height:755px;			
 		}
 		.name{
-			margin:211px 0 0 312px;
+			margin:163px 0 0 256px;
 			width:100%;
-			font-size: 23px;
+			font-size: 19px;
 		}
 		
 		.soname{
-			margin:9px 0 0 312px;
+			margin:0 0 0 256px;
 			width:100%;
-			font-size: 23px;
+			font-size: 19px;
 		}
 		.address{
-			margin:9px 0 0 312px;
+			margin:0 0 0 256px;
 			width:100%;
-			font-size: 23px;
+			font-size: 19px;
 		}
 		.ammount{
-			margin:50px 0 0 312px;
+			margin:32px 0 0 256px;
 			width:100%;
-			font-size: 23px;
+			font-size: 19px;
 		}
 		.member{
-			margin:86px 0 0 80px;
+			margin:75px 0 0 26px;
 			width:14%;
 		}
 		.cfnumber{
-			margin:-24px 0 0 245px;
+			margin:-24px 0 0 223px;
 			width:15%;
 			white-space: nowrap;
 		}
 		.startdate{
-			margin:-24px 0 0 444px;
+			margin:-26px 0 0 364px;
 			width:11%;
 		}
 		.period{
-			margin:-24px 0 0 599px;
+			margin:-25px 0 0 485px;
 			width:9%;
 		}
 		.interest{
-			margin:-24px 0 0 752px;
+			margin:-25px 0 0 616px;
 			width:7%;
 		}
 		.maturity{
-			margin:-24px 0 0 840px;
+			margin:-25px 0 0 683px;
 			width:11%;
 		}
 		.nomenee{
-			margin:-24px 0 0 994px;
+			margin:-25px 0 0 795px;
 			width:22%;
-                        white-space: nowrap;
+                        height: 24px;
+                        line-height: 24px;
 		}
 		.repay{
-			margin: 91px 0 0 198px;
+			margin: 56px 0 0 156px;
 			width: 22%;
 		}
 		.dob{
-			margin: -26px 0 0 1064px;
+			margin: -26px 0 0 824px;
 			width: 22%;
 		}
 		.mode{
-			margin: 25px 0 0 253px;
+			margin: 16px 0 0 211px;
 			width: 22%;
 		}
 		.installmentdate{
-			margin: -25px 0 0 630px;
+			margin: -36px 0 0 493px;
 			width: 22%;
-			font-size: 18px;
-                        white-space: nowrap;
+			font-size: 14px;
+                        height:40px;
+                        line-height: 21px;
 		}
 		.lastinstallmentdate{
-			margin: -23px 0 0 1108px;
+			margin: -30px 0 0 868px;
 			width: 22%;
 		}
 		.final{
-			margin: 20px 0 0 242px;
+			margin: 10px 0 0 207px;
 			width: 87%;
 		}
 		.prentedby{
-			margin: 45px 0 0 264px;
+			margin: 25px 0 0 211px;
 			width: 87%;
 		}
 		.agentcode{
-			margin: -26px 0 0 1001px;
+			margin: -26px 0 0 838px;
 			width: 87%;
 		}
 		.btn {

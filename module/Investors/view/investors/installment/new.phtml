@@ -62,16 +62,16 @@
                             <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('introducer_code'))) ?></div>
                         <?php endif; ?>
                     </div>
-                </div>
-                <!-- /.col-lg-6 (nested) -->
-                <div class="col-lg-6">	
                     <div class="form-group">
                         <label>Period</label>
                         <?php echo $this->formElement($form->get('period')); ?>
                         <?php if ($this->formElementErrors($form->get('period'))) : ?>
                             <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('period'))) ?></div>
                         <?php endif; ?>
-                    </div>	
+                    </div>
+                </div>
+                <!-- /.col-lg-6 (nested) -->
+                <div class="col-lg-6">	                    	
                     <div class="form-group">
                         <label>Interest Rate</label>
                         <?php echo $this->formElement($form->get('interest_rate')); ?>
@@ -107,6 +107,27 @@
                             <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('total_installment'))) ?></div>
                         <?php endif; ?>
                     </div>	
+                    <div class="form-group">
+                        <label>Due Date</label>
+                        <?php echo $this->formElement($form->get('due_date')); ?>
+                        <?php if ($this->formElementErrors($form->get('due_date'))) : ?>
+                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('due_date'))) ?></div>
+                        <?php endif; ?>
+                    </div>	
+                    <div class="form-group">
+                        <label>Next Due Date</label>
+                        <?php echo $this->formElement($form->get('next_due_date')); ?>
+                        <?php if ($this->formElementErrors($form->get('next_due_date'))) : ?>
+                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('next_due_date'))) ?></div>
+                        <?php endif; ?>
+                    </div>	
+                    <div class="form-group">
+                        <label>Late Fee</label>
+                        <?php echo $this->formElement($form->get('late_fee')); ?>
+                        <?php if ($this->formElementErrors($form->get('late_fee'))) : ?>
+                            <div class="error" style="margin: 3px 0;padding: 4px;color:red;"><?php echo strip_tags($this->formElementErrors($form->get('late_fee'))) ?></div>
+                        <?php endif; ?>
+                    </div>	
                 </div>
                 <!-- /.col-lg-6 (nested) -->
                 <div class="clear"></div>
@@ -131,6 +152,24 @@
             cf_number = $(this).val();
             cfdetails(cf_number);
         });
+        $("#due_date").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'yy-mm-dd',
+            minDate: '-12m',
+            maxDate: '+60m',
+            yearRange: "-80:+80"
+
+        });
+        $("#next_due_date").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'yy-mm-dd',
+            minDate: '-12m',
+            maxDate: '+60m',
+            yearRange: "-80:+0"
+
+        });
         //cfdetails($('#cf_number').val());
 
         function cfdetails(cf_number) {
@@ -153,6 +192,9 @@
                             $('#interest_rate').val(returns.response.data.interest_rate);
                             $('#period').val(returns.response.data.period);
                             $('#amount').val(returns.response.data.ammount);
+                            $('#due_date').val(returns.response.data.due_date);
+                            $('#next_due_date').val(returns.response.data.next_due_date);
+                            $('#late_fee').val(returns.response.data.late_fee);
                         } else {
                             clearForm();
                         }
@@ -174,6 +216,11 @@
             $('#interest_rate').val('');
             $('#period').val('');
             $('#amount').val('');
+            $('#due_date').val('');
+            $('#next_due_date').val('');
+            $('#late_fee').val('');
+            $('#introducer_code').val('');
+            $('#address').val('');
         }
     })
 </script>

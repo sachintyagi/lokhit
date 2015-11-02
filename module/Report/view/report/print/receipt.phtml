@@ -1,0 +1,216 @@
+<?php $user = $this->identity(); ?>
+<div id="print">
+    <div style="font-size: 15px;">
+        <div class="company">
+            <div style="color: blue;font-size: 25px;font-weight: bold;">LOKHIT NIDHI LIMITADE</div>
+            <div style="font-size: 14px;">(Under Section 406 Companies Act 2013)</div>
+            <div style="color: blue;font-weight: bold;">Civil Line-II, Opp. P.W.D. Guest House, Bijnor-246701 (U.P.)</div>
+            <div style="color: blue;font-size: 14px;">Email : info.lokhitnidhi@gmail.com</div>
+            <div style="font-size: 14px;font-weight: bold;">Renewal Receipt</div>
+        </div>
+        <div class="logo">
+            <img src="<?php echo $this->basePath('img/logo.png') ?>"/>
+        </div>
+        <div class="cfnumber">
+            <label>CF Number :</label> <?php echo $this->receipt->cf_number ?>
+        </div>
+        <div class="name">
+            <label>Name :</label> <?php echo $this->receipt->firstname . ' ' . $this->receipt->lastname ?>
+        </div>
+        <div class="sodowo">
+            <label>S/o, D/o, W/o :</label> <?php echo $this->receipt->gardian_name ?>
+        </div>
+        <div class="address">
+            <label>Add. :</label> <?php echo $this->receipt->address ?>
+        </div>
+        <div class="prentedby">
+            <label>Printed By :</label> 
+            <?php echo $user->firstname ?> <?php echo $user->lastname ?>
+            <?php if (isset($user->branch->code)) : ?>
+                (<?php echo $user->branch->code ?>)
+            <?php endif; ?>
+        </div>
+        <div class="branchcode">
+            <label>Branch Code :</label> <?php echo $this->receipt->code ?>
+        </div>
+        <div class="totalinst">
+            <label>Total Installment :</label> <?php echo $this->receipt->total_installment ?>
+        </div>
+        <div class="instno">
+            <label>Installment No.:</label> <?php echo $this->receipt->installment_number ?>
+        </div>
+        <div class="employee">
+            <?php echo $this->receipt->employee_code ?>
+        </div>
+        <div class="mode">
+            <label>Mode :</label> <?php echo $this->receipt->installment_type ?>
+        </div>
+        <div class="receipt">
+            <label>Rec No. :</label> <?php echo $this->receipt->receipt_number ?>
+        </div>
+        <div class="receiptdate">
+            <label>Rec Date. :</label> <?php echo date('d M, y', strtotime($this->receipt->created_at)) ?>
+        </div>
+        <div class="duedate">
+            <label>Due Date. :</label> <?php if($this->receipt->due_date):echo date('d M, y', strtotime($this->receipt->due_date));else:echo '-';endif;?>
+        </div>
+        <div class="nduedate">
+            <label>Next Due Date. :</label> <?php if($this->receipt->due_date):echo date('d M, y', strtotime($this->receipt->next_due_date));else:echo '-';endif;?>
+        </div>
+        <div class="mdate">
+            <label>Maturity Date. :</label> <?php echo date('d M, y', strtotime($this->receipt->end_date)) ?>
+        </div>		
+        <div class="yearofsub">
+            <label>Year of Sub. :</label> 1st Year
+        </div>
+        <div class="amount">
+            <label>Amount :</label> Rs.<?php echo $this->receipt->ammount ?>/-
+        </div>
+        <div class="lfee">
+            <label>Late Fee :</label> Rs.0/-
+        </div>
+        <div class="total">
+            <label>Total Amount :</label> Rs.<?php echo $this->receipt->ammount ?>/-
+        </div>
+        <div class="totalinword">
+            Installment Amount (In Words) : <label> Rs. <?php echo ucwords(\Application\Service\NumberToWords::toWords($this->receipt->ammount)) ?> Only</label>
+        </div>
+    </div>
+    <style type="text/css">
+        body{
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+        @page{
+            size: auto A4 landscape;
+            margin: 3mm;
+        }
+        .company{
+            text-align: center;
+        }
+        .logo{
+            margin: -84px 100px 25px;
+        }
+        .cfnumber{
+            margin: 66px 34px 0px;	
+        }
+        .name{
+            margin: 0px 34px 0px;	
+        }
+        .sodowo{
+            margin: 0px 34px 0px;	
+        }
+        .address{
+            margin: 0px 34px 0px;	
+        }
+        .prentedby{
+            margin: 9px 34px 0;
+        }
+        .branchcode{
+            margin: -195px 550px;
+            width: 250px;
+        }
+        .totalinst{
+            margin: 195px 550px;
+            width: 250px;
+        }
+        .instno{
+            margin: -195px 550px;
+            width: 250px;
+        }
+        .employee{
+            margin: 195px 580px;
+            width: 250px;
+        }
+        .mode{
+            margin: -195px 550px;
+            width: 250px;
+        }
+        .receipt{
+            margin: 66px 846px;
+            width:250px;
+        }
+        .receiptdate{
+            margin: -66px 846px;
+            width:250px;
+        }
+        .duedate{
+            margin: 66px 846px;
+            width:250px;
+        }
+        .nduedate{
+            margin: -66px 846px;
+            width:250px;
+        }
+        .mdate{
+            margin: 66px 846px;
+            width:250px;
+        }
+        .yearofsub{
+            margin: -66px 846px;
+            width:250px;
+        }
+        .amount{
+            margin: 58px 638px;
+            width:250px;
+        }
+        .lfee{
+            margin: -58px 638px;
+            width:250px;
+        }
+        .total{
+            margin: 58px 638px;
+            width:250px;
+        }
+        .totalinword{
+            margin-top: -50px;
+            text-align: center;
+            width: 100%;
+        }
+        .clear{
+            margin: 47px 262px;
+        }
+        #print{
+            width:100%;
+        }
+        .btn {
+            -moz-user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857;
+            margin-bottom: 0;
+            padding: 6px 12px;
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+            text-decoration:none;
+        }
+        .btn-primary {
+            background-color: #337ab7;
+            border-color: #2e6da4;
+            color: #fff;
+        }
+        .btn-success {
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+            color: #fff;
+        }
+    </style>
+</div>
+<div style="padding:10px 10px;text-align:center;">	
+    <a class="btn btn-primary" href="<?php echo $this->url('installments'); ?>">Go Back</a>
+    <a class="btn btn-success" style="margin:0 10px;" target="_blank" href="<?php echo $this->url('print-receipt', array('id' => $this->id)); ?>">Print</a>
+</div>
+<script type="text/javascript">
+    jQuery(document).bind("keyup keydown", function (e) {
+        if (e.ctrlKey && e.keyCode == 80) {
+            window.open('<?php echo $this->url('print-receipt', array('id' => $this->id)); ?>', '_blank');
+            return false;
+        }
+    });
+</script>
